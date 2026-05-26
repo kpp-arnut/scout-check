@@ -302,6 +302,28 @@ body {
 .confirm-btns { display: flex; gap: 8px; }
 .confirm-btns .btn { flex: 1; justify-content: center; }
 
+/* ===== REPORT ===== */
+.rpt-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 7px 14px; border: 2px solid var(--gray-border);
+  border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600;
+  color: var(--gray); background: var(--gray-light); transition: all 0.15s;
+}
+.rpt-chip input[type="radio"] { display: none; }
+.rpt-chip:has(input:checked) { background: var(--blue-light); border-color: var(--blue); color: var(--blue-dark); }
+.date-row {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+  border-radius: 8px; cursor: pointer; transition: background 0.1s;
+}
+.date-row:hover { background: #f0f9ff; }
+.date-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--blue); cursor: pointer; flex-shrink:0; }
+.date-row .dr-date { font-weight: 700; font-size: 13px; flex: 1; }
+.date-row .dr-stats { display: flex; gap: 5px; flex-wrap: wrap; }
+.dr-badge { font-size: 11px; padding: 2px 7px; border-radius: 10px; font-weight: 700; }
+.dr-ma { background: var(--green-light); color: var(--green-dark); }
+.dr-khad { background: var(--red-light); color: var(--red-dark); }
+.dr-la { background: var(--yellow-light); color: var(--yellow-dark); }
+
 /* ===== DESKTOP overrides ===== */
 @media (min-width: 640px) {
   .content-area { padding-bottom: 20px; }
@@ -385,51 +407,71 @@ body {
 
 <!-- REPORT DRAWER -->
 <div class="drawer-overlay" id="reportOverlay" onclick="closeReport()"></div>
-<div class="drawer" id="reportDrawer">
+<div class="drawer" id="reportDrawer" style="max-height:92vh">
   <div class="drawer-handle"></div>
   <div class="drawer-header">
     📊 ดาวน์โหลดรายงาน Excel
     <button class="drawer-close" onclick="closeReport()">✕</button>
   </div>
-  <div class="drawer-body" style="padding:16px">
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:12px;font-size:13px;color:#166534">
-        📋 รายงานจะรวมข้อมูล<b>ทุกวัน</b>ที่เคยเช็คชื่อ แสดงเป็นตาราง นักเรียน × วันที่ พร้อมสรุปยอดรวม
+  <div class="drawer-body" style="padding:14px;display:flex;flex-direction:column;gap:12px">
+
+    <!-- กอง selector -->
+    <div>
+      <div style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">เลือกกอง</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <label class="rpt-chip" id="rc-all"><input type="radio" name="rptGong" value="all" checked onchange="renderDateList()">ทั้ง 3 กอง</label>
+        <label class="rpt-chip"><input type="radio" name="rptGong" value="0" onchange="renderDateList()">กอง 1</label>
+        <label class="rpt-chip"><input type="radio" name="rptGong" value="1" onchange="renderDateList()">กอง 2</label>
+        <label class="rpt-chip"><input type="radio" name="rptGong" value="2" onchange="renderDateList()">กอง 3</label>
       </div>
-      <div>
-        <label style="font-size:13px;font-weight:700;color:#374151;display:block;margin-bottom:6px">กองที่ต้องการ</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <label style="display:flex;align-items:center;gap:6px;padding:7px 14px;border:2px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600" id="ropt-all">
-            <input type="radio" name="rptGong" value="all" checked onchange="updateReportPreview()"> ทั้ง 3 กอง
-          </label>
-          <label style="display:flex;align-items:center;gap:6px;padding:7px 14px;border:2px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600">
-            <input type="radio" name="rptGong" value="0" onchange="updateReportPreview()"> กอง 1
-          </label>
-          <label style="display:flex;align-items:center;gap:6px;padding:7px 14px;border:2px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600">
-            <input type="radio" name="rptGong" value="1" onchange="updateReportPreview()"> กอง 2
-          </label>
-          <label style="display:flex;align-items:center;gap:6px;padding:7px 14px;border:2px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600">
-            <input type="radio" name="rptGong" value="2" onchange="updateReportPreview()"> กอง 3
-          </label>
-        </div>
-      </div>
-      <div style="display:flex;gap:10px">
-        <div style="flex:1">
-          <label style="font-size:13px;font-weight:700;color:#374151;display:block;margin-bottom:4px">วันที่เริ่มต้น (ว่าง=ทั้งหมด)</label>
-          <input type="date" id="rptFrom" style="width:100%;border:2px solid #e5e7eb;border-radius:8px;padding:7px 10px;font-size:13px;font-family:inherit" oninput="updateReportPreview()">
-        </div>
-        <div style="flex:1">
-          <label style="font-size:13px;font-weight:700;color:#374151;display:block;margin-bottom:4px">วันที่สิ้นสุด</label>
-          <input type="date" id="rptTo" style="width:100%;border:2px solid #e5e7eb;border-radius:8px;padding:7px 10px;font-size:13px;font-family:inherit" oninput="updateReportPreview()">
-        </div>
-      </div>
-      <div style="background:#f8fafc;border-radius:8px;padding:10px 12px;font-size:13px;color:#4b5563" id="reportPreview">
-        ⏳ กำลังตรวจสอบข้อมูล...
-      </div>
-      <button class="btn btn-success" id="rptDownloadBtn" onclick="generateExcelReport()" style="justify-content:center;padding:12px;font-size:15px">
-        📥 ดาวน์โหลด Excel
-      </button>
     </div>
+
+    <!-- Quick date filter -->
+    <div>
+      <div style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">ช่วงวันที่</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+        <button class="btn btn-xs btn-ghost" onclick="quickSelect('all')">ทั้งหมด</button>
+        <button class="btn btn-xs btn-ghost" onclick="quickSelect('thisMonth')">เดือนนี้</button>
+        <button class="btn btn-xs btn-ghost" onclick="quickSelect('lastMonth')">เดือนก่อน</button>
+        <button class="btn btn-xs btn-ghost" onclick="quickSelect('last30')">30 วันล่าสุด</button>
+        <button class="btn btn-xs btn-ghost" onclick="quickSelect('custom')">กำหนดเอง ▾</button>
+      </div>
+      <div id="customDateRange" style="display:none;display:flex;gap:8px;margin-bottom:6px">
+        <div style="flex:1">
+          <div style="font-size:12px;color:#6b7280;margin-bottom:3px">เริ่มต้น</div>
+          <input type="date" id="rptFrom" style="width:100%;border:2px solid #e5e7eb;border-radius:8px;padding:6px 10px;font-size:13px;font-family:inherit" onchange="applyCustomRange()">
+        </div>
+        <div style="flex:1">
+          <div style="font-size:12px;color:#6b7280;margin-bottom:3px">สิ้นสุด</div>
+          <input type="date" id="rptTo" style="width:100%;border:2px solid #e5e7eb;border-radius:8px;padding:6px 10px;font-size:13px;font-family:inherit" onchange="applyCustomRange()">
+        </div>
+      </div>
+    </div>
+
+    <!-- Date list -->
+    <div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <div style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px">เลือกวันที่</div>
+        <span id="dateSelCount" style="font-size:12px;background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:12px;font-weight:700"></span>
+        <div style="margin-left:auto;display:flex;gap:6px">
+          <button class="btn btn-xs btn-ghost" onclick="selectAllDates(true)">เลือกทั้งหมด</button>
+          <button class="btn btn-xs btn-ghost" onclick="selectAllDates(false)">ล้าง</button>
+        </div>
+      </div>
+      <div id="dateListContainer" style="max-height:200px;overflow-y:auto;border:1px solid #e5e7eb;border-radius:10px;padding:4px">
+        <div style="text-align:center;padding:20px;color:#9ca3af;font-size:13px">⏳ กำลังโหลดข้อมูล...</div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div style="background:#f8fafc;border-radius:10px;padding:10px 12px;font-size:13px;color:#374151" id="reportSummary">
+      กรุณาเลือกวันที่
+    </div>
+
+    <!-- Download button -->
+    <button class="btn btn-success" id="rptDownloadBtn" onclick="generateExcelReport()" style="justify-content:center;padding:13px;font-size:15px;border-radius:12px">
+      📥 ดาวน์โหลด Excel
+    </button>
   </div>
 </div>
 
@@ -1224,7 +1266,10 @@ document.getElementById('confirmModal').onclick = e => { if(e.target===e.current
 document.getElementById('setupModal').onclick = e => { if(e.target===e.currentTarget) closeSetup(); };
 
 // ==================== REPORT ====================
-let allAttData = {}; // date → { id → {status,note} }
+let allAttData = {};      // date → { id → {status,note} }
+let availableDates = [];  // sorted list of all dates with data
+let selectedDates = new Set();
+let customRangeVisible = false;
 
 function openReport() {
   document.getElementById('reportOverlay').classList.add('show');
@@ -1237,14 +1282,14 @@ function closeReport() {
 }
 
 async function loadAllDataForReport() {
-  document.getElementById('reportPreview').textContent = '⏳ กำลังโหลดข้อมูลทั้งหมด...';
+  document.getElementById('dateListContainer').innerHTML =
+    '<div style="text-align:center;padding:20px;color:#9ca3af;font-size:13px">⏳ กำลังโหลดข้อมูล...</div>';
   allAttData = {};
 
   // Load from localStorage
   for (const [date, data] of Object.entries(localSaved)) {
     allAttData[date] = data;
   }
-
   // Load all from Firebase
   if (db) {
     try {
@@ -1265,29 +1310,146 @@ async function loadAllDataForReport() {
       });
     } catch(e) {}
   }
-  updateReportPreview();
+
+  availableDates = Object.keys(allAttData).sort();
+  selectedDates = new Set(availableDates); // select all by default
+  renderDateList();
 }
 
-function getFilteredDates() {
+function renderDateList() {
+  const container = document.getElementById('dateListContainer');
+  if (availableDates.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:20px;color:#9ca3af;font-size:13px">📭 ยังไม่มีข้อมูลการเช็คชื่อ</div>';
+    updateReportSummary();
+    return;
+  }
+
+  // Group by month
+  const months = {};
+  availableDates.forEach(d => {
+    const ym = d.slice(0,7);
+    if (!months[ym]) months[ym] = [];
+    months[ym].push(d);
+  });
+
+  const thMonth = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  const weekDay = ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
+  let html = '';
+
+  Object.keys(months).sort().reverse().forEach(ym => {
+    const [y, m] = ym.split('-');
+    html += `<div style="padding:6px 10px 3px;font-size:11px;font-weight:800;color:#6b7280;text-transform:uppercase;background:#f8fafc;border-radius:6px;margin:4px 0 2px">
+      ${thMonth[parseInt(m)]} ${parseInt(y)+543}
+      <span style="font-weight:400;margin-left:6px">(${months[ym].length} วัน)</span>
+    </div>`;
+
+    months[ym].slice().reverse().forEach(date => {
+      const data = allAttData[date] || {};
+      let ma=0, khad=0, la=0;
+      for (const gk of GONG_KEYS) {
+        for (const students of Object.values(SCOUT[gk])) {
+          students.forEach(s => {
+            const v = data[s.id]?.status;
+            if(v==='มา')ma++; else if(v==='ขาด')khad++; else if(v==='ลา')la++;
+          });
+        }
+      }
+      const checked = selectedDates.has(date) ? 'checked' : '';
+      const dow = weekDay[new Date(date).getDay()];
+      const [dy,dm,dd] = date.split('-');
+      const thDate = `${dow} ${parseInt(dd)} ${thMonth[parseInt(dm)]} ${parseInt(dy)+543}`;
+      html += `<label class="date-row">
+        <input type="checkbox" ${checked} value="${date}" onchange="toggleDate('${date}',this.checked)">
+        <span class="dr-date">${thDate}</span>
+        <span class="dr-stats">
+          ${ma>0?`<span class="dr-badge dr-ma">✓${ma}</span>`:''}
+          ${khad>0?`<span class="dr-badge dr-khad">ข${khad}</span>`:''}
+          ${la>0?`<span class="dr-badge dr-la">ล${la}</span>`:''}
+        </span>
+      </label>`;
+    });
+  });
+
+  container.innerHTML = html;
+  updateReportSummary();
+}
+
+function toggleDate(date, checked) {
+  if (checked) selectedDates.add(date); else selectedDates.delete(date);
+  updateReportSummary();
+}
+
+function selectAllDates(val) {
+  availableDates.forEach(d => { if(val) selectedDates.add(d); else selectedDates.delete(d); });
+  // Re-render checkboxes
+  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb => { cb.checked = val; });
+  updateReportSummary();
+}
+
+function quickSelect(mode) {
+  const now = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+
+  document.getElementById('customDateRange').style.display = 'none';
+  customRangeVisible = false;
+
+  if (mode === 'all') {
+    selectedDates = new Set(availableDates);
+  } else if (mode === 'thisMonth') {
+    const ym = `${now.getFullYear()}-${pad(now.getMonth()+1)}`;
+    selectedDates = new Set(availableDates.filter(d => d.startsWith(ym)));
+  } else if (mode === 'lastMonth') {
+    const lm = new Date(now.getFullYear(), now.getMonth()-1, 1);
+    const ym = `${lm.getFullYear()}-${pad(lm.getMonth()+1)}`;
+    selectedDates = new Set(availableDates.filter(d => d.startsWith(ym)));
+  } else if (mode === 'last30') {
+    const cutoff = new Date(); cutoff.setDate(cutoff.getDate()-30);
+    selectedDates = new Set(availableDates.filter(d => d >= ymd(cutoff)));
+  } else if (mode === 'custom') {
+    document.getElementById('customDateRange').style.display = 'flex';
+    customRangeVisible = true;
+    return;
+  }
+  // Update checkboxes
+  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb => {
+    cb.checked = selectedDates.has(cb.value);
+  });
+  updateReportSummary();
+}
+
+function applyCustomRange() {
   const from = document.getElementById('rptFrom').value;
   const to = document.getElementById('rptTo').value;
-  return Object.keys(allAttData)
-    .filter(d => (!from || d >= from) && (!to || d <= to))
-    .sort();
+  selectedDates = new Set(availableDates.filter(d => (!from || d >= from) && (!to || d <= to)));
+  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb => {
+    cb.checked = selectedDates.has(cb.value);
+  });
+  updateReportSummary();
 }
 
-function updateReportPreview() {
-  const dates = getFilteredDates();
+function updateReportSummary() {
+  const sel = [...selectedDates].sort();
+  const count = document.getElementById('dateSelCount');
+  const summary = document.getElementById('reportSummary');
+  count.textContent = `${sel.length} วัน`;
+
   const gongVal = document.querySelector('input[name="rptGong"]:checked')?.value || 'all';
   const gongs = gongVal === 'all' ? GONG_KEYS : [GONG_KEYS[parseInt(gongVal)]];
   const totalStudents = gongs.reduce((s,gk) => s + Object.values(SCOUT[gk]).flat().length, 0);
-  const prev = document.getElementById('reportPreview');
-  if (dates.length === 0) {
-    prev.innerHTML = '⚠️ ยังไม่มีข้อมูลการเช็คชื่อ';
+
+  if (sel.length === 0) {
+    summary.innerHTML = '⚠️ กรุณาเลือกอย่างน้อย 1 วัน';
     return;
   }
-  prev.innerHTML = `✅ พบข้อมูล <b>${dates.length} วัน</b> · <b>${totalStudents} คน</b><br>
-    <span style="color:#6b7280;font-size:12px">วันแรก: ${formatThaiDate(dates[0])} &nbsp;|&nbsp; วันล่าสุด: ${formatThaiDate(dates[dates.length-1])}</span>`;
+  summary.innerHTML = `✅ จะสร้างรายงาน <b>${sel.length} วัน</b> · <b>${totalStudents} คน</b><br>
+    <span style="color:#6b7280;font-size:12px">
+      📅 ${formatThaiDate(sel[0])} ถึง ${formatThaiDate(sel[sel.length-1])}
+    </span>`;
+}
+
+function getFilteredDates() {
+  return [...selectedDates].sort();
 }
 
 function formatThaiDate(dateStr) {
@@ -1402,6 +1564,7 @@ async function generateExcelReport() {
   XLSX.writeFile(wb, `รายงานลูกเสืออากาศ_${today}.xlsx`);
   btn.textContent = '📥 ดาวน์โหลด Excel';
   btn.disabled = false;
+  closeReport();
   showToast('📊 ดาวน์โหลดรายงาน Excel แล้ว', 'success');
 }
 
