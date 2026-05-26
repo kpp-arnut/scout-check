@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>เช็คชื่อลูกเสือ | หนองหานวิทยา</title>
+<style>
+:root {
+  --blue: #1d4ed8; --blue-dark: #1e3a8a; --blue-light: #eff6ff; --blue-mid: #3b82f6;
+  --green: #059669; --green-light: #d1fae5; --green-dark: #065f46;
+  --red: #dc2626; --red-light: #fee2e2; --red-dark: #991b1b;
+  --yellow: #d97706; --yellow-light: #fef3c7; --yellow-dark: #92400e;
+  --gray: #6b7280; --gray-light: #f3f4f6; --gray-border: #e5e7eb;
+  --radius: 12px; --shadow: 0 2px 12px rgba(0,0,0,0.1);
+  --bottom-nav-h: 60px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Sarabun', system-ui, -apple-system, Arial, sans-serif;
+  background: #f1f5f9; color: #1e293b; font-size: 15px;
+  display: flex; flex-direction: column;
+}
+
+/* ===== HEADER ===== */
+.app-header {
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: white; padding: 10px 16px 8px;
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0; position: relative; z-index: 50;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+}
+.app-header .logo { font-size: 28px; }
+.app-header h1 { font-size: 15px; font-weight: 700; line-height: 1.2; }
+.app-header p { font-size: 11px; opacity: 0.8; }
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.sync-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #94a3b8;
+  transition: background 0.3s;
+}
+.sync-dot.online { background: #4ade80; }
+.sync-dot.syncing { background: #fbbf24; animation: pulse 1s infinite; }
+.sync-dot.error { background: #f87171; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* ===== DATE BAR ===== */
+.date-bar {
+  background: white; padding: 8px 16px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--gray-border); flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.date-bar label { font-size: 13px; font-weight: 600; color: var(--blue-dark); white-space: nowrap; }
+.date-bar input[type="date"] {
+  border: 2px solid var(--gray-border); border-radius: 8px;
+  padding: 6px 10px; font-size: 14px; font-family: inherit;
+  flex: 1; min-width: 140px; max-width: 180px; color: #1e293b;
+}
+.date-bar input:focus { border-color: var(--blue); outline: none; }
+.save-status {
+  font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+  white-space: nowrap;
+}
+.saved { background: var(--green-light); color: var(--green-dark); }
+.unsaved { background: var(--yellow-light); color: var(--yellow-dark); }
+.top-btns { display: flex; gap: 6px; margin-left: auto; }
+
+/* ===== GONG TABS (bottom nav on mobile, top on desktop) ===== */
+.gong-nav {
+  display: flex; background: white; border-bottom: 2px solid var(--gray-border);
+  flex-shrink: 0; overflow-x: auto; scrollbar-width: none;
+}
+.gong-nav::-webkit-scrollbar { display: none; }
+.gong-btn {
+  flex: 1; min-width: 80px; padding: 10px 8px; text-align: center;
+  font-size: 14px; font-weight: 700; color: var(--gray);
+  border: none; background: transparent; cursor: pointer;
+  border-bottom: 3px solid transparent; transition: all 0.2s;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.gong-btn .g-label { font-size: 12px; }
+.gong-btn .g-count { font-size: 11px; color: var(--gray); }
+.gong-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+.gong-btn.active .g-count { color: var(--blue); }
+
+/* ===== MOO TABS ===== */
+.moo-bar {
+  background: white; padding: 8px 12px;
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--gray-border); flex-shrink: 0;
+}
+.moo-bar::-webkit-scrollbar { display: none; }
+.moo-btn {
+  flex-shrink: 0; padding: 6px 14px; border-radius: 20px;
+  border: 2px solid var(--gray-border); background: var(--gray-light);
+  font-size: 13px; font-weight: 600; color: var(--gray);
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.moo-btn.active { background: var(--blue); border-color: var(--blue); color: white; }
+.moo-btn .ms { font-size: 11px; opacity: 0.8; }
+
+/* ===== CONTENT SCROLL ===== */
+.content-area {
+  flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 0 0 80px 0;
+}
+
+/* ===== SUMMARY STRIP ===== */
+.summary-strip {
+  display: flex; gap: 0; background: white;
+  border-bottom: 1px solid var(--gray-border); flex-shrink: 0;
+}
+.sum-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  padding: 6px 4px; font-size: 11px; font-weight: 700; gap: 2px;
+}
+.sum-item .sv { font-size: 18px; font-weight: 800; }
+.si-ma .sv { color: var(--green); }
+.si-khad .sv { color: var(--red); }
+.si-la .sv { color: var(--yellow); }
+.si-none .sv { color: var(--gray); }
+.sum-sep { width: 1px; background: var(--gray-border); }
+
+/* ===== QUICK ACTIONS ===== */
+.quick-bar {
+  display: flex; gap: 8px; padding: 8px 12px;
+  background: white; border-bottom: 1px solid var(--gray-border);
+}
+.btn {
+  padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer;
+  font-size: 13px; font-family: inherit; font-weight: 600;
+  transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px;
+  -webkit-user-select: none; user-select: none;
+}
+.btn-xs { padding: 6px 12px; font-size: 12px; border-radius: 6px; }
+.btn-primary { background: var(--blue); color: white; }
+.btn-primary:active { background: var(--blue-dark); }
+.btn-success { background: var(--green); color: white; }
+.btn-success:active { background: var(--green-dark); transform: scale(0.96); }
+.btn-outline { background: white; color: var(--blue); border: 2px solid var(--blue); }
+.btn-outline:active { background: var(--blue-light); }
+.btn-ghost { background: var(--gray-light); color: #374151; border: 1px solid var(--gray-border); }
+.btn-ghost:active { background: #e5e7eb; }
+.btn-danger { background: var(--red); color: white; }
+
+/* ===== STUDENT CARDS (Mobile) ===== */
+.student-list { padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; }
+.student-card {
+  background: white; border-radius: 10px; overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  border-left: 4px solid var(--gray-border); transition: border-color 0.2s;
+}
+.student-card.status-มา { border-left-color: var(--green); }
+.student-card.status-ขาด { border-left-color: var(--red); background: #fff8f8; }
+.student-card.status-ลา { border-left-color: var(--yellow); background: #fffbf0; }
+.card-top { display: flex; align-items: center; padding: 8px 10px; gap: 8px; }
+.card-num {
+  width: 28px; height: 28px; border-radius: 50%; background: var(--gray-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: var(--gray); flex-shrink: 0;
+}
+.card-info { flex: 1; min-width: 0; }
+.card-name { font-size: 14px; font-weight: 700; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-room { font-size: 11px; color: var(--gray); }
+.att-btns { display: flex; gap: 5px; flex-shrink: 0; }
+.att-btn {
+  padding: 6px 10px; border-radius: 8px; border: 2px solid var(--gray-border);
+  font-size: 13px; font-weight: 700; cursor: pointer; background: var(--gray-light);
+  color: var(--gray); transition: all 0.15s; font-family: inherit;
+  min-width: 44px; text-align: center;
+}
+.att-btn:active { transform: scale(0.92); }
+.att-btn.sel-มา { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+.att-btn.sel-ขาด { background: var(--red-light); border-color: var(--red); color: var(--red-dark); }
+.att-btn.sel-ลา { background: var(--yellow-light); border-color: var(--yellow); color: var(--yellow-dark); }
+.card-note { padding: 0 10px 8px; }
+.note-inp {
+  width: 100%; border: 1px solid var(--gray-border); border-radius: 6px;
+  padding: 5px 8px; font-size: 12px; font-family: inherit; color: #374151;
+  background: var(--gray-light);
+}
+.note-inp:focus { outline: none; border-color: var(--blue); background: white; }
+
+/* ===== FAB (Floating Save Button) ===== */
+.fab {
+  position: fixed; bottom: 20px; right: 16px; z-index: 200;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--green); color: white; border: none; cursor: pointer;
+  font-size: 24px; box-shadow: 0 4px 16px rgba(5,150,105,0.4);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.fab:active { transform: scale(0.92); }
+.fab.pulse { animation: fabPulse 2s infinite; }
+@keyframes fabPulse {
+  0%,100%{box-shadow: 0 4px 16px rgba(5,150,105,0.4);}
+  50%{box-shadow: 0 4px 24px rgba(5,150,105,0.7);}
+}
+
+/* ===== HISTORY PANEL ===== */
+.drawer-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300;
+}
+.drawer-overlay.show { display: block; }
+.drawer {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 400;
+  background: white; border-radius: 20px 20px 0 0;
+  max-height: 85vh; display: flex; flex-direction: column;
+  transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.32,0.72,0,1);
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.2);
+}
+.drawer.show { transform: translateY(0); }
+.drawer-handle {
+  width: 40px; height: 4px; background: #d1d5db; border-radius: 2px;
+  margin: 10px auto 0;
+}
+.drawer-header {
+  display: flex; align-items: center; gap: 10px; padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--gray-border); font-size: 16px; font-weight: 700;
+  color: var(--blue-dark);
+}
+.drawer-close {
+  margin-left: auto; background: var(--gray-light); border: none; cursor: pointer;
+  width: 28px; height: 28px; border-radius: 50%; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.drawer-body { overflow-y: auto; -webkit-overflow-scrolling: touch; flex: 1; padding: 12px; }
+
+/* History items */
+.hist-item {
+  display: flex; align-items: center; padding: 10px 12px; background: var(--gray-light);
+  border-radius: 10px; margin-bottom: 8px; gap: 10px; flex-wrap: wrap;
+}
+.hist-date { font-size: 14px; font-weight: 700; color: var(--blue-dark); }
+.hist-stats { display: flex; gap: 6px; }
+.hbadge { font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 700; }
+.hb-ma { background: var(--green-light); color: var(--green-dark); }
+.hb-khad { background: var(--red-light); color: var(--red-dark); }
+.hb-la { background: var(--yellow-light); color: var(--yellow-dark); }
+.hist-btns { margin-left: auto; display: flex; gap: 6px; }
+.empty-msg { text-align: center; padding: 40px 20px; color: var(--gray); }
+
+/* ===== FIREBASE SETUP MODAL ===== */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 500; align-items: center; justify-content: center; padding: 16px;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: white; border-radius: 16px; width: 100%; max-width: 480px;
+  max-height: 90vh; overflow-y: auto; padding: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.modal h3 { font-size: 17px; font-weight: 800; color: var(--blue-dark); margin-bottom: 4px; }
+.modal .subtitle { font-size: 13px; color: var(--gray); margin-bottom: 16px; }
+.step-box {
+  background: var(--blue-light); border-radius: 10px; padding: 12px 14px;
+  margin-bottom: 14px; font-size: 13px; line-height: 1.7; color: #1e3a8a;
+}
+.step-box ol { padding-left: 18px; }
+.step-box a { color: var(--blue); font-weight: 700; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 4px; }
+.form-group input {
+  width: 100%; border: 2px solid var(--gray-border); border-radius: 8px;
+  padding: 8px 10px; font-size: 13px; font-family: inherit; color: #1e293b;
+}
+.form-group input:focus { border-color: var(--blue); outline: none; }
+.modal-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; flex-wrap: wrap; }
+.divider { border: none; border-top: 1px solid var(--gray-border); margin: 14px 0; }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: #1e293b; color: white; padding: 10px 18px; border-radius: 20px;
+  font-size: 14px; font-weight: 600; z-index: 1000;
+  opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.toast.show {
+  opacity: 1; transform: translateX(-50%) translateY(0);
+}
+.toast.t-success { background: var(--green); }
+.toast.t-error { background: var(--red); }
+.toast.t-warn { background: var(--yellow); }
+
+/* ===== CONFIRM MODAL ===== */
+.confirm-modal {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  z-index: 600; align-items: flex-end; justify-content: center;
+}
+.confirm-modal.show { display: flex; }
+.confirm-box {
+  background: white; border-radius: 20px 20px 0 0; width: 100%; padding: 20px;
+  max-width: 480px;
+}
+.confirm-box h4 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+.confirm-box p { font-size: 14px; color: var(--gray); margin-bottom: 18px; }
+.confirm-btns { display: flex; gap: 8px; }
+.confirm-btns .btn { flex: 1; justify-content: center; }
+
+/* ===== DESKTOP overrides ===== */
+@media (min-width: 640px) {
+  .content-area { padding-bottom: 20px; }
+  .student-list { padding: 12px 16px; gap: 8px; }
+  .card-name { font-size: 15px; }
+  .att-btn { padding: 7px 14px; font-size: 14px; }
+  .fab { bottom: 24px; right: 24px; width: 64px; height: 64px; font-size: 26px; }
+  .toast { bottom: 30px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="logo">✈️</div>
+  <div>
+    <h1>เช็คชื่อลูกเสืออากาศ ม.1</h1>
+    <p>โรงเรียนหนองหานวิทยา · ปีการศึกษา 2569</p>
+  </div>
+  <div class="header-right">
+    <div class="sync-dot" id="syncDot" title="สถานะการเชื่อมต่อ"></div>
+    <button class="btn btn-xs btn-ghost" onclick="openSetup()" style="color:white;background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3)">⚙️</button>
+  </div>
+</div>
+
+<!-- DATE BAR -->
+<div class="date-bar">
+  <label>📅</label>
+  <input type="date" id="checkDate">
+  <span class="save-status unsaved" id="saveStatus">⚡ ยังไม่บันทึก</span>
+  <div class="top-btns">
+    <button class="btn btn-ghost btn-xs" onclick="openHistory()">📋 ประวัติ</button>
+    <button class="btn btn-ghost btn-xs" onclick="exportCSV()">📤 CSV</button>
+  </div>
+</div>
+
+<!-- GONG NAV -->
+<div class="gong-nav" id="gongNav"></div>
+
+<!-- MOO BAR -->
+<div class="moo-bar" id="mooBar"></div>
+
+<!-- SUMMARY STRIP -->
+<div class="summary-strip">
+  <div class="sum-item si-ma"><div class="sv" id="s-ma">0</div><div>มา</div></div>
+  <div class="sum-sep"></div>
+  <div class="sum-item si-khad"><div class="sv" id="s-khad">0</div><div>ขาด</div></div>
+  <div class="sum-sep"></div>
+  <div class="sum-item si-la"><div class="sv" id="s-la">0</div><div>ลา</div></div>
+  <div class="sum-sep"></div>
+  <div class="sum-item si-none"><div class="sv" id="s-none">0</div><div>ยังไม่เช็ค</div></div>
+</div>
+
+<!-- QUICK BAR -->
+<div class="quick-bar">
+  <button class="btn btn-ghost btn-xs" onclick="markAllMa()">✅ มาทั้งหมด</button>
+  <button class="btn btn-ghost btn-xs" onclick="clearAllMoo()">🔄 ล้างหมู่นี้</button>
+  <span style="font-size:12px;color:var(--gray);margin-left:auto;align-self:center" id="mooLabel"></span>
+</div>
+
+<!-- CONTENT -->
+<div class="content-area" id="contentArea">
+  <div class="student-list" id="studentList"></div>
+</div>
+
+<!-- FAB Save -->
+<button class="fab" id="fabSave" onclick="saveAttendance()">💾</button>
+
+<!-- HISTORY DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeHistory()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-header">
+    📋 ประวัติการเช็คชื่อ
+    <button class="drawer-close" onclick="closeHistory()">✕</button>
+  </div>
+  <div class="drawer-body" id="historyBody"></div>
+</div>
+
+<!-- FIREBASE SETUP MODAL -->
+<div class="modal-overlay" id="setupModal">
+  <div class="modal">
+    <h3>🔥 ตั้งค่า Firebase</h3>
+    <p class="subtitle">เชื่อมต่อฐานข้อมูลออนไลน์เพื่อซิงค์ข้อมูลทุกอุปกรณ์</p>
+    <div class="step-box">
+      <ol>
+        <li>เข้า <a href="https://firebase.google.com" target="_blank">firebase.google.com</a> → สร้างโปรเจกต์</li>
+        <li>ไปที่ <b>Firestore Database</b> → Create database → Start in test mode</li>
+        <li>ไปที่ Project Settings → General → Your apps → Add app (Web icon)</li>
+        <li>คัดลอก firebaseConfig มากรอกด้านล่าง</li>
+      </ol>
+    </div>
+    <div class="form-group">
+      <label>API Key</label>
+      <input type="text" id="cfg-apiKey" placeholder="AIzaSy...">
+    </div>
+    <div class="form-group">
+      <label>Auth Domain</label>
+      <input type="text" id="cfg-authDomain" placeholder="your-project.firebaseapp.com">
+    </div>
+    <div class="form-group">
+      <label>Project ID</label>
+      <input type="text" id="cfg-projectId" placeholder="your-project-id">
+    </div>
+    <div class="form-group">
+      <label>Storage Bucket</label>
+      <input type="text" id="cfg-storageBucket" placeholder="your-project.appspot.com">
+    </div>
+    <div class="form-group">
+      <label>Messaging Sender ID</label>
+      <input type="text" id="cfg-messagingSenderId" placeholder="123456789">
+    </div>
+    <div class="form-group">
+      <label>App ID</label>
+      <input type="text" id="cfg-appId" placeholder="1:123...">
+    </div>
+    <hr class="divider">
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeSetup()">ยกเลิก</button>
+      <button class="btn btn-ghost btn-xs" onclick="clearFirebaseConfig()" style="color:var(--red)">🗑️ ล้างค่า</button>
+      <button class="btn btn-primary" onclick="saveFirebaseConfig()">🔥 เชื่อมต่อ</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="confirm-modal" id="confirmModal">
+  <div class="confirm-box">
+    <h4 id="confTitle"></h4>
+    <p id="confMsg"></p>
+    <div class="confirm-btns">
+      <button class="btn btn-ghost" onclick="closeConfirm()">ยกเลิก</button>
+      <button class="btn btn-primary" id="confBtn">ยืนยัน</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+// ==================== STUDENT DATA ====================
+const SCOUT = {
+  "กอง1": {
+    1:[
+      {no:1,id:"37876",name:"เด็กหญิงปวิณา อนุอัน",room:"1/1"},
+      {no:2,id:"37883",name:"เด็กหญิงอริสรา รักษาเมือง",room:"1/1"},
+      {no:3,id:"37904",name:"เด็กหญิงปิยวรรณ สีลา",room:"1/2"},
+      {no:4,id:"38354",name:"เด็กหญิงธนัชพร ร้อยแก้ว",room:"1/14"},
+      {no:5,id:"38366",name:"เด็กหญิงศิริญากร จันทะมุลตรี",room:"1/14"},
+      {no:6,id:"38395",name:"เด็กหญิงนรินทร์พร ดอนเมืองพรหม",room:"1/15"},
+      {no:7,id:"38400",name:"เด็กหญิงเปรมสุดา สายหลักคำ",room:"1/15"},
+      {no:8,id:"38404",name:"เด็กหญิงรตนพร อินทร์กง",room:"1/15"},
+      {no:9,id:"38435",name:"เด็กหญิงณัฐชญา กาลจักร",room:"1/16"},
+      {no:10,id:"38444",name:"เด็กหญิงพีชญา หมื่นศักดา",room:"1/16"},
+    ],
+    2:[
+      {no:11,id:"37868",name:"เด็กหญิงกนกวรรณ หอมกระชาย",room:"1/1"},
+      {no:12,id:"37882",name:"เด็กหญิงสุรดา นึกชอบ",room:"1/1"},
+      {no:13,id:"37914",name:"เด็กหญิงไอรดา เงินพุ่ม",room:"1/2"},
+      {no:14,id:"38349",name:"เด็กหญิงกานต์เกล้า จันทรเสนา",room:"1/14"},
+      {no:15,id:"38370",name:"เด็กหญิงอริสา คำชลธาร์",room:"1/14"},
+      {no:16,id:"38393",name:"เด็กหญิงณัฏฐณิชา ธนรัชเดช",room:"1/15"},
+      {no:17,id:"38406",name:"เด็กหญิงศศิกานต์ นันทะแสง",room:"1/15"},
+      {no:18,id:"38409",name:"เด็กหญิงอังศุมาลิน ขันเงิน",room:"1/15"},
+      {no:19,id:"38440",name:"เด็กหญิงพัชรี แก้วประเสริฐ",room:"1/16"},
+      {no:20,id:"38443",name:"เด็กหญิงพิมพ์ญาดา แก้วภูบาล",room:"1/16"},
+    ],
+    3:[
+      {no:21,id:"37872",name:"เด็กหญิงณัฐชา ใต้ชมภู",room:"1/1"},
+      {no:22,id:"37873",name:"เด็กหญิงณัฐนันท์ ภะวะกุญชร",room:"1/1"},
+      {no:23,id:"37899",name:"เด็กหญิงณัฏฐลดา โสภากุล",room:"1/2"},
+      {no:24,id:"38350",name:"เด็กหญิงกานต์พิชชา ศรีสุราษฎร์",room:"1/14"},
+      {no:25,id:"38369",name:"เด็กหญิงสุรภา ศิริวงษ์",room:"1/14"},
+      {no:26,id:"38385",name:"เด็กหญิงกัญญาภรณ์ มีพร้อม",room:"1/15"},
+      {no:27,id:"38389",name:"เด็กหญิงชาลิดา ดงชมภู",room:"1/15"},
+      {no:28,id:"38405",name:"เด็กหญิงวรกานต์ ปัญญาละ",room:"1/15"},
+      {no:29,id:"38432",name:"เด็กหญิงชฎาพร ภูสทด",room:"1/16"},
+      {no:30,id:"38445",name:"เด็กหญิงมนัสนันท์ ทองสัน",room:"1/16"},
+    ],
+    4:[
+      {no:31,id:"37875",name:"เด็กหญิงปริญญาภรณ์ บุตรพรม",room:"1/1"},
+      {no:32,id:"37879",name:"เด็กหญิงรัตนาภรณ์ ไหวดี",room:"1/1"},
+      {no:33,id:"37911",name:"เด็กหญิงหนึ่งนุช พาพันธ์",room:"1/2"},
+      {no:34,id:"38361",name:"เด็กหญิงแพรวรินทร์ แจ้งจันทร์",room:"1/14"},
+      {no:35,id:"38362",name:"เด็กหญิงภัทรวดี ปกิระนะ",room:"1/14"},
+      {no:36,id:"38386",name:"เด็กหญิงกานต์สินี เครือเนตร",room:"1/15"},
+      {no:37,id:"38408",name:"เด็กหญิงอมรรัตน์ เหล่าสิงห์",room:"1/15"},
+      {no:38,id:"38429",name:"เด็กหญิงกนกอร สมสนุก",room:"1/16"},
+      {no:39,id:"38449",name:"เด็กหญิงอคัมย์สิริ ตอพล",room:"1/16"},
+    ],
+    5:[
+      {no:40,id:"37856",name:"เด็กชายกันติทัต ราชวงษา",room:"1/1"},
+      {no:41,id:"37857",name:"เด็กชายจักรวรรดิ พรประสิทธิ์",room:"1/1"},
+      {no:42,id:"37863",name:"เด็กชายปิติพงศ์ เบิกบานดี",room:"1/1"},
+      {no:43,id:"37890",name:"เด็กชายพิชัยยุทธ สิทธิโชติ",room:"1/2"},
+      {no:44,id:"38332",name:"เด็กชายกรวิชญ์ ฟูมบุญ",room:"1/14"},
+      {no:45,id:"38334",name:"เด็กชายกิตติ นันทะรุ้ง",room:"1/14"},
+      {no:46,id:"38338",name:"เด็กชายณัฐพล ปะโสทานัง",room:"1/14"},
+      {no:47,id:"38377",name:"เด็กชายธนภัทร เทพศิลา",room:"1/15"},
+      {no:48,id:"38412",name:"เด็กชายกฤติธี สิงห์ที",room:"1/16"},
+      {no:49,id:"38414",name:"เด็กชายเจษฎา ตะวัน",room:"1/16"},
+      {no:50,id:"38420",name:"เด็กชายธีร์ภูวินท์ จันดาเลิศ",room:"1/16"},
+    ],
+    6:[
+      {no:51,id:"37859",name:"เด็กชายธนพงษ์ จันทร์วิเศษ",room:"1/1"},
+      {no:52,id:"37861",name:"เด็กชายธนภัทร ราชบุรี",room:"1/1"},
+      {no:53,id:"37887",name:"เด็กชายจิตตรานุภาพ สาฤษี",room:"1/2"},
+      {no:54,id:"37889",name:"เด็กชายธนชัย โคตรสีทา",room:"1/2"},
+      {no:55,id:"38333",name:"เด็กชายกฤติภัทร โพธิกัญญา",room:"1/14"},
+      {no:56,id:"38340",name:"เด็กชายดาร์ชาน บัวแย้ม",room:"1/14"},
+      {no:57,id:"38345",name:"เด็กชายวงศกร ไชฮะนิจ",room:"1/14"},
+      {no:58,id:"38379",name:"เด็กชายพุฒิพงศ์ แน่นอุดร",room:"1/15"},
+      {no:59,id:"38417",name:"เด็กชายณัฐพงษ์ เชิญชม",room:"1/16"},
+      {no:60,id:"38418",name:"เด็กชายธนวัชร จัดเขตรกรณ์",room:"1/16"},
+      {no:61,id:"38424",name:"เด็กชายอชิรวิชญ์ วัฒนะน้อย",room:"1/16"},
+    ],
+  },
+  "กอง2": {
+    1:[
+      {no:1,id:"37870",name:"เด็กหญิงจิรกานดา ตาคม",room:"1/1"},
+      {no:2,id:"37871",name:"เด็กหญิงโชติกา จันดาดาล",room:"1/1"},
+      {no:3,id:"37901",name:"เด็กหญิงธิดารัตน์ ราษฎร์ยำรุง",room:"1/2"},
+      {no:4,id:"38359",name:"เด็กหญิงปภัสสร บัวหงษา",room:"1/14"},
+      {no:5,id:"38371",name:"เด็กหญิงอารยา แก้วนุ้ย",room:"1/14"},
+      {no:6,id:"38387",name:"เด็กหญิงขนิษฐา นาขัน",room:"1/15"},
+      {no:7,id:"38398",name:"เด็กหญิงปัณฑิตา ศรีสุนาครัว",room:"1/15"},
+      {no:8,id:"38433",name:"เด็กหญิงชนิดา ชนะสะแบง",room:"1/16"},
+      {no:9,id:"38438",name:"เด็กหญิงนภาพร อินกง",room:"1/16"},
+    ],
+    2:[
+      {no:10,id:"37878",name:"เด็กหญิงพิชญา อินทะชัย",room:"1/1"},
+      {no:11,id:"37894",name:"เด็กหญิงกมลพร พิลาเคน",room:"1/2"},
+      {no:12,id:"37909",name:"เด็กหญิงสิริยานี วงษ์คำพระ",room:"1/2"},
+      {no:13,id:"38360",name:"เด็กหญิงเปรมปรีญา ขันทะสาร",room:"1/14"},
+      {no:14,id:"38363",name:"เด็กหญิงมัชชา คัตวงษ์",room:"1/14"},
+      {no:15,id:"38382",name:"เด็กหญิงกมลลักษณ์ ทำไหม",room:"1/15"},
+      {no:16,id:"38383",name:"เด็กหญิงกรรณิการ์ ตัญลา",room:"1/15"},
+      {no:17,id:"38428",name:"เด็กหญิงกชพร พรมเภา",room:"1/16"},
+      {no:18,id:"38439",name:"เด็กหญิงเปี่ยมสุข พลค้อ",room:"1/16"},
+    ],
+    3:[
+      {no:19,id:"37877",name:"เด็กหญิงพรรณภรณ์ สุขะ",room:"1/1"},
+      {no:20,id:"37907",name:"เด็กหญิงศิรประภา ปัญจะภักดี",room:"1/2"},
+      {no:21,id:"37912",name:"เด็กหญิงอรสุรางค์ หมั่นวิชา",room:"1/2"},
+      {no:22,id:"38348",name:"เด็กหญิงกัญญาณัฐ นามมูลตรี",room:"1/14"},
+      {no:23,id:"38358",name:"เด็กหญิงนิจชยา ไพรออ",room:"1/14"},
+      {no:24,id:"38399",name:"เด็กหญิงปาณิสรา วันทองทักษ์",room:"1/15"},
+      {no:25,id:"38410",name:"เด็กหญิงอัญชิสา พงษ์ชมภู",room:"1/15"},
+      {no:26,id:"38437",name:"เด็กหญิงธิดารัตน์ สุขศาลา",room:"1/16"},
+      {no:27,id:"38446",name:"เด็กหญิงรัตติกาญจน์ ชนะสะแบง",room:"1/16"},
+    ],
+    4:[
+      {no:28,id:"37881",name:"เด็กหญิงสุกัลยา นามโว",room:"1/1"},
+      {no:29,id:"37896",name:"เด็กหญิงชลทิพย์ บุญช่วย",room:"1/2"},
+      {no:30,id:"37900",name:"เด็กหญิงณัฐชา พึ่งคำนวน",room:"1/2"},
+      {no:31,id:"37910",name:"เด็กหญิงสุชัญญา ดงแสนสุข",room:"1/2"},
+      {no:32,id:"38353",name:"เด็กหญิงณัชชานันท์ เลาะไธสง",room:"1/14"},
+      {no:33,id:"38368",name:"เด็กหญิงสุภาทิพย์ โพธิกา",room:"1/14"},
+      {no:34,id:"38391",name:"เด็กหญิงณัชชา เทือกชัยแดง",room:"1/15"},
+      {no:35,id:"38403",name:"เด็กหญิงพีชญา พันเนียม",room:"1/15"},
+      {no:36,id:"38434",name:"เด็กหญิงณัฐชญา ประเสริฐศรี",room:"1/16"},
+      {no:37,id:"38447",name:"เด็กหญิงศรัณยา ดอกไม้",room:"1/16"},
+    ],
+    5:[
+      {no:38,id:"37864",name:"เด็กชายวีรภัทร สินโพธิ์",room:"1/1"},
+      {no:39,id:"37867",name:"เด็กชายสหรัฐ โพธิ์ศรี",room:"1/1"},
+      {no:40,id:"37885",name:"เด็กชายกิตติศักดิ์ ชาวยศ",room:"1/2"},
+      {no:41,id:"37892",name:"เด็กชายวชิรวิทย์ สารีพันธ์",room:"1/2"},
+      {no:42,id:"38335",name:"เด็กชายกิตติวัฒน์ พันธ์จันทร์",room:"1/14"},
+      {no:43,id:"38336",name:"เด็กชายชุติเทพ กองหล้า",room:"1/14"},
+      {no:44,id:"38378",name:"เด็กชายนันทวุฒิ โพธิ์ศรี",room:"1/15"},
+      {no:45,id:"38380",name:"เด็กชายภูมิภัทร พามา",room:"1/15"},
+      {no:46,id:"38416",name:"เด็กชายณรันย์ภัทร์ จำปาบุรี",room:"1/16"},
+      {no:47,id:"38422",name:"เด็กชายรพีพัฒน์ หิริโกกุล",room:"1/16"},
+      {no:48,id:"38423",name:"เด็กชายรัตตัญญู วีระกุล",room:"1/16"},
+    ],
+    6:[
+      {no:49,id:"37862",name:"เด็กชายธนาวุฒิ ขันเงิน",room:"1/1"},
+      {no:50,id:"37865",name:"เด็กชายศิวกร พิลาเคน",room:"1/1"},
+      {no:51,id:"37886",name:"เด็กชายจตุรภัทร กล้าหาญ",room:"1/2"},
+      {no:52,id:"37888",name:"เด็กชายจิรพัฒน์ ปัญญาทอง",room:"1/2"},
+      {no:53,id:"38342",name:"เด็กชายบัญญวิทย์ ซองทุมมินทร์",room:"1/14"},
+      {no:54,id:"38344",name:"เด็กชายพูวเดช มฤกูล",room:"1/14"},
+      {no:55,id:"38375",name:"เด็กชายณัชพล คนครอง",room:"1/15"},
+      {no:56,id:"38376",name:"เด็กชายตรีทเศศ หม่อมกระโทก",room:"1/15"},
+      {no:57,id:"38381",name:"เด็กชายภูวภัทร นากลางดอน",room:"1/15"},
+      {no:58,id:"38421",name:"เด็กชายนครินทร์ สอนเพ็ง",room:"1/16"},
+      {no:59,id:"38426",name:"เด็กชายอธิวัฒน์ สีมี",room:"1/16"},
+    ],
+  },
+  "กอง3": {
+    1:[
+      {no:1,id:"37869",name:"เด็กหญิงขวัญอุมา พุดกุดเรือ",room:"1/1"},
+      {no:2,id:"37905",name:"เด็กหญิงภวรัญชน์ ศรีแก้ว",room:"1/2"},
+      {no:3,id:"37906",name:"เด็กหญิงมนัสนันท์ กล้าหาญ",room:"1/2"},
+      {no:4,id:"37913",name:"เด็กหญิงอาลิตตา ตะโจปะรัง",room:"1/2"},
+      {no:5,id:"38352",name:"เด็กหญิงจิดาภา หลักกอ",room:"1/14"},
+      {no:6,id:"38355",name:"เด็กหญิงธันยพร แดนนอก",room:"1/14"},
+      {no:7,id:"38392",name:"เด็กหญิงณัชชานันท์ มาลาน้อย",room:"1/15"},
+      {no:8,id:"38396",name:"เด็กหญิงนุชนาถ เรื่อศรีจันทร์",room:"1/15"},
+      {no:9,id:"38431",name:"เด็กหญิงกัญญาภัค วงษ์สิงห์",room:"1/16"},
+      {no:10,id:"38450",name:"เด็กหญิงอภิชญา ชารีผาย",room:"1/16"},
+    ],
+    2:[
+      {no:11,id:"37884",name:"เด็กหญิงอัญมณี รูปสวย",room:"1/1"},
+      {no:12,id:"37895",name:"เด็กหญิงกานต์พิชชา โสภาดี",room:"1/2"},
+      {no:13,id:"37903",name:"เด็กหญิงเบญญาดา ชาติปรีชากุล",room:"1/2"},
+      {no:14,id:"38357",name:"เด็กหญิงนันทิดา พิมพ์โชติ",room:"1/14"},
+      {no:15,id:"38364",name:"เด็กหญิงวิไลวรรณ มงคลนำ",room:"1/14"},
+      {no:16,id:"38388",name:"เด็กหญิงจุฑาพร ไชยคำ",room:"1/15"},
+      {no:17,id:"38397",name:"เด็กหญิงปภาดา น้ำใจดี",room:"1/15"},
+      {no:18,id:"38436",name:"เด็กหญิงธัญญาพร แก้วภูบาล",room:"1/16"},
+      {no:19,id:"38442",name:"เด็กหญิงพิชญาภา เมืองสันเที้ยะ",room:"1/16"},
+      {no:20,id:"38394",name:"เด็กหญิงณิชาพร กาแก้วมิตมาน",room:"1/15"},
+    ],
+    3:[
+      {no:21,id:"37880",name:"เด็กหญิงลัลนา วงษ์เวียง",room:"1/1"},
+      {no:22,id:"37898",name:"เด็กหญิงณัฎฐณิชา พรหมแสง",room:"1/2"},
+      {no:23,id:"37902",name:"เด็กหญิงธิติกานต์ คำโพธิ์",room:"1/2"},
+      {no:24,id:"38351",name:"เด็กหญิงเกวลิน เผอิญอ่อน",room:"1/14"},
+      {no:25,id:"38365",name:"เด็กหญิงศรัณยพร สุทธิวรรณา",room:"1/14"},
+      {no:26,id:"38384",name:"เด็กหญิงกวินทิพย์ จันทโพธิ์",room:"1/15"},
+      {no:27,id:"38390",name:"เด็กหญิงณฐอร เชิญชม",room:"1/15"},
+      {no:28,id:"38448",name:"เด็กหญิงสุปัณทิตา จันทรสิงหาญ",room:"1/16"},
+      {no:29,id:"38451",name:"เด็กหญิงอภิสรา สามพันธ์",room:"1/16"},
+      {no:30,id:"38407",name:"เด็กหญิงอนันธิดา มหาโยธี",room:"1/15"},
+    ],
+    4:[
+      {no:31,id:"37874",name:"เด็กหญิงดวงรัตน์ บุดดีคำ",room:"1/1"},
+      {no:32,id:"37897",name:"เด็กหญิงฐานิตา ชูพุดซา",room:"1/2"},
+      {no:33,id:"37908",name:"เด็กหญิงสรารัตน์ ชาแท่น",room:"1/2"},
+      {no:34,id:"38356",name:"เด็กหญิงนภัสสร ก้อนคำ",room:"1/14"},
+      {no:35,id:"38367",name:"เด็กหญิงศุภกานต์ พลยศ",room:"1/14"},
+      {no:36,id:"38401",name:"เด็กหญิงพชรพรรณ ประเสริฐสังข์",room:"1/15"},
+      {no:37,id:"38402",name:"เด็กหญิงพิชญธิดา สุระเทวี",room:"1/15"},
+      {no:38,id:"38430",name:"เด็กหญิงกัญญาพัชร ขาลเกตุ",room:"1/16"},
+      {no:39,id:"38441",name:"เด็กหญิงพิชชาพร เอี้ยนไธสง",room:"1/16"},
+      {no:40,id:"38411",name:"เด็กหญิงอารยา ลำมะนา",room:"1/15"},
+    ],
+    5:[
+      {no:41,id:"37855",name:"เด็กชายกวีวัฒน์ เสริฐสาย",room:"1/1"},
+      {no:42,id:"37858",name:"เด็กชายฐวิชหิรัญ ชิตคำพูนิธิธัญโชค",room:"1/1"},
+      {no:43,id:"37893",name:"เด็กชายเอกรินทร์ ผการัตน์",room:"1/2"},
+      {no:44,id:"38339",name:"เด็กชายณัฐภัทร ธรรมเจริญ",room:"1/14"},
+      {no:45,id:"38341",name:"เด็กชายทรัพย์ศิริ ปุณประเสริฐ",room:"1/14"},
+      {no:46,id:"38346",name:"เด็กชายวรากร สร้อยวิทยา",room:"1/14"},
+      {no:47,id:"38372",name:"เด็กชายกมล สิทธิพรหม",room:"1/15"},
+      {no:48,id:"38373",name:"เด็กชายกลวัชร วงษ์นุรักษ์",room:"1/15"},
+      {no:49,id:"38413",name:"เด็กชายจักรธรณ์ โฮงมาตย์",room:"1/16"},
+      {no:50,id:"38425",name:"เด็กชายอชิระ หล้าบุญมา",room:"1/16"},
+    ],
+    6:[
+      {no:51,id:"37860",name:"เด็กชายธนพนธ์ ชื่นตา",room:"1/1"},
+      {no:52,id:"37866",name:"เด็กชายสพล แสนศิริ",room:"1/1"},
+      {no:53,id:"37891",name:"เด็กชายภูริณัฐ ศรีโบราณ",room:"1/2"},
+      {no:54,id:"38337",name:"เด็กชายชุติพนธ์ นาเจริญ",room:"1/14"},
+      {no:55,id:"38343",name:"เด็กชายพีรยช พันพินิจ",room:"1/14"},
+      {no:56,id:"38347",name:"เด็กชายศิริศักดิ์ บุญแนบ",room:"1/14"},
+      {no:57,id:"38374",name:"เด็กชายจิรวิชญ์ สูนย์เสียง",room:"1/15"},
+      {no:58,id:"38415",name:"เด็กชายชนะชัย ธิปมวล",room:"1/16"},
+      {no:59,id:"38419",name:"เด็กชายธีรภัทร ใจใส",room:"1/16"},
+      {no:60,id:"38427",name:"เด็กชายอิทธิพล วิจารณรงค์",room:"1/16"},
+    ],
+  }
+};
+const GONG_KEYS = Object.keys(SCOUT); // ["กอง1","กอง2","กอง3"]
+
+// ==================== STATE ====================
+let curGong = 0; // index into GONG_KEYS
+let curMoo = 1;
+let attendance = {}; // key: `id` → {status, note}
+let localSaved = {}; // all saved data in localStorage
+let hasUnsaved = false;
+let db = null;
+let isSaving = false;
+const LS_ATT = 'scout_att_2569';
+const LS_CFG = 'scout_fb_cfg';
+
+// ==================== FIREBASE ====================
+function initFirebase(cfg) {
+  try {
+    if (firebase.apps.length) firebase.app().delete().then(() => startFirebase(cfg));
+    else startFirebase(cfg);
+  } catch(e) { setSyncStatus('error'); }
+}
+function startFirebase(cfg) {
+  try {
+    firebase.initializeApp(cfg);
+    db = firebase.firestore();
+    setSyncStatus('online');
+    showToast('🔥 เชื่อมต่อ Firebase แล้ว', 'success');
+    loadForDate();
+  } catch(e) {
+    db = null; setSyncStatus('error');
+    showToast('❌ Firebase config ผิดพลาด', 'error');
+  }
+}
+function setSyncStatus(s) {
+  const d = document.getElementById('syncDot');
+  d.className = 'sync-dot ' + s;
+  d.title = s === 'online' ? 'เชื่อมต่อ Firebase แล้ว' : s === 'syncing' ? 'กำลังซิงค์...' : s === 'error' ? 'ไม่สามารถเชื่อมต่อ' : 'ออฟไลน์ (localStorage)';
+}
+
+// Firebase doc id: "2025-01-01_กอง1"
+function fbDocId(date, gong) { return `${date}_${gong}`; }
+
+async function fbSave(date) {
+  if (!db) return false;
+  setSyncStatus('syncing');
+  try {
+    for (const gk of GONG_KEYS) {
+      const data = {};
+      for (const [mStr, students] of Object.entries(SCOUT[gk])) {
+        data[mStr] = {};
+        students.forEach(s => {
+          const k = s.id;
+          if (attendance[k]) data[mStr][k] = attendance[k];
+        });
+      }
+      await db.collection('attendance').doc(fbDocId(date, gk)).set({
+        data, updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+    }
+    setSyncStatus('online');
+    return true;
+  } catch(e) {
+    setSyncStatus('error');
+    showToast('❌ บันทึก Firebase ไม่ได้: ' + e.message, 'error');
+    return false;
+  }
+}
+
+async function fbLoad(date) {
+  if (!db) return null;
+  setSyncStatus('syncing');
+  try {
+    const result = {};
+    for (const gk of GONG_KEYS) {
+      const doc = await db.collection('attendance').doc(fbDocId(date, gk)).get();
+      if (doc.exists) Object.assign(result, doc.data().data || {});
+    }
+    setSyncStatus('online');
+    return result;
+  } catch(e) {
+    setSyncStatus('error');
+    return null;
+  }
+}
+
+async function fbGetAllDates() {
+  if (!db) return null;
+  try {
+    const snap = await db.collection('attendance').get();
+    const dates = new Set();
+    snap.docs.forEach(d => {
+      const parts = d.id.split('_');
+      if (parts[0]) dates.add(parts[0]);
+    });
+    return [...dates].sort().reverse();
+  } catch(e) { return null; }
+}
+
+// ==================== SETUP MODAL ====================
+function openSetup() {
+  const cfg = getStoredConfig();
+  if (cfg) {
+    document.getElementById('cfg-apiKey').value = cfg.apiKey || '';
+    document.getElementById('cfg-authDomain').value = cfg.authDomain || '';
+    document.getElementById('cfg-projectId').value = cfg.projectId || '';
+    document.getElementById('cfg-storageBucket').value = cfg.storageBucket || '';
+    document.getElementById('cfg-messagingSenderId').value = cfg.messagingSenderId || '';
+    document.getElementById('cfg-appId').value = cfg.appId || '';
+  }
+  document.getElementById('setupModal').classList.add('show');
+}
+function closeSetup() { document.getElementById('setupModal').classList.remove('show'); }
+function getStoredConfig() {
+  try { return JSON.parse(localStorage.getItem(LS_CFG)); } catch { return null; }
+}
+function saveFirebaseConfig() {
+  const cfg = {
+    apiKey: document.getElementById('cfg-apiKey').value.trim(),
+    authDomain: document.getElementById('cfg-authDomain').value.trim(),
+    projectId: document.getElementById('cfg-projectId').value.trim(),
+    storageBucket: document.getElementById('cfg-storageBucket').value.trim(),
+    messagingSenderId: document.getElementById('cfg-messagingSenderId').value.trim(),
+    appId: document.getElementById('cfg-appId').value.trim(),
+  };
+  if (!cfg.apiKey || !cfg.projectId) { showToast('กรุณากรอก API Key และ Project ID', 'warn'); return; }
+  localStorage.setItem(LS_CFG, JSON.stringify(cfg));
+  closeSetup();
+  initFirebase(cfg);
+}
+function clearFirebaseConfig() {
+  localStorage.removeItem(LS_CFG);
+  db = null; setSyncStatus('');
+  closeSetup();
+  showToast('🗑️ ล้างค่า Firebase แล้ว (ใช้ localStorage)', 'warn');
+}
+
+// ==================== BUILD UI ====================
+function buildGongNav() {
+  const nav = document.getElementById('gongNav');
+  nav.innerHTML = GONG_KEYS.map((gk, i) => {
+    const total = Object.values(SCOUT[gk]).reduce((a,m) => a+m.length, 0);
+    return `<button class="gong-btn${i===curGong?' active':''}" onclick="switchGong(${i})">
+      <span>${gk}</span><span class="g-label">ลูกเสืออากาศ</span>
+    </button>`;
+  }).join('');
+}
+
+function buildMooBar() {
+  const gk = GONG_KEYS[curGong];
+  const moos = Object.keys(SCOUT[gk]).map(Number);
+  const bar = document.getElementById('mooBar');
+  bar.innerHTML = moos.map(m => {
+    const students = SCOUT[gk][m];
+    let ma = students.filter(s=>attendance[s.id]?.status==='มา').length;
+    return `<button class="moo-btn${m===curMoo?' active':''}" id="moobtn-${m}" onclick="switchMoo(${m})">
+      หมู่ ${m} <span class="ms">${ma}/${students.length}</span>
+    </button>`;
+  }).join('');
+  // scroll active into view
+  setTimeout(() => {
+    const active = bar.querySelector('.moo-btn.active');
+    if (active) active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }, 50);
+}
+
+function buildStudentList() {
+  const gk = GONG_KEYS[curGong];
+  const students = SCOUT[gk][curMoo] || [];
+  const list = document.getElementById('studentList');
+  list.innerHTML = students.map(s => {
+    const att = attendance[s.id] || {};
+    const st = att.status || '';
+    return `<div class="student-card${st?' status-'+st:''}" id="card-${s.id}">
+      <div class="card-top">
+        <div class="card-num">${s.no}</div>
+        <div class="card-info">
+          <div class="card-name">${s.name}</div>
+          <div class="card-room">ม.${s.room}</div>
+        </div>
+        <div class="att-btns">
+          <button class="att-btn${st==='มา'?' sel-มา':''}" onclick="setAtt('${s.id}','มา')">✅</button>
+          <button class="att-btn${st==='ขาด'?' sel-ขาด':''}" onclick="setAtt('${s.id}','ขาด')">❌</button>
+          <button class="att-btn${st==='ลา'?' sel-ลา':''}" onclick="setAtt('${s.id}','ลา')">📋</button>
+        </div>
+      </div>
+      <div class="card-note">
+        <input class="note-inp" type="text" placeholder="หมายเหตุ..." value="${att.note||''}"
+          oninput="setNote('${s.id}',this.value)" inputmode="text">
+      </div>
+    </div>`;
+  }).join('');
+  updateSummary();
+  document.getElementById('mooLabel').textContent = `${gk} · หมู่ ${curMoo} (${students.length} คน)`;
+}
+
+function updateSummary() {
+  const gk = GONG_KEYS[curGong];
+  const students = SCOUT[gk][curMoo] || [];
+  let ma=0, khad=0, la=0, none=0;
+  students.forEach(s => {
+    const v = attendance[s.id]?.status;
+    if(v==='มา') ma++; else if(v==='ขาด') khad++; else if(v==='ลา') la++; else none++;
+  });
+  document.getElementById('s-ma').textContent = ma;
+  document.getElementById('s-khad').textContent = khad;
+  document.getElementById('s-la').textContent = la;
+  document.getElementById('s-none').textContent = none;
+}
+
+function updateMooBtn(m) {
+  const gk = GONG_KEYS[curGong];
+  const students = SCOUT[gk][m] || [];
+  const ma = students.filter(s=>attendance[s.id]?.status==='มา').length;
+  const btn = document.getElementById(`moobtn-${m}`);
+  if (btn) btn.innerHTML = `หมู่ ${m} <span class="ms">${ma}/${students.length}</span>`;
+}
+
+// ==================== SWITCH ====================
+function switchGong(i) {
+  curGong = i;
+  curMoo = 1;
+  document.querySelectorAll('.gong-btn').forEach((b,j) => b.classList.toggle('active', j===i));
+  buildMooBar();
+  buildStudentList();
+  document.getElementById('contentArea').scrollTop = 0;
+}
+function switchMoo(m) {
+  curMoo = m;
+  document.querySelectorAll('.moo-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`moobtn-${m}`)?.classList.add('active');
+  buildStudentList();
+  document.getElementById('contentArea').scrollTop = 0;
+}
+
+// ==================== ATTENDANCE ====================
+function setAtt(id, val) {
+  if (!attendance[id]) attendance[id] = {};
+  // Toggle off if same
+  if (attendance[id].status === val) {
+    delete attendance[id].status;
+    if (!attendance[id].note) delete attendance[id];
+  } else {
+    attendance[id].status = val;
+  }
+  // Update card
+  const card = document.getElementById(`card-${id}`);
+  if (card) {
+    const st = attendance[id]?.status || '';
+    card.className = `student-card${st?' status-'+st:''}`;
+    card.querySelectorAll('.att-btn').forEach(btn => {
+      btn.className = 'att-btn' + (btn.textContent.includes('✅') && st==='มา' ? ' sel-มา' :
+                                   btn.textContent.includes('❌') && st==='ขาด' ? ' sel-ขาด' :
+                                   btn.textContent.includes('📋') && st==='ลา' ? ' sel-ลา' : '');
+    });
+  }
+  updateSummary();
+  updateMooBtn(curMoo);
+  markUnsaved();
+}
+function setNote(id, val) {
+  if (!attendance[id]) attendance[id] = {};
+  attendance[id].note = val;
+  markUnsaved();
+}
+
+// ==================== QUICK ACTIONS ====================
+function markAllMa() {
+  const gk = GONG_KEYS[curGong];
+  const students = SCOUT[gk][curMoo] || [];
+  students.forEach(s => {
+    if (!attendance[s.id]) attendance[s.id] = {};
+    attendance[s.id].status = 'มา';
+  });
+  buildStudentList();
+  updateMooBtn(curMoo);
+  markUnsaved();
+}
+function clearAllMoo() {
+  const gk = GONG_KEYS[curGong];
+  const students = SCOUT[gk][curMoo] || [];
+  students.forEach(s => { delete attendance[s.id]; });
+  buildStudentList();
+  updateMooBtn(curMoo);
+  markUnsaved();
+}
+
+// ==================== SAVE / LOAD ====================
+function markUnsaved() {
+  hasUnsaved = true;
+  document.getElementById('saveStatus').className = 'save-status unsaved';
+  document.getElementById('saveStatus').textContent = '⚡ ยังไม่บันทึก';
+  document.getElementById('fabSave').classList.add('pulse');
+}
+function markSaved() {
+  hasUnsaved = false;
+  document.getElementById('saveStatus').className = 'save-status saved';
+  document.getElementById('saveStatus').textContent = '✅ บันทึกแล้ว';
+  document.getElementById('fabSave').classList.remove('pulse');
+}
+
+async function saveAttendance() {
+  if (isSaving) return;
+  const date = document.getElementById('checkDate').value;
+  if (!date) { showToast('กรุณาเลือกวันที่', 'warn'); return; }
+  isSaving = true;
+
+  // Save to localStorage always
+  localSaved[date] = JSON.parse(JSON.stringify(attendance));
+  localStorage.setItem(LS_ATT, JSON.stringify(localSaved));
+
+  // Save to Firebase if connected
+  if (db) {
+    const ok = await fbSave(date);
+    if (ok) { markSaved(); showToast('💾 บันทึกสำเร็จ (Firebase + Local)', 'success'); }
+    else { markSaved(); showToast('💾 บันทึก Local แล้ว (Firebase ล้มเหลว)', 'warn'); }
+  } else {
+    markSaved();
+    showToast('💾 บันทึก Local เรียบร้อย', 'success');
+  }
+  isSaving = false;
+}
+
+async function loadForDate() {
+  const date = document.getElementById('checkDate').value;
+  if (!date) return;
+  attendance = {};
+
+  // Try Firebase first
+  if (db) {
+    const fbData = await fbLoad(date);
+    if (fbData) {
+      // Flatten moo→id structure into flat attendance
+      for (const [mStr, mData] of Object.entries(fbData)) {
+        if (typeof mData === 'object') {
+          for (const [id, val] of Object.entries(mData)) {
+            if (val && typeof val === 'object') attendance[id] = val;
+          }
+        }
+      }
+      markSaved();
+      buildStudentList();
+      buildMooBar();
+      return;
+    }
+  }
+
+  // Fallback to localStorage
+  const stored = localSaved[date];
+  if (stored) {
+    attendance = JSON.parse(JSON.stringify(stored));
+    markSaved();
+  } else {
+    markSaved();
+    document.getElementById('saveStatus').className = 'save-status unsaved';
+    document.getElementById('saveStatus').textContent = '⚡ ยังไม่บันทึก';
+  }
+  buildStudentList();
+  buildMooBar();
+}
+
+// ==================== HISTORY ====================
+function openHistory() {
+  document.getElementById('drawerOverlay').classList.add('show');
+  document.getElementById('drawer').classList.add('show');
+  renderHistory();
+}
+function closeHistory() {
+  document.getElementById('drawerOverlay').classList.remove('show');
+  document.getElementById('drawer').classList.remove('show');
+}
+
+async function renderHistory() {
+  const body = document.getElementById('historyBody');
+  body.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray)">⏳ กำลังโหลด...</div>';
+
+  let allDates = [];
+  if (db) {
+    const fbDates = await fbGetAllDates();
+    if (fbDates) allDates = fbDates;
+  }
+  // Merge with local dates
+  const localDates = Object.keys(localSaved).sort().reverse();
+  const merged = [...new Set([...allDates, ...localDates])].sort().reverse();
+
+  if (merged.length === 0) {
+    body.innerHTML = '<div class="empty-msg">📭 ยังไม่มีประวัติการเช็คชื่อ</div>';
+    return;
+  }
+
+  // For summary we use localSaved data (faster)
+  body.innerHTML = merged.map(date => {
+    const data = localSaved[date] || {};
+    let ma=0, khad=0, la=0;
+    for (const gk of GONG_KEYS) {
+      for (const students of Object.values(SCOUT[gk])) {
+        students.forEach(s => {
+          const v = data[s.id]?.status;
+          if(v==='มา') ma++; else if(v==='ขาด') khad++; else if(v==='ลา') la++;
+        });
+      }
+    }
+    const [y,mo,d] = date.split('-');
+    const thNames = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    const thDate = `${parseInt(d)} ${thNames[parseInt(mo)]} ${parseInt(y)+543}`;
+    const fbBadge = db ? '<span style="font-size:11px;color:#f97316">🔥</span>' : '';
+    return `<div class="hist-item">
+      <div style="flex:1">
+        <div class="hist-date">${fbBadge} 📅 ${thDate}</div>
+        <div class="hist-stats" style="margin-top:4px">
+          <span class="hbadge hb-ma">✅ มา ${ma}</span>
+          <span class="hbadge hb-khad">❌ ขาด ${khad}</span>
+          <span class="hbadge hb-la">📋 ลา ${la}</span>
+        </div>
+      </div>
+      <div class="hist-btns">
+        <button class="btn btn-xs btn-outline" onclick="loadDate('${date}')">📂 เปิด</button>
+        <button class="btn btn-xs btn-danger" onclick="confirmDelete('${date}')">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function loadDate(date) {
+  document.getElementById('checkDate').value = date;
+  closeHistory();
+  loadForDate();
+  showToast(`📂 โหลดวันที่ ${date}`);
+}
+
+function confirmDelete(date) {
+  showConfirm('ลบข้อมูล', `ต้องการลบข้อมูลวันที่ ${date} ใช่หรือไม่?`, async () => {
+    delete localSaved[date];
+    localStorage.setItem(LS_ATT, JSON.stringify(localSaved));
+    if (db) {
+      try {
+        for (const gk of GONG_KEYS)
+          await db.collection('attendance').doc(fbDocId(date, gk)).delete();
+      } catch(e) {}
+    }
+    renderHistory();
+    showToast('🗑️ ลบเรียบร้อย', 'warn');
+  });
+}
+
+// ==================== EXPORT ====================
+function exportCSV() {
+  const date = document.getElementById('checkDate').value;
+  if (!date) { showToast('กรุณาเลือกวันที่', 'warn'); return; }
+  let csv = '﻿'; // BOM
+  csv += 'วันที่,กอง,หมู่,ลำดับ,รหัส,ชื่อ-สกุล,ห้อง,การเข้าร่วม,หมายเหตุ\n';
+  for (const gk of GONG_KEYS) {
+    for (const [mStr, students] of Object.entries(SCOUT[gk])) {
+      students.forEach(s => {
+        const a = attendance[s.id] || {};
+        csv += `${date},${gk},หมู่${mStr},${s.no},${s.id},"${s.name}",ม.${s.room},${a.status||''},${a.note||''}\n`;
+      });
+    }
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download = `เช็คชื่อลูกเสือ_${date}.csv`;
+  a.click();
+  showToast('📤 ส่งออก CSV แล้ว', 'success');
+}
+
+// ==================== TOAST ====================
+let toastTimer;
+function showToast(msg, type='') {
+  clearTimeout(toastTimer);
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast show${type?' t-'+type:''}`;
+  toastTimer = setTimeout(() => t.className='toast', 2800);
+}
+
+// ==================== CONFIRM ====================
+let confirmCb = null;
+function showConfirm(title, msg, cb) {
+  document.getElementById('confTitle').textContent = title;
+  document.getElementById('confMsg').textContent = msg;
+  confirmCb = cb;
+  document.getElementById('confirmModal').classList.add('show');
+}
+function closeConfirm() { document.getElementById('confirmModal').classList.remove('show'); confirmCb=null; }
+document.getElementById('confBtn').onclick = () => { if(confirmCb) confirmCb(); closeConfirm(); };
+document.getElementById('confirmModal').onclick = e => { if(e.target===e.currentTarget) closeConfirm(); };
+document.getElementById('setupModal').onclick = e => { if(e.target===e.currentTarget) closeSetup(); };
+
+// ==================== INIT ====================
+function init() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('checkDate').value = today;
+  document.getElementById('checkDate').addEventListener('change', () => loadForDate());
+
+  // Load localStorage
+  try { localSaved = JSON.parse(localStorage.getItem(LS_ATT)) || {}; } catch { localSaved = {}; }
+
+  // Build UI
+  buildGongNav();
+
+  // Firebase
+  const cfg = getStoredConfig();
+  if (cfg && cfg.apiKey) {
+    initFirebase(cfg);
+  } else {
+    setSyncStatus('');
+    loadForDate();
+  }
+}
+init();
+</script>
+</body>
+</html>
