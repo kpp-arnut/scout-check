@@ -829,8 +829,7 @@ function startFirebase(cfg) {
   try {
     firebase.initializeApp(cfg);
     db = firebase.firestore();
-    // Enable offline persistence
-    db.enablePersistence({ synchronizeTabs: true }).catch(() => {});
+    // ไม่ใช้ enablePersistence เพื่อป้องกัน write ค้าง
     setSyncStatus('online');
     showToast('🔥 เชื่อมต่อ Firebase แล้ว — เรียลไทม์', 'success');
     loadForDate();
@@ -839,6 +838,14 @@ function startFirebase(cfg) {
     showToast('❌ Firebase config ผิดพลาด', 'error');
     loadForDate(); // Load from localStorage as fallback
   }
+}
+
+// Promise timeout helper
+function withTimeout(promise, ms) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
+  ]);
 }
 
 // ===== REAL-TIME LISTENERS =====
@@ -915,23 +922,29 @@ function findStudentGongMoo(id) {
 async function autoSave(id) {
   const date = document.getElementById('checkDate').value;
   if (!date) return;
-  // Always backup to localStorage
+  // Always backup to localStorage first
   backupToLocal();
 
-  if (!db) return;
+  if (!db) { setFabSync('saved', '💾 Local'); return; }
   const info = findStudentGongMoo(id);
   if (!info) return;
   const val = attendance[id] || {};
   setFabSync('syncing', '⏳ กำลังบันทึก...');
   try {
-    await db.collection('attendance').doc(fbDocId(date, info.gk)).set({
-      data: { [info.moo]: { [id]: val } },
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-      device: deviceId
-    }, { merge: true });
+    await withTimeout(
+      db.collection('attendance').doc(fbDocId(date, info.gk)).set({
+        data: { [info.moo]: { [id]: val } },
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        device: deviceId
+      }, { merge: true }),
+      6000
+    );
     setFabSync('saved', '✅ ซิงค์แล้ว');
   } catch(e) {
-    setFabSync('error', '⚠️ ออฟไลน์');
+    const msg = e.message === 'timeout' ? '⚠️ หมดเวลา (บันทึก Local แล้ว)' :
+                e.code === 'permission-denied' ? '🔒 ไม่มีสิทธิ์เขียน Firestore' : '⚠️ ออฟไลน์';
+    setFabSync('error', msg);
+    showToast(msg, 'error');
   }
 }
 
@@ -952,14 +965,20 @@ async function autoSaveMoo() {
   students.forEach(s => { mooData[s.id] = attendance[s.id] || {}; });
   setFabSync('syncing', '⏳ กำลังบันทึก...');
   try {
-    await db.collection('attendance').doc(fbDocId(date, gk)).set({
-      data: { [curMoo]: mooData },
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-      device: deviceId
-    }, { merge: true });
+    await withTimeout(
+      db.collection('attendance').doc(fbDocId(date, gk)).set({
+        data: { [curMoo]: mooData },
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        device: deviceId
+      }, { merge: true }),
+      6000
+    );
     setFabSync('saved', '✅ ซิงค์แล้ว');
   } catch(e) {
-    setFabSync('error', '⚠️ ออฟไลน์');
+    const msg = e.message === 'timeout' ? '⚠️ หมดเวลา (บันทึก Local แล้ว)' :
+                e.code === 'permission-denied' ? '🔒 ไม่มีสิทธิ์เขียน Firestore' : '⚠️ ออฟไลน์';
+    setFabSync('error', msg);
+    showToast(msg, 'error');
   }
 }
 
@@ -1384,12 +1403,13 @@ function exportCSV() {
 
 // ==================== TOAST ====================
 let toastTimer;
-function showToast(msg, type='') {
+function showToast(msg, type='', duration) {
   clearTimeout(toastTimer);
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.className = `toast show${type?' t-'+type:''}`;
-  toastTimer = setTimeout(() => t.className='toast', 2800);
+  const ms = duration || (type==='error' ? 6000 : 2800);
+  toastTimer = setTimeout(() => t.className='toast', ms);
 }
 
 // ==================== CONFIRM ====================
