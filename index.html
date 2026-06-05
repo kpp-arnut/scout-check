@@ -37,8 +37,6 @@ body{
   background:var(--surface);color:#1e293b;font-size:15px;
   display:flex;flex-direction:column;
 }
-
-/* === HEADER === */
 .app-header{
   background:var(--army-dark);
   color:white;padding:10px 14px 8px;
@@ -66,8 +64,6 @@ body{
   font-family:inherit;transition:background .15s;
 }
 .hdr-btn:hover{background:rgba(255,255,255,0.2)}
-
-/* === TOOLBAR === */
 .toolbar{
   background:white;border-bottom:1px solid var(--gray-border);
   padding:8px 12px;display:flex;align-items:center;gap:8px;
@@ -99,8 +95,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 .btn-outline{background:white;color:var(--army);border:2px solid var(--army)}
 .btn-danger{background:var(--red);color:white}
 .btn-sm{padding:5px 9px;font-size:11px;border-radius:6px}
-
-/* === GONG TABS === */
 .gong-tabs{
   background:white;border-bottom:2px solid var(--gray-border);
   display:flex;flex-shrink:0;overflow-x:auto;scrollbar-width:none;
@@ -117,8 +111,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 .gong-tab .gt-count{font-size:10px;color:var(--gray-mid)}
 .gong-tab.active{color:var(--army);border-bottom-color:var(--army)}
 .gong-tab.active .gt-count{color:var(--army-light)}
-
-/* === MOO BAR === */
 .moo-bar{
   background:white;padding:7px 10px;
   display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;
@@ -133,11 +125,7 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 }
 .moo-btn.active{background:var(--army);border-color:var(--army);color:white}
 .moo-btn .ms{font-size:10px;opacity:.8}
-
-/* === SUMMARY STRIP === */
-.summary-strip{
-  display:flex;background:var(--army-dark);flex-shrink:0;
-}
+.summary-strip{display:flex;background:var(--army-dark);flex-shrink:0;}
 .sum-item{
   flex:1;display:flex;flex-direction:column;align-items:center;
   padding:5px 4px;gap:1px;cursor:pointer;transition:background .15s;
@@ -150,8 +138,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 .si-la .sv{color:#fbbf24}
 .si-none .sv{color:#9ca3af}
 .sum-sep{width:1px;background:rgba(255,255,255,.15)}
-
-/* === QUICK BAR === */
 .quick-bar{
   background:white;padding:7px 10px;display:flex;align-items:center;gap:7px;
   border-bottom:1px solid var(--gray-border);flex-shrink:0;
@@ -168,11 +154,7 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   font-size:15px;pointer-events:none;opacity:.5;
 }
 .moo-label{font-size:11px;color:var(--gray);margin-left:auto;white-space:nowrap}
-
-/* === CONTENT === */
 .content-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 80px}
-
-/* === STUDENT CARDS === */
 .student-list{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
 .student-card{
   background:white;border-radius:var(--radius);overflow:hidden;
@@ -212,13 +194,9 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   background:var(--gray-light);
 }
 .note-inp:focus{outline:none;border-color:var(--army-mid);background:white}
-
-/* empty state */
 .empty-state{text-align:center;padding:48px 20px;color:var(--gray)}
 .empty-state .ei{font-size:48px;margin-bottom:12px}
 .empty-state p{font-size:14px}
-
-/* === FAB SYNC === */
 .fab-sync{
   position:fixed;bottom:14px;right:10px;z-index:200;
   background:white;border-radius:20px;padding:6px 12px;
@@ -229,9 +207,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 }
 .fab-sync.syncing{color:var(--yellow-dark);border-color:var(--yellow-light)}
 .fab-sync.error{color:var(--red-dark);border-color:var(--red-light)}
-.fab-sync.remote{color:var(--blue-dark);border-color:var(--blue-light)}
-
-/* === DRAWERS === */
 .drawer-overlay{
   display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;
 }
@@ -256,8 +231,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   display:flex;align-items:center;justify-content:center;
 }
 .drawer-body{overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;padding:12px}
-
-/* === HISTORY === */
 .hist-item{
   display:flex;align-items:center;padding:10px 12px;
   background:var(--gray-light);border-radius:10px;margin-bottom:7px;gap:8px;flex-wrap:wrap;
@@ -268,8 +241,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 .hb-ma{background:var(--army-pale);color:var(--army)}
 .hb-khad{background:var(--red-light);color:var(--red-dark)}
 .hb-la{background:var(--yellow-light);color:var(--yellow-dark)}
-
-/* === ADMIN PANEL === */
 .admin-section{margin-bottom:16px}
 .admin-section h4{font-size:13px;font-weight:700;color:var(--army-dark);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--army-pale)}
 .form-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
@@ -299,8 +270,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 .import-zone p{font-size:13px;color:var(--army);font-weight:600}
 .import-zone small{font-size:11px;color:var(--gray);margin-top:4px;display:block}
 .csv-template{font-size:11px;background:#f8fafc;border:1px solid var(--gray-border);border-radius:6px;padding:8px 10px;margin-top:6px;color:#374151;line-height:1.7;font-family:monospace}
-
-/* === REPORT === */
 .rpt-chip{
   display:inline-flex;align-items:center;gap:4px;
   padding:5px 12px;border:1.5px solid var(--gray-border);
@@ -321,8 +290,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 .dr-ma{background:var(--army-pale);color:var(--army)}
 .dr-khad{background:var(--red-light);color:var(--red-dark)}
 .dr-la{background:var(--yellow-light);color:var(--yellow-dark)}
-
-/* === SUPABASE SETUP MODAL === */
 .modal-overlay{
   display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
   z-index:500;align-items:center;justify-content:center;padding:14px;
@@ -344,8 +311,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 .step-box a{color:var(--army-mid);font-weight:700}
 .modal-btns{display:flex;gap:7px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
 .divider{border:none;border-top:1px solid var(--gray-border);margin:12px 0}
-
-/* === TOAST === */
 .toast{
   position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(16px);
   background:#1e293b;color:white;padding:9px 16px;border-radius:20px;
@@ -357,8 +322,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 .toast.t-success{background:var(--army)}
 .toast.t-error{background:var(--red)}
 .toast.t-warn{background:var(--yellow)}
-
-/* === CONFIRM MODAL === */
 .confirm-modal{
   display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
   z-index:600;align-items:flex-end;justify-content:center;
@@ -371,8 +334,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 .confirm-box p{font-size:13px;color:var(--gray);margin-bottom:16px}
 .confirm-btns{display:flex;gap:8px}
 .confirm-btns .btn{flex:1;justify-content:center;padding:10px}
-
-/* === STAT MODAL (รายคน) === */
 .stat-modal{
   position:fixed;inset:0;background:rgba(0,0,0,.5);
   z-index:550;display:none;align-items:flex-end;justify-content:center;
@@ -392,19 +353,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 .sc-ma .sc-val{color:var(--army-mid)}
 .sc-khad .sc-val{color:var(--red)}
 .sc-la .sc-val{color:var(--yellow)}
-.date-history{max-height:200px;overflow-y:auto}
-.dh-item{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-bottom:1px solid var(--gray-border);font-size:12px}
-.dh-item:last-child{border-bottom:none}
-.status-badge{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
-.sb-มา{background:var(--army-pale);color:var(--army)}
-.sb-ขาด{background:var(--red-light);color:var(--red-dark)}
-.sb-ลา{background:var(--yellow-light);color:var(--yellow-dark)}
-
-/* === REMOTE FLASH === */
-.student-card.remote-flash{animation:rfFlash 1.2s ease}
-@keyframes rfFlash{0%,30%{background:#dbeafe}100%{background:white}}
-
-/* === DESKTOP === */
 @media(min-width:640px){
   .content-area{padding-bottom:16px}
   .student-list{padding:10px 14px;gap:7px}
@@ -413,7 +361,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="app-header">
   <div class="header-icon">🪖</div>
   <div>
@@ -427,7 +374,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   </div>
 </div>
 
-<!-- TOOLBAR -->
 <div class="toolbar">
   <div class="date-wrap">
     <label>📅</label>
@@ -440,13 +386,9 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   </div>
 </div>
 
-<!-- GONG TABS -->
 <div class="gong-tabs" id="gongTabs"></div>
-
-<!-- MOO BAR -->
 <div class="moo-bar" id="mooBar"></div>
 
-<!-- SUMMARY STRIP -->
 <div class="summary-strip" id="summaryStrip">
   <div class="sum-item si-ma" onclick="filterByStatus('มา')">
     <div class="sv" id="s-ma">0</div><div class="sl">มา</div>
@@ -465,7 +407,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   </div>
 </div>
 
-<!-- QUICK BAR -->
 <div class="quick-bar">
   <div class="search-wrap">
     <span class="search-ico">🔍</span>
@@ -476,23 +417,21 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   <span class="moo-label" id="mooLabel"></span>
 </div>
 
-<!-- CONTENT -->
 <div class="content-area" id="contentArea">
   <div class="student-list" id="studentList">
     <div class="empty-state">
-      <div class="ei">🪖</div>
-      <p>กำลังโหลดข้อมูล...</p>
+      <div class="ei">🗄️</div>
+      <p>กรุณาตั้งค่า Supabase ก่อนใช้งาน<br><small style="font-size:12px;opacity:.7">กดปุ่ม DB ที่มุมขวาบน</small></p>
     </div>
   </div>
 </div>
 
-<!-- FAB -->
 <div class="fab-sync" id="fabSync">
-  <span id="fabIcon">✅</span>
-  <span id="fabLabel">พร้อมใช้งาน</span>
+  <span id="fabIcon">⏳</span>
+  <span id="fabLabel">รอการเชื่อมต่อ</span>
 </div>
 
-<!-- ===== HISTORY DRAWER ===== -->
+<!-- HISTORY DRAWER -->
 <div class="drawer-overlay" id="histOverlay" onclick="closeHistory()"></div>
 <div class="drawer" id="histDrawer">
   <div class="drawer-handle"></div>
@@ -502,7 +441,7 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   <div class="drawer-body" id="histBody"></div>
 </div>
 
-<!-- ===== REPORT DRAWER ===== -->
+<!-- REPORT DRAWER -->
 <div class="drawer-overlay" id="rptOverlay" onclick="closeReport()"></div>
 <div class="drawer" id="rptDrawer" style="max-height:92vh">
   <div class="drawer-handle"></div>
@@ -554,7 +493,7 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   </div>
 </div>
 
-<!-- ===== ADMIN DRAWER ===== -->
+<!-- ADMIN DRAWER -->
 <div class="drawer-overlay" id="adminOverlay" onclick="closeAdmin()"></div>
 <div class="drawer" id="adminDrawer" style="max-height:94vh">
   <div class="drawer-handle"></div>
@@ -562,8 +501,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
     <button class="drawer-close" onclick="closeAdmin()">✕</button>
   </div>
   <div class="drawer-body" style="padding:12px;display:flex;flex-direction:column;gap:4px">
-
-    <!-- Add student -->
     <div class="admin-section">
       <h4>➕ เพิ่มนักเรียนใหม่</h4>
       <div class="form-row">
@@ -601,11 +538,10 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
       </button>
     </div>
 
-    <!-- Manage gong/moo -->
     <div class="admin-section">
       <h4>🗂️ จัดการกอง/หมู่</h4>
       <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px">
-        <button class="btn btn-army btn-sm" onclick="addGong()">➕ เพิ่มกอง</button>
+        <button class="btn btn-army btn-sm" onclick="addGongGroup()">➕ เพิ่มกอง</button>
         <button class="btn btn-ghost btn-sm" onclick="removeLastGong()">➖ ลบกองสุดท้าย</button>
       </div>
       <div style="display:flex;gap:7px;flex-wrap:wrap">
@@ -614,17 +550,15 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
       </div>
     </div>
 
-    <!-- Student list -->
     <div class="admin-section">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
         <h4 style="margin:0;border:none;padding:0">📋 รายชื่อนักเรียน</h4>
-        <select id="adminGongFilter" onchange="renderAdminList()" style="font-size:12px;padding:3px 6px;border:1px solid var(--gray-border);border-radius:6px;font-family:inherit"></select>
+        <select id="adminGongFilter" onchange="onAdminGongChange()" style="font-size:12px;padding:3px 6px;border:1px solid var(--gray-border);border-radius:6px;font-family:inherit"></select>
         <select id="adminMooFilter" onchange="renderAdminList()" style="font-size:12px;padding:3px 6px;border:1px solid var(--gray-border);border-radius:6px;font-family:inherit"></select>
       </div>
       <div class="student-manage-list" id="adminStudentList"></div>
     </div>
 
-    <!-- Import CSV -->
     <div class="admin-section">
       <h4>📥 นำเข้าจาก CSV</h4>
       <div class="import-zone" onclick="document.getElementById('csvFile').click()">
@@ -641,7 +575,6 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
       </button>
     </div>
 
-    <!-- Danger zone -->
     <div class="admin-section">
       <h4 style="color:var(--red)">⚠️ ล้างข้อมูล</h4>
       <div style="display:flex;gap:7px;flex-wrap:wrap">
@@ -652,21 +585,20 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   </div>
 </div>
 
-<!-- ===== SUPABASE SETUP MODAL ===== -->
+<!-- SUPABASE SETUP MODAL -->
 <div class="modal-overlay" id="setupModal">
   <div class="modal">
     <h3>🗄️ ตั้งค่า Supabase</h3>
     <p class="subtitle">เชื่อมต่อฐานข้อมูลออนไลน์เพื่อซิงค์ข้อมูลทุกอุปกรณ์</p>
     <div class="step-box">
-      <ol>
-        <li>เข้า <a href="https://supabase.com" target="_blank">supabase.com</a> → สร้างโปรเจกต์</li>
-        <li>ไปที่ <b>Table Editor</b> → สร้างตาราง <b>attendance</b></li>
-        <li>คอลัมน์: <b>id</b> (text PK), <b>date</b> (text), <b>gong</b> (text), <b>data</b> (json), <b>updated_at</b> (timestamptz)</li>
-        <li>ไปที่ <b>Project Settings → API</b> คัดลอก URL และ anon key</li>
-        <li>เปิด <b>RLS</b> และเพิ่ม Policy: allow all for anon</li>
-      </ol>
+      <b>ตาราง Supabase ที่ต้องสร้าง:</b><br><br>
+      <b>1. ตาราง students</b><br>
+      คอลัมน์: <code>id</code> (text PK), <code>gong</code> (text), <code>moo</code> (int4), <code>no</code> (int4), <code>name</code> (text), <code>room</code> (text)<br><br>
+      <b>2. ตาราง attendance</b><br>
+      คอลัมน์: <code>id</code> (text PK), <code>date</code> (text), <code>gong</code> (text), <code>data</code> (json), <code>updated_at</code> (timestamptz)<br><br>
+      <b>3. เปิด RLS</b> ทั้งสองตาราง แล้วเพิ่ม Policy: allow all for anon
     </div>
-    <div class="form-group">
+    <div class="form-group" style="margin-bottom:10px">
       <label>Supabase URL</label>
       <input type="text" id="cfg-url" placeholder="https://xxxx.supabase.co">
     </div>
@@ -683,7 +615,7 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   </div>
 </div>
 
-<!-- ===== STAT MODAL ===== -->
+<!-- STAT MODAL -->
 <div class="stat-modal" id="statModal">
   <div class="stat-box">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
@@ -697,7 +629,7 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   </div>
 </div>
 
-<!-- ===== CONFIRM MODAL ===== -->
+<!-- CONFIRM MODAL -->
 <div class="confirm-modal" id="confirmModal">
   <div class="confirm-box">
     <h4 id="confTitle"></h4>
@@ -709,305 +641,131 @@ input[type="date"]:focus{border-color:var(--army-mid);outline:none}
   </div>
 </div>
 
-<!-- ===== TOAST ===== -->
 <div class="toast" id="toast"></div>
 
-<!-- SheetJS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<!-- PapaParse for CSV import -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-// ==================== SCOUT DATA ====================
-// เหล่าเสนา (ลูกเสือ/เนตรนารีสามัญรุ่นใหญ่) — ข้อมูลเริ่มต้น
-// โครงสร้าง: SCOUT[กอง][หมู่] = [{no,id,name,room}]
-let SCOUT = {
-  "กอง1": {
-    1:[
-      {no:1,id:"37876",name:"เด็กหญิงปวิณา อนุอัน",room:"1/1"},
-      {no:2,id:"37883",name:"เด็กหญิงอริสรา รักษาเมือง",room:"1/1"},
-      {no:3,id:"37904",name:"เด็กหญิงปิยวรรณ สีลา",room:"1/2"},
-      {no:4,id:"38354",name:"เด็กหญิงธนัชพร ร้อยแก้ว",room:"1/14"},
-      {no:5,id:"38366",name:"เด็กหญิงศิริญากร จันทะมุลตรี",room:"1/14"},
-      {no:6,id:"38395",name:"เด็กหญิงนรินทร์พร ดอนเมืองพรหม",room:"1/15"},
-      {no:7,id:"38400",name:"เด็กหญิงเปรมสุดา สายหลักคำ",room:"1/15"},
-      {no:8,id:"38404",name:"เด็กหญิงรตนพร อินทร์กง",room:"1/15"},
-      {no:9,id:"38435",name:"เด็กหญิงณัฐชญา กาลจักร",room:"1/16"},
-      {no:10,id:"38444",name:"เด็กหญิงพีชญา หมื่นศักดา",room:"1/16"},
-    ],
-    2:[
-      {no:11,id:"37868",name:"เด็กหญิงกนกวรรณ หอมกระชาย",room:"1/1"},
-      {no:12,id:"37882",name:"เด็กหญิงสุรดา นึกชอบ",room:"1/1"},
-      {no:13,id:"37914",name:"เด็กหญิงไอรดา เงินพุ่ม",room:"1/2"},
-      {no:14,id:"38349",name:"เด็กหญิงกานต์เกล้า จันทรเสนา",room:"1/14"},
-      {no:15,id:"38370",name:"เด็กหญิงอริสา คำชลธาร์",room:"1/14"},
-      {no:16,id:"38393",name:"เด็กหญิงณัฏฐณิชา ธนรัชเดช",room:"1/15"},
-      {no:17,id:"38406",name:"เด็กหญิงศศิกานต์ นันทะแสง",room:"1/15"},
-      {no:18,id:"38409",name:"เด็กหญิงอังศุมาลิน ขันเงิน",room:"1/15"},
-      {no:19,id:"38440",name:"เด็กหญิงพัชรี แก้วประเสริฐ",room:"1/16"},
-      {no:20,id:"38443",name:"เด็กหญิงพิมพ์ญาดา แก้วภูบาล",room:"1/16"},
-    ],
-    3:[
-      {no:21,id:"37872",name:"เด็กหญิงณัฐชา ใต้ชมภู",room:"1/1"},
-      {no:22,id:"37873",name:"เด็กหญิงณัฐนันท์ ภะวะกุญชร",room:"1/1"},
-      {no:23,id:"37899",name:"เด็กหญิงณัฏฐลดา โสภากุล",room:"1/2"},
-      {no:24,id:"38350",name:"เด็กหญิงกานต์พิชชา ศรีสุราษฎร์",room:"1/14"},
-      {no:25,id:"38369",name:"เด็กหญิงสุรภา ศิริวงษ์",room:"1/14"},
-      {no:26,id:"38385",name:"เด็กหญิงกัญญาภรณ์ มีพร้อม",room:"1/15"},
-      {no:27,id:"38389",name:"เด็กหญิงชาลิดา ดงชมภู",room:"1/15"},
-      {no:28,id:"38405",name:"เด็กหญิงวรกานต์ ปัญญาละ",room:"1/15"},
-      {no:29,id:"38432",name:"เด็กหญิงชฎาพร ภูสทด",room:"1/16"},
-      {no:30,id:"38445",name:"เด็กหญิงมนัสนันท์ ทองสัน",room:"1/16"},
-    ],
-    4:[
-      {no:31,id:"37875",name:"เด็กหญิงปริญญาภรณ์ บุตรพรม",room:"1/1"},
-      {no:32,id:"37879",name:"เด็กหญิงรัตนาภรณ์ ไหวดี",room:"1/1"},
-      {no:33,id:"37911",name:"เด็กหญิงหนึ่งนุช พาพันธ์",room:"1/2"},
-      {no:34,id:"38361",name:"เด็กหญิงแพรวรินทร์ แจ้งจันทร์",room:"1/14"},
-      {no:35,id:"38362",name:"เด็กหญิงภัทรวดี ปกิระนะ",room:"1/14"},
-      {no:36,id:"38386",name:"เด็กหญิงกานต์สินี เครือเนตร",room:"1/15"},
-      {no:37,id:"38408",name:"เด็กหญิงอมรรัตน์ เหล่าสิงห์",room:"1/15"},
-      {no:38,id:"38429",name:"เด็กหญิงกนกอร สมสนุก",room:"1/16"},
-      {no:39,id:"38449",name:"เด็กหญิงอคัมย์สิริ ตอพล",room:"1/16"},
-    ],
-    5:[
-      {no:40,id:"37856",name:"เด็กชายกันติทัต ราชวงษา",room:"1/1"},
-      {no:41,id:"37857",name:"เด็กชายจักรวรรดิ พรประสิทธิ์",room:"1/1"},
-      {no:42,id:"37863",name:"เด็กชายปิติพงศ์ เบิกบานดี",room:"1/1"},
-      {no:43,id:"37890",name:"เด็กชายพิชัยยุทธ สิทธิโชติ",room:"1/2"},
-      {no:44,id:"38332",name:"เด็กชายกรวิชญ์ ฟูมบุญ",room:"1/14"},
-      {no:45,id:"38334",name:"เด็กชายกิตติ นันทะรุ้ง",room:"1/14"},
-      {no:46,id:"38338",name:"เด็กชายณัฐพล ปะโสทานัง",room:"1/14"},
-      {no:47,id:"38377",name:"เด็กชายธนภัทร เทพศิลา",room:"1/15"},
-      {no:48,id:"38412",name:"เด็กชายกฤติธี สิงห์ที",room:"1/16"},
-      {no:49,id:"38414",name:"เด็กชายเจษฎา ตะวัน",room:"1/16"},
-      {no:50,id:"38420",name:"เด็กชายธีร์ภูวินท์ จันดาเลิศ",room:"1/16"},
-    ],
-    6:[
-      {no:51,id:"37859",name:"เด็กชายธนพงษ์ จันทร์วิเศษ",room:"1/1"},
-      {no:52,id:"37861",name:"เด็กชายธนภัทร ราชบุรี",room:"1/1"},
-      {no:53,id:"37887",name:"เด็กชายจิตตรานุภาพ สาฤษี",room:"1/2"},
-      {no:54,id:"37889",name:"เด็กชายธนชัย โคตรสีทา",room:"1/2"},
-      {no:55,id:"38333",name:"เด็กชายกฤติภัทร โพธิกัญญา",room:"1/14"},
-      {no:56,id:"38340",name:"เด็กชายดาร์ชาน บัวแย้ม",room:"1/14"},
-      {no:57,id:"38345",name:"เด็กชายวงศกร ไชฮะนิจ",room:"1/14"},
-      {no:58,id:"38379",name:"เด็กชายพุฒิพงศ์ แน่นอุดร",room:"1/15"},
-      {no:59,id:"38417",name:"เด็กชายณัฐพงษ์ เชิญชม",room:"1/16"},
-      {no:60,id:"38418",name:"เด็กชายธนวัชร จัดเขตรกรณ์",room:"1/16"},
-      {no:61,id:"38424",name:"เด็กชายอชิรวิชญ์ วัฒนะน้อย",room:"1/16"},
-    ],
-  },
-  "กอง2": {
-    1:[
-      {no:1,id:"37870",name:"เด็กหญิงจิรกานดา ตาคม",room:"1/1"},
-      {no:2,id:"37871",name:"เด็กหญิงโชติกา จันดาดาล",room:"1/1"},
-      {no:3,id:"37901",name:"เด็กหญิงธิดารัตน์ ราษฎร์ยำรุง",room:"1/2"},
-      {no:4,id:"38359",name:"เด็กหญิงปภัสสร บัวหงษา",room:"1/14"},
-      {no:5,id:"38371",name:"เด็กหญิงอารยา แก้วนุ้ย",room:"1/14"},
-      {no:6,id:"38387",name:"เด็กหญิงขนิษฐา นาขัน",room:"1/15"},
-      {no:7,id:"38398",name:"เด็กหญิงปัณฑิตา ศรีสุนาครัว",room:"1/15"},
-      {no:8,id:"38433",name:"เด็กหญิงชนิดา ชนะสะแบง",room:"1/16"},
-      {no:9,id:"38438",name:"เด็กหญิงนภาพร อินกง",room:"1/16"},
-    ],
-    2:[
-      {no:10,id:"37878",name:"เด็กหญิงพิชญา อินทะชัย",room:"1/1"},
-      {no:11,id:"37894",name:"เด็กหญิงกมลพร พิลาเคน",room:"1/2"},
-      {no:12,id:"37909",name:"เด็กหญิงสิริยานี วงษ์คำพระ",room:"1/2"},
-      {no:13,id:"38360",name:"เด็กหญิงเปรมปรีญา ขันทะสาร",room:"1/14"},
-      {no:14,id:"38363",name:"เด็กหญิงมัชชา คัตวงษ์",room:"1/14"},
-      {no:15,id:"38382",name:"เด็กหญิงกมลลักษณ์ ทำไหม",room:"1/15"},
-      {no:16,id:"38383",name:"เด็กหญิงกรรณิการ์ ตัญลา",room:"1/15"},
-      {no:17,id:"38428",name:"เด็กหญิงกชพร พรมเภา",room:"1/16"},
-      {no:18,id:"38439",name:"เด็กหญิงเปี่ยมสุข พลค้อ",room:"1/16"},
-    ],
-    3:[
-      {no:19,id:"37877",name:"เด็กหญิงพรรณภรณ์ สุขะ",room:"1/1"},
-      {no:20,id:"37907",name:"เด็กหญิงศิรประภา ปัญจะภักดี",room:"1/2"},
-      {no:21,id:"37912",name:"เด็กหญิงอรสุรางค์ หมั่นวิชา",room:"1/2"},
-      {no:22,id:"38348",name:"เด็กหญิงกัญญาณัฐ นามมูลตรี",room:"1/14"},
-      {no:23,id:"38358",name:"เด็กหญิงนิจชยา ไพรออ",room:"1/14"},
-      {no:24,id:"38399",name:"เด็กหญิงปาณิสรา วันทองทักษ์",room:"1/15"},
-      {no:25,id:"38410",name:"เด็กหญิงอัญชิสา พงษ์ชมภู",room:"1/15"},
-      {no:26,id:"38437",name:"เด็กหญิงธิดารัตน์ สุขศาลา",room:"1/16"},
-      {no:27,id:"38446",name:"เด็กหญิงรัตติกาญจน์ ชนะสะแบง",room:"1/16"},
-    ],
-    4:[
-      {no:28,id:"37881",name:"เด็กหญิงสุกัลยา นามโว",room:"1/1"},
-      {no:29,id:"37896",name:"เด็กหญิงชลทิพย์ บุญช่วย",room:"1/2"},
-      {no:30,id:"37900",name:"เด็กหญิงณัฐชา พึ่งคำนวน",room:"1/2"},
-      {no:31,id:"37910",name:"เด็กหญิงสุชัญญา ดงแสนสุข",room:"1/2"},
-      {no:32,id:"38353",name:"เด็กหญิงณัชชานันท์ เลาะไธสง",room:"1/14"},
-      {no:33,id:"38368",name:"เด็กหญิงสุภาทิพย์ โพธิกา",room:"1/14"},
-      {no:34,id:"38391",name:"เด็กหญิงณัชชา เทือกชัยแดง",room:"1/15"},
-      {no:35,id:"38403",name:"เด็กหญิงพีชญา พันเนียม",room:"1/15"},
-      {no:36,id:"38434",name:"เด็กหญิงณัฐชญา ประเสริฐศรี",room:"1/16"},
-      {no:37,id:"38447",name:"เด็กหญิงศรัณยา ดอกไม้",room:"1/16"},
-    ],
-    5:[
-      {no:38,id:"37864",name:"เด็กชายวีรภัทร สินโพธิ์",room:"1/1"},
-      {no:39,id:"37867",name:"เด็กชายสหรัฐ โพธิ์ศรี",room:"1/1"},
-      {no:40,id:"37885",name:"เด็กชายกิตติศักดิ์ ชาวยศ",room:"1/2"},
-      {no:41,id:"37892",name:"เด็กชายวชิรวิทย์ สารีพันธ์",room:"1/2"},
-      {no:42,id:"38335",name:"เด็กชายกิตติวัฒน์ พันธ์จันทร์",room:"1/14"},
-      {no:43,id:"38336",name:"เด็กชายชุติเทพ กองหล้า",room:"1/14"},
-      {no:44,id:"38378",name:"เด็กชายนันทวุฒิ โพธิ์ศรี",room:"1/15"},
-      {no:45,id:"38380",name:"เด็กชายภูมิภัทร พามา",room:"1/15"},
-      {no:46,id:"38416",name:"เด็กชายณรันย์ภัทร์ จำปาบุรี",room:"1/16"},
-      {no:47,id:"38422",name:"เด็กชายรพีพัฒน์ หิริโกกุล",room:"1/16"},
-      {no:48,id:"38423",name:"เด็กชายรัตตัญญู วีระกุล",room:"1/16"},
-    ],
-    6:[
-      {no:49,id:"37862",name:"เด็กชายธนาวุฒิ ขันเงิน",room:"1/1"},
-      {no:50,id:"37865",name:"เด็กชายศิวกร พิลาเคน",room:"1/1"},
-      {no:51,id:"37886",name:"เด็กชายจตุรภัทร กล้าหาญ",room:"1/2"},
-      {no:52,id:"37888",name:"เด็กชายจิรพัฒน์ ปัญญาทอง",room:"1/2"},
-      {no:53,id:"38342",name:"เด็กชายบัญญวิทย์ ซองทุมมินทร์",room:"1/14"},
-      {no:54,id:"38344",name:"เด็กชายพูวเดช มฤกูล",room:"1/14"},
-      {no:55,id:"38375",name:"เด็กชายณัชพล คนครอง",room:"1/15"},
-      {no:56,id:"38376",name:"เด็กชายตรีทเศศ หม่อมกระโทก",room:"1/15"},
-      {no:57,id:"38381",name:"เด็กชายภูวภัทร นากลางดอน",room:"1/15"},
-      {no:58,id:"38421",name:"เด็กชายนครินทร์ สอนเพ็ง",room:"1/16"},
-      {no:59,id:"38426",name:"เด็กชายอธิวัฒน์ สีมี",room:"1/16"},
-    ],
-  },
-  "กอง3": {
-    1:[
-      {no:1,id:"37869",name:"เด็กหญิงขวัญอุมา พุดกุดเรือ",room:"1/1"},
-      {no:2,id:"37905",name:"เด็กหญิงภวรัญชน์ ศรีแก้ว",room:"1/2"},
-      {no:3,id:"37906",name:"เด็กหญิงมนัสนันท์ กล้าหาญ",room:"1/2"},
-      {no:4,id:"37913",name:"เด็กหญิงอาลิตตา ตะโจปะรัง",room:"1/2"},
-      {no:5,id:"38352",name:"เด็กหญิงจิดาภา หลักกอ",room:"1/14"},
-      {no:6,id:"38355",name:"เด็กหญิงธันยพร แดนนอก",room:"1/14"},
-      {no:7,id:"38392",name:"เด็กหญิงณัชชานันท์ มาลาน้อย",room:"1/15"},
-      {no:8,id:"38396",name:"เด็กหญิงนุชนาถ เรื่อศรีจันทร์",room:"1/15"},
-      {no:9,id:"38431",name:"เด็กหญิงกัญญาภัค วงษ์สิงห์",room:"1/16"},
-      {no:10,id:"38450",name:"เด็กหญิงอภิชญา ชารีผาย",room:"1/16"},
-    ],
-    2:[
-      {no:11,id:"37884",name:"เด็กหญิงอัญมณี รูปสวย",room:"1/1"},
-      {no:12,id:"37895",name:"เด็กหญิงกานต์พิชชา โสภาดี",room:"1/2"},
-      {no:13,id:"37903",name:"เด็กหญิงเบญญาดา ชาติปรีชากุล",room:"1/2"},
-      {no:14,id:"38357",name:"เด็กหญิงนันทิดา พิมพ์โชติ",room:"1/14"},
-      {no:15,id:"38364",name:"เด็กหญิงวิไลวรรณ มงคลนำ",room:"1/14"},
-      {no:16,id:"38388",name:"เด็กหญิงจุฑาพร ไชยคำ",room:"1/15"},
-      {no:17,id:"38397",name:"เด็กหญิงปภาดา น้ำใจดี",room:"1/15"},
-      {no:18,id:"38436",name:"เด็กหญิงธัญญาพร แก้วภูบาล",room:"1/16"},
-      {no:19,id:"38442",name:"เด็กหญิงพิชญาภา เมืองสันเที้ยะ",room:"1/16"},
-      {no:20,id:"38394",name:"เด็กหญิงณิชาพร กาแก้วมิตมาน",room:"1/15"},
-    ],
-    3:[
-      {no:21,id:"37880",name:"เด็กหญิงลัลนา วงษ์เวียง",room:"1/1"},
-      {no:22,id:"37898",name:"เด็กหญิงณัฎฐณิชา พรหมแสง",room:"1/2"},
-      {no:23,id:"37902",name:"เด็กหญิงธิติกานต์ คำโพธิ์",room:"1/2"},
-      {no:24,id:"38351",name:"เด็กหญิงเกวลิน เผอิญอ่อน",room:"1/14"},
-      {no:25,id:"38365",name:"เด็กหญิงศรัณยพร สุทธิวรรณา",room:"1/14"},
-      {no:26,id:"38384",name:"เด็กหญิงกวินทิพย์ จันทโพธิ์",room:"1/15"},
-      {no:27,id:"38390",name:"เด็กหญิงณฐอร เชิญชม",room:"1/15"},
-      {no:28,id:"38448",name:"เด็กหญิงสุปัณทิตา จันทรสิงหาญ",room:"1/16"},
-      {no:29,id:"38451",name:"เด็กหญิงอภิสรา สามพันธ์",room:"1/16"},
-      {no:30,id:"38407",name:"เด็กหญิงอนันธิดา มหาโยธี",room:"1/15"},
-    ],
-    4:[
-      {no:31,id:"37874",name:"เด็กหญิงดวงรัตน์ บุดดีคำ",room:"1/1"},
-      {no:32,id:"37897",name:"เด็กหญิงฐานิตา ชูพุดซา",room:"1/2"},
-      {no:33,id:"37908",name:"เด็กหญิงสรารัตน์ ชาแท่น",room:"1/2"},
-      {no:34,id:"38356",name:"เด็กหญิงนภัสสร ก้อนคำ",room:"1/14"},
-      {no:35,id:"38367",name:"เด็กหญิงศุภกานต์ พลยศ",room:"1/14"},
-      {no:36,id:"38401",name:"เด็กหญิงพชรพรรณ ประเสริฐสังข์",room:"1/15"},
-      {no:37,id:"38402",name:"เด็กหญิงพิชญธิดา สุระเทวี",room:"1/15"},
-      {no:38,id:"38430",name:"เด็กหญิงกัญญาพัชร ขาลเกตุ",room:"1/16"},
-      {no:39,id:"38441",name:"เด็กหญิงพิชชาพร เอี้ยนไธสง",room:"1/16"},
-      {no:40,id:"38411",name:"เด็กหญิงอารยา ลำมะนา",room:"1/15"},
-    ],
-    5:[
-      {no:41,id:"37855",name:"เด็กชายกวีวัฒน์ เสริฐสาย",room:"1/1"},
-      {no:42,id:"37858",name:"เด็กชายฐวิชหิรัญ ชิตคำพูนิธิธัญโชค",room:"1/1"},
-      {no:43,id:"37893",name:"เด็กชายเอกรินทร์ ผการัตน์",room:"1/2"},
-      {no:44,id:"38339",name:"เด็กชายณัฐภัทร ธรรมเจริญ",room:"1/14"},
-      {no:45,id:"38341",name:"เด็กชายทรัพย์ศิริ ปุณประเสริฐ",room:"1/14"},
-      {no:46,id:"38346",name:"เด็กชายวรากร สร้อยวิทยา",room:"1/14"},
-      {no:47,id:"38372",name:"เด็กชายกมล สิทธิพรหม",room:"1/15"},
-      {no:48,id:"38373",name:"เด็กชายกลวัชร วงษ์นุรักษ์",room:"1/15"},
-      {no:49,id:"38413",name:"เด็กชายจักรธรณ์ โฮงมาตย์",room:"1/16"},
-      {no:50,id:"38425",name:"เด็กชายอชิระ หล้าบุญมา",room:"1/16"},
-    ],
-    6:[
-      {no:51,id:"37860",name:"เด็กชายธนพนธ์ ชื่นตา",room:"1/1"},
-      {no:52,id:"37866",name:"เด็กชายสพล แสนศิริ",room:"1/1"},
-      {no:53,id:"37891",name:"เด็กชายภูริณัฐ ศรีโบราณ",room:"1/2"},
-      {no:54,id:"38337",name:"เด็กชายชุติพนธ์ นาเจริญ",room:"1/14"},
-      {no:55,id:"38343",name:"เด็กชายพีรยช พันพินิจ",room:"1/14"},
-      {no:56,id:"38347",name:"เด็กชายศิริศักดิ์ บุญแนบ",room:"1/14"},
-      {no:57,id:"38374",name:"เด็กชายจิรวิชญ์ สูนย์เสียง",room:"1/15"},
-      {no:58,id:"38415",name:"เด็กชายชนะชัย ธิปมวล",room:"1/16"},
-      {no:59,id:"38419",name:"เด็กชายธีรภัทร ใจใส",room:"1/16"},
-      {no:60,id:"38427",name:"เด็กชายอิทธิพล วิจารณรงค์",room:"1/16"},
-    ],
-  }
-};
-
-const LS_SCOUT = 'scout_sena_students';
-const LS_ATT   = 'scout_sena_att';
-const LS_CFG   = 'scout_sena_cfg';
+const LS_CFG = 'scout_sena_cfg';
+const LS_ATT = 'scout_sena_att';
 
 // ==================== STATE ====================
+let SCOUT = {};           // กอง → หมู่ → [นักเรียน]
+let attendance = {};      // id → {status, note}
+let localSaved = {};      // date → attendance snapshot (สำรอง)
+let sbClient = null;      // Supabase client instance
 let curGong = 0;
 let curMoo  = 1;
-let attendance   = {};  // id → {status, note}
-let localSaved   = {};  // date → attendance snapshot
-let supabase     = null;
 let noteDebounce = {};
-let filterStatus = null; // null = all
+let filterStatus = null;
 let searchQuery  = '';
+let allAttData   = {};
+let availableDates = [];
+let selectedDates  = new Set();
+
+// ==================== HELPERS ====================
+function GONG_KEYS() { return Object.keys(SCOUT); }
+
+function formatThaiDate(dateStr) {
+  if (!dateStr) return '';
+  const [y, m, d] = dateStr.split('-');
+  const mn = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  const wd = ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
+  const dt = new Date(dateStr);
+  return `${wd[dt.getDay()]} ${parseInt(d)} ${mn[parseInt(m)]} ${parseInt(y)+543}`;
+}
 
 // ==================== SUPABASE ====================
+function requireSB() {
+  if (!sbClient) {
+    showToast('⚠️ กรุณาเชื่อมต่อ Supabase ก่อน (กดปุ่ม DB)', 'warn', 4000);
+    return false;
+  }
+  return true;
+}
+
 function initSupabase(url, key) {
   try {
-    const { createClient } = window.supabaseLib;
-    supabase = createClient(url, key);
+    const lib = window.supabase || window.supabaseJs;
+    sbClient = lib.createClient(url, key);
     setSyncStatus('online');
     showToast('🗄️ เชื่อมต่อ Supabase แล้ว', 'success');
-    loadForDate();
+    // โหลด students + attendance หลังเชื่อมต่อ
+    loadStudents().then(() => loadForDate());
   } catch(e) {
-    supabase = null; setSyncStatus('error');
+    sbClient = null;
+    setSyncStatus('error');
     showToast('❌ Supabase config ผิด: ' + e.message, 'error');
   }
 }
 
-async function sbSave(date, gong) {
-  if (!supabase || !date) return;
-  const gk = GONG_KEYS()[gong];
-  const data = {};
-  for (const [mStr, students] of Object.entries(SCOUT[gk]||{})) {
-    data[mStr] = {};
-    students.forEach(s => { if(attendance[s.id]) data[mStr][s.id] = attendance[s.id]; });
-  }
+// ---------- students table ----------
+async function loadStudents() {
+  if (!sbClient) return;
+  setFab('syncing', '⏳ โหลดรายชื่อ...');
   try {
-    await supabase.from('attendance').upsert({
-      id: `${date}_${gk}`,
-      date, gong: gk, data,
+    const { data, error } = await sbClient
+      .from('students')
+      .select('*')
+      .order('gong').order('moo').order('no');
+    if (error) throw error;
+
+    SCOUT = {};
+    (data || []).forEach(s => {
+      if (!SCOUT[s.gong]) SCOUT[s.gong] = {};
+      if (!SCOUT[s.gong][s.moo]) SCOUT[s.gong][s.moo] = [];
+      SCOUT[s.gong][s.moo].push({ no: s.no, id: s.id, name: s.name, room: s.room });
+    });
+
+    buildGongTabs();
+    buildMooBar();
+    setFab('saved', '✅ โหลดรายชื่อแล้ว');
+  } catch(e) {
+    setSyncStatus('error');
+    setFab('error', '❌ โหลดรายชื่อไม่ได้');
+    showToast('❌ โหลดนักเรียนจาก Supabase ไม่ได้: ' + e.message, 'error');
+  }
+}
+
+// ---------- attendance table ----------
+async function sbSave(date, gongKey) {
+  if (!sbClient || !date) return;
+  const data = {};
+  Object.entries(SCOUT[gongKey] || {}).forEach(([mStr, students]) => {
+    data[mStr] = {};
+    students.forEach(s => {
+      if (attendance[s.id]) data[mStr][s.id] = attendance[s.id];
+    });
+  });
+  try {
+    const { error } = await sbClient.from('attendance').upsert({
+      id: `${date}_${gongKey}`,
+      date, gong: gongKey, data,
       updated_at: new Date().toISOString()
     });
-  } catch(e) { console.warn('supabase save:', e); }
+    if (error) throw error;
+  } catch(e) {
+    console.warn('sbSave error:', e);
+  }
 }
 
 async function sbLoad(date) {
-  if (!supabase) return null;
+  if (!sbClient) return null;
   setSyncStatus('syncing');
   try {
-    const { data, error } = await supabase.from('attendance')
+    const { data, error } = await sbClient.from('attendance')
       .select('*').eq('date', date);
     if (error) throw error;
     const merged = {};
-    (data||[]).forEach(row => {
-      const d = row.data || {};
-      for (const [,mData] of Object.entries(d)) {
-        if (typeof mData==='object') {
-          for (const [id,val] of Object.entries(mData)) {
+    (data || []).forEach(row => {
+      Object.values(row.data || {}).forEach(mData => {
+        if (typeof mData === 'object') {
+          Object.entries(mData).forEach(([id, val]) => {
             if (val?.status) merged[id] = val;
-          }
+          });
         }
-      }
+      });
     });
     setSyncStatus('online');
     return merged;
@@ -1018,86 +776,79 @@ async function sbLoad(date) {
 }
 
 async function sbGetAllDates() {
-  if (!supabase) return null;
+  if (!sbClient) return [];
   try {
-    const { data } = await supabase.from('attendance').select('date');
-    const dates = new Set((data||[]).map(r=>r.date));
-    return [...dates].sort().reverse();
-  } catch(e) { return null; }
+    const { data } = await sbClient.from('attendance').select('date');
+    return [...new Set((data || []).map(r => r.date))].sort().reverse();
+  } catch(e) { return []; }
 }
 
+// ---------- auto-save ----------
 async function autoSave(id) {
   backupToLocal();
-  if (!supabase) { setFab('saved','💾 Local'); return; }
-  setFab('syncing','⏳ บันทึก...');
-  // find gong index
-  const gi = GONG_KEYS().findIndex(gk =>
-    Object.values(SCOUT[gk]||{}).flat().find(s=>s.id===id)
+  if (!sbClient) { setFab('saved', '💾 Local'); return; }
+  setFab('syncing', '⏳ บันทึก...');
+  const gk = GONG_KEYS().find(k =>
+    Object.values(SCOUT[k] || {}).flat().find(s => s.id === id)
   );
-  if (gi < 0) return;
+  if (!gk) return;
   const date = document.getElementById('checkDate').value;
-  await sbSave(date, gi);
-  setFab('saved','✅ ซิงค์แล้ว');
+  await sbSave(date, gk);
+  setFab('saved', '✅ ซิงค์แล้ว');
 }
+
 function autoSaveDebounced(id) {
   clearTimeout(noteDebounce[id]);
   noteDebounce[id] = setTimeout(() => autoSave(id), 700);
 }
+
 async function autoSaveMoo() {
   backupToLocal();
-  if (!supabase) return;
-  setFab('syncing','⏳ บันทึก...');
+  if (!sbClient) { setFab('saved', '💾 Local'); return; }
+  setFab('syncing', '⏳ บันทึก...');
   const date = document.getElementById('checkDate').value;
-  await sbSave(date, curGong);
-  setFab('saved','✅ ซิงค์แล้ว');
+  const gk = GONG_KEYS()[curGong];
+  await sbSave(date, gk);
+  setFab('saved', '✅ ซิงค์แล้ว');
 }
 
 function backupToLocal() {
   const date = document.getElementById('checkDate').value;
   if (!date) return;
   localSaved[date] = JSON.parse(JSON.stringify(attendance));
-  try { localStorage.setItem(LS_ATT, JSON.stringify(localSaved)); } catch(e){}
+  try { localStorage.setItem(LS_ATT, JSON.stringify(localSaved)); } catch(e) {}
 }
 
+// ==================== FAB / STATUS ====================
 function setFab(state, label) {
   const fab = document.getElementById('fabSync');
   if (!fab) return;
-  fab.className = 'fab-sync' + (state==='syncing'?' syncing':state==='error'?' error':state==='remote'?' remote':'');
-  document.getElementById('fabIcon').textContent = state==='syncing'?'⏳':state==='error'?'⚠️':state==='remote'?'🔄':'✅';
+  fab.className = 'fab-sync' + (state === 'syncing' ? ' syncing' : state === 'error' ? ' error' : '');
+  document.getElementById('fabIcon').textContent =
+    state === 'syncing' ? '⏳' : state === 'error' ? '⚠️' : '✅';
   document.getElementById('fabLabel').textContent = label;
-  if (state==='saved') {
+  if (state === 'saved') {
     clearTimeout(fab._t);
-    fab._t = setTimeout(() => setFab('idle','✅ พร้อม'), 3000);
+    fab._t = setTimeout(() => setFab('idle', '✅ พร้อม'), 3000);
   }
 }
+
 function setSyncStatus(s) {
-  const d = document.getElementById('syncDot');
-  d.className = 'sync-dot ' + s;
-}
-
-// ==================== HELPERS ====================
-function GONG_KEYS() { return Object.keys(SCOUT); }
-
-function saveScoutData() {
-  try { localStorage.setItem(LS_SCOUT, JSON.stringify(SCOUT)); } catch(e){}
-}
-
-function formatThaiDate(dateStr) {
-  if (!dateStr) return '';
-  const [y,m,d] = dateStr.split('-');
-  const mn=['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-  const wd=['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
-  const dt = new Date(dateStr);
-  return `${wd[dt.getDay()]} ${parseInt(d)} ${mn[parseInt(m)]} ${parseInt(y)+543}`;
+  document.getElementById('syncDot').className = 'sync-dot ' + (s || '');
 }
 
 // ==================== BUILD UI ====================
 function buildGongTabs() {
   const gks = GONG_KEYS();
-  document.getElementById('gongTabs').innerHTML = gks.map((gk,i) => {
-    const total = Object.values(SCOUT[gk]||{}).reduce((a,m)=>a+m.length,0);
-    const ma = Object.values(SCOUT[gk]||{}).flat().filter(s=>attendance[s.id]?.status==='มา').length;
-    return `<button class="gong-tab${i===curGong?' active':''}" onclick="switchGong(${i})">
+  if (!gks.length) {
+    document.getElementById('gongTabs').innerHTML = '';
+    buildStudentList();
+    return;
+  }
+  document.getElementById('gongTabs').innerHTML = gks.map((gk, i) => {
+    const total = Object.values(SCOUT[gk] || {}).reduce((a, m) => a + m.length, 0);
+    const ma = Object.values(SCOUT[gk] || {}).flat().filter(s => attendance[s.id]?.status === 'มา').length;
+    return `<button class="gong-tab${i === curGong ? ' active' : ''}" onclick="switchGong(${i})">
       <span>${gk}</span>
       <span class="gt-name">ลูกเสือเหล่าเสนา</span>
       <span class="gt-count">${ma}/${total} คน</span>
@@ -1107,46 +858,49 @@ function buildGongTabs() {
 
 function buildMooBar() {
   const gk = GONG_KEYS()[curGong];
-  const moos = Object.keys(SCOUT[gk]||{}).map(Number).sort((a,b)=>a-b);
+  if (!gk) { document.getElementById('mooBar').innerHTML = ''; return; }
+  const moos = Object.keys(SCOUT[gk] || {}).map(Number).sort((a, b) => a - b);
+  if (!moos.includes(curMoo) && moos.length) curMoo = moos[0];
   document.getElementById('mooBar').innerHTML = moos.map(m => {
-    const students = SCOUT[gk][m]||[];
-    const ma = students.filter(s=>attendance[s.id]?.status==='มา').length;
-    return `<button class="moo-btn${m===curMoo?' active':''}" id="moobtn-${m}" onclick="switchMoo(${m})">
+    const students = SCOUT[gk][m] || [];
+    const ma = students.filter(s => attendance[s.id]?.status === 'มา').length;
+    return `<button class="moo-btn${m === curMoo ? ' active' : ''}" id="moobtn-${m}" onclick="switchMoo(${m})">
       หมู่ ${m} <span class="ms">${ma}/${students.length}</span>
     </button>`;
   }).join('');
   setTimeout(() => {
-    const a = document.querySelector('.moo-btn.active');
-    if(a) a.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+    document.querySelector('.moo-btn.active')?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }, 50);
 }
 
 function buildStudentList() {
   const gk = GONG_KEYS()[curGong];
-  let students = (SCOUT[gk]?.[curMoo] || []).slice();
+  let students = (gk && SCOUT[gk]?.[curMoo]) ? [...SCOUT[gk][curMoo]] : [];
 
-  // Filter by search
   if (searchQuery) {
     const q = searchQuery.toLowerCase();
     students = students.filter(s =>
-      s.name.toLowerCase().includes(q) || s.id.includes(q) || s.room.includes(q)
+      s.name.toLowerCase().includes(q) || s.id.includes(q) || String(s.room).includes(q)
     );
   }
-  // Filter by status
   if (filterStatus !== null) {
-    students = students.filter(s => (attendance[s.id]?.status||'') === filterStatus);
+    students = students.filter(s => (attendance[s.id]?.status || '') === filterStatus);
   }
 
   const list = document.getElementById('studentList');
-  if (students.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="ei">${searchQuery?'🔍':'📋'}</div><p>${searchQuery?'ไม่พบนักเรียนที่ค้นหา':'ยังไม่มีนักเรียนในหมู่นี้'}</p></div>`;
+  if (!gk) {
+    list.innerHTML = `<div class="empty-state"><div class="ei">🗄️</div><p>กรุณาเชื่อมต่อ Supabase และเพิ่มนักเรียน</p></div>`;
+    updateSummary(); return;
+  }
+  if (!students.length) {
+    list.innerHTML = `<div class="empty-state"><div class="ei">${searchQuery ? '🔍' : '📋'}</div><p>${searchQuery ? 'ไม่พบนักเรียนที่ค้นหา' : 'ยังไม่มีนักเรียนในหมู่นี้'}</p></div>`;
     updateSummary(); return;
   }
 
   list.innerHTML = students.map(s => {
-    const att = attendance[s.id]||{};
-    const st = att.status||'';
-    return `<div class="student-card${st?' status-'+st:''}" id="card-${s.id}">
+    const att = attendance[s.id] || {};
+    const st = att.status || '';
+    return `<div class="student-card${st ? ' status-' + st : ''}" id="card-${s.id}">
       <div class="card-top">
         <div class="card-num">${s.no}</div>
         <div class="card-info">
@@ -1154,13 +908,13 @@ function buildStudentList() {
           <div class="card-meta">รหัส ${s.id} · ม.${s.room}</div>
         </div>
         <div class="att-btns">
-          <button class="att-btn${st==='มา'?' sel-มา':''}" onclick="setAtt('${s.id}','มา')">✅</button>
-          <button class="att-btn${st==='ขาด'?' sel-ขาด':''}" onclick="setAtt('${s.id}','ขาด')">❌</button>
-          <button class="att-btn${st==='ลา'?' sel-ลา':''}" onclick="setAtt('${s.id}','ลา')">📋</button>
+          <button class="att-btn${st === 'มา' ? ' sel-มา' : ''}" onclick="setAtt('${s.id}','มา')">✅</button>
+          <button class="att-btn${st === 'ขาด' ? ' sel-ขาด' : ''}" onclick="setAtt('${s.id}','ขาด')">❌</button>
+          <button class="att-btn${st === 'ลา' ? ' sel-ลา' : ''}" onclick="setAtt('${s.id}','ลา')">📋</button>
         </div>
       </div>
       <div class="card-note">
-        <input class="note-inp" type="text" placeholder="หมายเหตุ..." value="${att.note||''}"
+        <input class="note-inp" type="text" placeholder="หมายเหตุ..." value="${att.note || ''}"
           oninput="setNote('${s.id}',this.value)" inputmode="text">
       </div>
     </div>`;
@@ -1171,44 +925,50 @@ function buildStudentList() {
 
 function updateSummary() {
   const gk = GONG_KEYS()[curGong];
-  const students = SCOUT[gk]?.[curMoo]||[];
-  let ma=0,khad=0,la=0,none=0;
-  students.forEach(s=>{
-    const v=attendance[s.id]?.status;
-    if(v==='มา')ma++; else if(v==='ขาด')khad++; else if(v==='ลา')la++; else none++;
+  const students = (gk && SCOUT[gk]?.[curMoo]) ? SCOUT[gk][curMoo] : [];
+  let ma = 0, khad = 0, la = 0, none = 0;
+  students.forEach(s => {
+    const v = attendance[s.id]?.status;
+    if (v === 'มา') ma++; else if (v === 'ขาด') khad++; else if (v === 'ลา') la++; else none++;
   });
-  document.getElementById('s-ma').textContent=ma;
-  document.getElementById('s-khad').textContent=khad;
-  document.getElementById('s-la').textContent=la;
-  document.getElementById('s-none').textContent=none;
+  document.getElementById('s-ma').textContent = ma;
+  document.getElementById('s-khad').textContent = khad;
+  document.getElementById('s-la').textContent = la;
+  document.getElementById('s-none').textContent = none;
 }
 
 function updateMooBtn(m) {
   const gk = GONG_KEYS()[curGong];
-  const students = SCOUT[gk]?.[m]||[];
-  const ma = students.filter(s=>attendance[s.id]?.status==='มา').length;
+  const students = SCOUT[gk]?.[m] || [];
+  const ma = students.filter(s => attendance[s.id]?.status === 'มา').length;
   const btn = document.getElementById(`moobtn-${m}`);
-  if(btn) btn.innerHTML=`หมู่ ${m} <span class="ms">${ma}/${students.length}</span>`;
+  if (btn) btn.innerHTML = `หมู่ ${m} <span class="ms">${ma}/${students.length}</span>`;
 }
 
 // ==================== SWITCH ====================
 function switchGong(i) {
-  curGong=i; curMoo=1; filterStatus=null;
-  document.querySelectorAll('.gong-tab').forEach((b,j)=>b.classList.toggle('active',j===i));
+  curGong = i; filterStatus = null;
+  document.querySelectorAll('.gong-tab').forEach((b, j) => b.classList.toggle('active', j === i));
+  const gk = GONG_KEYS()[i];
+  const moos = gk ? Object.keys(SCOUT[gk] || {}).map(Number).sort((a,b)=>a-b) : [];
+  curMoo = moos.length ? moos[0] : 1;
   buildMooBar(); buildStudentList();
-  document.getElementById('contentArea').scrollTop=0;
+  document.getElementById('contentArea').scrollTop = 0;
 }
+
 function switchMoo(m) {
-  curMoo=m; filterStatus=null;
-  document.querySelectorAll('.moo-btn').forEach(b=>b.classList.remove('active'));
+  curMoo = m; filterStatus = null;
+  document.querySelectorAll('.moo-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(`moobtn-${m}`)?.classList.add('active');
   buildStudentList();
-  document.getElementById('contentArea').scrollTop=0;
+  document.getElementById('contentArea').scrollTop = 0;
 }
+
 function filterByStatus(st) {
-  filterStatus = (filterStatus===st) ? null : st;
+  filterStatus = (filterStatus === st) ? null : (st || null);
   buildStudentList();
 }
+
 function onSearch() {
   searchQuery = document.getElementById('searchInput').value;
   buildStudentList();
@@ -1216,69 +976,75 @@ function onSearch() {
 
 // ==================== ATTENDANCE ====================
 function setAtt(id, val) {
-  if(!attendance[id]) attendance[id]={};
-  if(attendance[id].status===val) {
+  if (!attendance[id]) attendance[id] = {};
+  if (attendance[id].status === val) {
     delete attendance[id].status;
-    if(!attendance[id].note) delete attendance[id];
+    if (!attendance[id].note) delete attendance[id];
   } else {
-    attendance[id].status=val;
+    attendance[id].status = val;
   }
   const card = document.getElementById(`card-${id}`);
-  if(card) {
-    const st = attendance[id]?.status||'';
-    card.className=`student-card${st?' status-'+st:''}`;
-    card.querySelectorAll('.att-btn').forEach(btn=>{
-      btn.className='att-btn'+(
-        btn.textContent.includes('✅')&&st==='มา'?' sel-มา':
-        btn.textContent.includes('❌')&&st==='ขาด'?' sel-ขาด':
-        btn.textContent.includes('📋')&&st==='ลา'?' sel-ลา':'');
+  if (card) {
+    const st = attendance[id]?.status || '';
+    card.className = `student-card${st ? ' status-' + st : ''}`;
+    card.querySelectorAll('.att-btn').forEach(btn => {
+      btn.className = 'att-btn' + (
+        btn.textContent.includes('✅') && st === 'มา' ? ' sel-มา' :
+        btn.textContent.includes('❌') && st === 'ขาด' ? ' sel-ขาด' :
+        btn.textContent.includes('📋') && st === 'ลา' ? ' sel-ลา' : '');
     });
   }
   updateSummary(); updateMooBtn(curMoo); buildGongTabs();
   autoSave(id);
 }
+
 function setNote(id, val) {
-  if(!attendance[id]) attendance[id]={};
-  attendance[id].note=val;
+  if (!attendance[id]) attendance[id] = {};
+  attendance[id].note = val;
+  if (!val && !attendance[id].status) delete attendance[id];
   autoSaveDebounced(id);
 }
 
 // ==================== QUICK ACTIONS ====================
 function markAllMa() {
-  const gk=GONG_KEYS()[curGong];
-  (SCOUT[gk]?.[curMoo]||[]).forEach(s=>{
-    if(!attendance[s.id]) attendance[s.id]={};
-    attendance[s.id].status='มา';
+  const gk = GONG_KEYS()[curGong];
+  (SCOUT[gk]?.[curMoo] || []).forEach(s => {
+    if (!attendance[s.id]) attendance[s.id] = {};
+    attendance[s.id].status = 'มา';
   });
   buildStudentList(); buildMooBar(); buildGongTabs(); autoSaveMoo();
-  showToast('✅ บันทึกทุกคนเป็น "มา"','success');
-}
-function clearAllMoo() {
-  const gk=GONG_KEYS()[curGong];
-  (SCOUT[gk]?.[curMoo]||[]).forEach(s=>{ delete attendance[s.id]; });
-  buildStudentList(); buildMooBar(); buildGongTabs(); autoSaveMoo();
-  showToast('🔄 ล้างข้อมูลหมู่นี้แล้ว','warn');
+  showToast('✅ บันทึกทุกคนเป็น "มา"', 'success');
 }
 
-// ==================== LOAD ====================
+function clearAllMoo() {
+  const gk = GONG_KEYS()[curGong];
+  (SCOUT[gk]?.[curMoo] || []).forEach(s => { delete attendance[s.id]; });
+  buildStudentList(); buildMooBar(); buildGongTabs(); autoSaveMoo();
+  showToast('🔄 ล้างข้อมูลหมู่นี้แล้ว', 'warn');
+}
+
+// ==================== LOAD FOR DATE ====================
 async function loadForDate() {
   const date = document.getElementById('checkDate').value;
   if (!date) return;
   attendance = {};
-  setFab('syncing','⏳ โหลด...');
-  if (supabase) {
+  setFab('syncing', '⏳ โหลด...');
+
+  if (sbClient) {
     const remote = await sbLoad(date);
     if (remote) {
       attendance = remote;
       backupToLocal();
       buildGongTabs(); buildMooBar(); buildStudentList();
-      setFab('saved','✅ ซิงค์แล้ว'); return;
+      setFab('saved', '✅ ซิงค์แล้ว');
+      return;
     }
   }
+  // fallback to local
   const stored = localSaved[date];
-  if(stored) attendance = JSON.parse(JSON.stringify(stored));
+  if (stored) attendance = JSON.parse(JSON.stringify(stored));
   buildGongTabs(); buildMooBar(); buildStudentList();
-  setFab('saved', supabase?'✅ ซิงค์แล้ว':'💾 Local');
+  setFab('saved', sbClient ? '✅ ซิงค์แล้ว' : '💾 Local');
 }
 
 // ==================== HISTORY ====================
@@ -1291,20 +1057,23 @@ function closeHistory() {
   document.getElementById('histOverlay').classList.remove('show');
   document.getElementById('histDrawer').classList.remove('show');
 }
+
 async function renderHistory() {
   const body = document.getElementById('histBody');
-  body.innerHTML='<div style="text-align:center;padding:20px;color:var(--gray)">⏳ กำลังโหลด...</div>';
-  let dates=[];
-  if(supabase){const d=await sbGetAllDates();if(d)dates=d;}
-  const local=Object.keys(localSaved).sort().reverse();
-  dates=[...new Set([...dates,...local])].sort().reverse();
-  if(!dates.length){body.innerHTML='<div style="text-align:center;padding:36px;color:var(--gray)">📭 ยังไม่มีประวัติ</div>';return;}
-  body.innerHTML=dates.map(date=>{
-    const data=localSaved[date]||{};
-    let ma=0,khad=0,la=0;
-    GONG_KEYS().forEach(gk=>Object.values(SCOUT[gk]||{}).flat().forEach(s=>{
-      const v=data[s.id]?.status;
-      if(v==='มา')ma++;else if(v==='ขาด')khad++;else if(v==='ลา')la++;
+  body.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray)">⏳ กำลังโหลด...</div>';
+  let dates = await sbGetAllDates();
+  const local = Object.keys(localSaved).sort().reverse();
+  dates = [...new Set([...dates, ...local])].sort().reverse();
+  if (!dates.length) {
+    body.innerHTML = '<div style="text-align:center;padding:36px;color:var(--gray)">📭 ยังไม่มีประวัติ</div>';
+    return;
+  }
+  body.innerHTML = dates.map(date => {
+    const data = localSaved[date] || {};
+    let ma = 0, khad = 0, la = 0;
+    GONG_KEYS().forEach(gk => Object.values(SCOUT[gk] || {}).flat().forEach(s => {
+      const v = data[s.id]?.status;
+      if (v === 'มา') ma++; else if (v === 'ขาด') khad++; else if (v === 'ลา') la++;
     }));
     return `<div class="hist-item">
       <div style="flex:1">
@@ -1322,43 +1091,43 @@ async function renderHistory() {
     </div>`;
   }).join('');
 }
+
 function loadDate(date) {
-  document.getElementById('checkDate').value=date;
+  document.getElementById('checkDate').value = date;
   closeHistory(); loadForDate();
 }
+
 function confirmDeleteDate(date) {
-  showConfirm('ลบข้อมูล',`ต้องการลบวันที่ ${formatThaiDate(date)} ใช่หรือไม่?`,async()=>{
+  showConfirm('ลบข้อมูล', `ต้องการลบวันที่ ${formatThaiDate(date)} ใช่หรือไม่?`, async () => {
     delete localSaved[date];
-    try{localStorage.setItem(LS_ATT,JSON.stringify(localSaved));}catch(e){}
-    if(supabase){
-      try{
-        GONG_KEYS().forEach(async gk=>{
-          await supabase.from('attendance').delete().eq('id',`${date}_${gk}`);
-        });
-      }catch(e){}
+    try { localStorage.setItem(LS_ATT, JSON.stringify(localSaved)); } catch(e) {}
+    if (sbClient) {
+      for (const gk of GONG_KEYS()) {
+        try { await sbClient.from('attendance').delete().eq('id', `${date}_${gk}`); } catch(e) {}
+      }
     }
-    renderHistory(); showToast('🗑️ ลบแล้ว','warn');
+    renderHistory(); showToast('🗑️ ลบแล้ว', 'warn');
   });
 }
 
 // ==================== EXPORT CSV ====================
 function exportCSV() {
   const date = document.getElementById('checkDate').value;
-  if(!date){showToast('กรุณาเลือกวันที่','warn');return;}
-  let csv='﻿วันที่,กอง,หมู่,ลำดับ,รหัส,ชื่อ-สกุล,ห้อง,การเข้าร่วม,หมายเหตุ\n';
-  GONG_KEYS().forEach(gk=>{
-    Object.entries(SCOUT[gk]||{}).forEach(([mStr,students])=>{
-      students.forEach(s=>{
-        const a=attendance[s.id]||{};
-        csv+=`${date},${gk},หมู่${mStr},${s.no},${s.id},"${s.name}",ม.${s.room},${a.status||''},${a.note||''}\n`;
+  if (!date) { showToast('กรุณาเลือกวันที่', 'warn'); return; }
+  let csv = '\uFEFFวันที่,กอง,หมู่,ลำดับ,รหัส,ชื่อ-สกุล,ห้อง,การเข้าร่วม,หมายเหตุ\n';
+  GONG_KEYS().forEach(gk => {
+    Object.entries(SCOUT[gk] || {}).forEach(([mStr, students]) => {
+      students.forEach(s => {
+        const a = attendance[s.id] || {};
+        csv += `${date},${gk},หมู่${mStr},${s.no},${s.id},"${s.name}",ม.${s.room},${a.status || ''},${a.note || ''}\n`;
       });
     });
   });
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
-  a.download=`เช็คชื่อลูกเสือเหล่าเสนา_${date}.csv`;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = `เช็คชื่อลูกเสือเหล่าเสนา_${date}.csv`;
   a.click();
-  showToast('📤 CSV แล้ว','success');
+  showToast('📤 Export CSV แล้ว', 'success');
 }
 
 // ==================== ADMIN ====================
@@ -1375,43 +1144,41 @@ function closeAdmin() {
 
 function buildAdminSelectors() {
   const gks = GONG_KEYS();
-  // addGong selector
-  const addGongEl = document.getElementById('addGong');
-  addGongEl.innerHTML = gks.map(gk=>`<option value="${gk}">${gk}</option>`).join('');
+  document.getElementById('addGong').innerHTML = gks.map(gk => `<option value="${gk}">${gk}</option>`).join('');
   updateAddMooOptions();
-  // filter selectors
-  const fgEl = document.getElementById('adminGongFilter');
-  fgEl.innerHTML = gks.map(gk=>`<option value="${gk}">${gk}</option>`).join('');
+  document.getElementById('adminGongFilter').innerHTML = gks.map(gk => `<option value="${gk}">${gk}</option>`).join('');
   updateAdminMooFilter();
 }
 
 function updateAddMooOptions() {
   const gk = document.getElementById('addGong').value;
-  const moos = Object.keys(SCOUT[gk]||{}).map(Number).sort((a,b)=>a-b);
-  const nextMoo = moos.length ? Math.max(...moos) : 0;
-  document.getElementById('addMoo').innerHTML = moos.map(m=>`<option value="${m}">หมู่ ${m}</option>`).join('')
-    + `<option value="${nextMoo+1}">+ หมู่ ${nextMoo+1} (ใหม่)</option>`;
+  const moos = Object.keys(SCOUT[gk] || {}).map(Number).sort((a, b) => a - b);
+  const nextMoo = moos.length ? Math.max(...moos) + 1 : 1;
+  document.getElementById('addMoo').innerHTML =
+    moos.map(m => `<option value="${m}">หมู่ ${m}</option>`).join('') +
+    `<option value="${nextMoo}">+ หมู่ ${nextMoo} (ใหม่)</option>`;
 }
+
+function onAdminGongChange() { updateAdminMooFilter(); }
 
 function updateAdminMooFilter() {
   const gk = document.getElementById('adminGongFilter').value;
-  const moos = Object.keys(SCOUT[gk]||{}).map(Number).sort((a,b)=>a-b);
+  const moos = Object.keys(SCOUT[gk] || {}).map(Number).sort((a, b) => a - b);
   document.getElementById('adminMooFilter').innerHTML =
     `<option value="all">ทุกหมู่</option>` +
-    moos.map(m=>`<option value="${m}">หมู่ ${m}</option>`).join('');
+    moos.map(m => `<option value="${m}">หมู่ ${m}</option>`).join('');
   renderAdminList();
 }
-document.getElementById('adminGongFilter').addEventListener('change', updateAdminMooFilter);
 
 function renderAdminList() {
   const gk = document.getElementById('adminGongFilter')?.value || GONG_KEYS()[0];
   const mf = document.getElementById('adminMooFilter')?.value || 'all';
-  const moos = mf==='all' ? Object.keys(SCOUT[gk]||{}).map(Number).sort((a,b)=>a-b) : [parseInt(mf)];
-  const list = document.getElementById('adminStudentList');
+  if (!gk) { document.getElementById('adminStudentList').innerHTML = '<div style="padding:16px;text-align:center;color:var(--gray);font-size:13px">ไม่มีข้อมูลกอง</div>'; return; }
+  const moos = mf === 'all' ? Object.keys(SCOUT[gk] || {}).map(Number).sort((a,b)=>a-b) : [parseInt(mf)];
   let html = '';
   moos.forEach(m => {
-    const students = SCOUT[gk]?.[m]||[];
-    if(!students.length) return;
+    const students = SCOUT[gk]?.[m] || [];
+    if (!students.length) return;
     html += `<div style="padding:5px 10px 2px;font-size:11px;font-weight:700;color:var(--army);background:var(--army-pale)">หมู่ ${m}</div>`;
     students.forEach(s => {
       html += `<div class="sm-item">
@@ -1427,391 +1194,432 @@ function renderAdminList() {
       </div>`;
     });
   });
-  if(!html) html = '<div style="padding:16px;text-align:center;color:var(--gray);font-size:13px">ยังไม่มีนักเรียน</div>';
-  list.innerHTML = html;
+  if (!html) html = '<div style="padding:16px;text-align:center;color:var(--gray);font-size:13px">ยังไม่มีนักเรียน</div>';
+  document.getElementById('adminStudentList').innerHTML = html;
 }
 
-function addStudent() {
-  const gk=document.getElementById('addGong').value;
-  const m=parseInt(document.getElementById('addMoo').value);
-  const no=parseInt(document.getElementById('addNo').value)||1;
-  const id=document.getElementById('addId').value.trim();
-  const name=document.getElementById('addName').value.trim();
-  const room=document.getElementById('addRoom').value.trim();
-  if(!id||!name){showToast('กรุณากรอกรหัสและชื่อ','warn');return;}
-  if(!SCOUT[gk]) SCOUT[gk]={};
-  if(!SCOUT[gk][m]) SCOUT[gk][m]=[];
-  if(SCOUT[gk][m].find(s=>s.id===id)){showToast('รหัสนักเรียนซ้ำ','error');return;}
-  SCOUT[gk][m].push({no,id,name,room});
-  SCOUT[gk][m].sort((a,b)=>a.no-b.no);
-  saveScoutData();
-  renderAdminList(); buildGongTabs(); buildMooBar();
-  document.getElementById('addId').value='';
-  document.getElementById('addName').value='';
-  showToast(`➕ เพิ่ม ${name} แล้ว`,'success');
+// ---------- CRUD students (async ทุกฟังก์ชัน) ----------
+async function addStudent() {
+  if (!requireSB()) return;
+  const gk   = document.getElementById('addGong').value;
+  const m    = parseInt(document.getElementById('addMoo').value);
+  const no   = parseInt(document.getElementById('addNo').value) || 1;
+  const id   = document.getElementById('addId').value.trim();
+  const name = document.getElementById('addName').value.trim();
+  const room = document.getElementById('addRoom').value.trim();
+  if (!id || !name) { showToast('กรุณากรอกรหัสและชื่อ', 'warn'); return; }
+  try {
+    const { error } = await sbClient.from('students').insert({ id, no, name, room, gong: gk, moo: m });
+    if (error) throw error;
+    await loadStudents();
+    renderAdminList(); updateAddMooOptions();
+    document.getElementById('addId').value = '';
+    document.getElementById('addName').value = '';
+    showToast(`➕ เพิ่ม ${name} แล้ว`, 'success');
+  } catch(e) {
+    showToast('❌ เพิ่มนักเรียนไม่ได้: ' + (e.message || e.details || ''), 'error');
+  }
 }
 
-function editStudent(gk, m, id) {
-  const s = SCOUT[gk]?.[m]?.find(x=>x.id===id);
-  if(!s) return;
-  const newName = prompt('ชื่อ-สกุล:',s.name);
-  if(newName===null) return;
-  const newRoom = prompt('ห้อง:',s.room);
-  if(newRoom===null) return;
-  s.name=newName.trim()||s.name;
-  s.room=newRoom.trim()||s.room;
-  saveScoutData(); renderAdminList(); buildStudentList();
-  showToast('✏️ แก้ไขแล้ว','success');
+async function editStudent(gk, m, id) {
+  if (!requireSB()) return;
+  const s = SCOUT[gk]?.[m]?.find(x => x.id === id);
+  if (!s) return;
+  const newName = prompt('ชื่อ-สกุล:', s.name);
+  if (newName === null) return;
+  const newRoom = prompt('ห้อง:', s.room);
+  if (newRoom === null) return;
+  try {
+    const { error } = await sbClient.from('students').update({ name: newName, room: newRoom }).eq('id', id);
+    if (error) throw error;
+    await loadStudents();
+    renderAdminList(); buildStudentList();
+    showToast('✏️ แก้ไขแล้ว', 'success');
+  } catch(e) {
+    showToast('❌ แก้ไขไม่ได้: ' + e.message, 'error');
+  }
 }
 
-function deleteStudent(gk, m, id) {
-  showConfirm('ลบนักเรียน','ต้องการลบนักเรียนคนนี้ใช่หรือไม่?',()=>{
-    SCOUT[gk][m] = SCOUT[gk][m].filter(s=>s.id!==id);
-    saveScoutData(); renderAdminList(); buildGongTabs(); buildMooBar(); buildStudentList();
-    showToast('🗑️ ลบแล้ว','warn');
+async function deleteStudent(gk, m, id) {
+  if (!requireSB()) return;
+  showConfirm('ลบนักเรียน', 'ต้องการลบนักเรียนคนนี้ใช่หรือไม่?', async () => {
+    try {
+      const { error } = await sbClient.from('students').delete().eq('id', id);
+      if (error) throw error;
+      await loadStudents();
+      renderAdminList(); buildStudentList();
+      showToast('🗑️ ลบแล้ว', 'warn');
+    } catch(e) {
+      showToast('❌ ลบไม่ได้: ' + e.message, 'error');
+    }
   });
 }
 
-function addGong() {
-  const name = prompt('ชื่อกองใหม่ เช่น กอง4:','กอง'+(GONG_KEYS().length+1));
-  if(!name||SCOUT[name]) return;
-  SCOUT[name]={1:[]};
-  saveScoutData(); buildAdminSelectors(); buildGongTabs(); buildMooBar();
-  showToast(`➕ เพิ่ม ${name} แล้ว`,'success');
+function addGongGroup() {
+  const name = prompt('ชื่อกองใหม่ เช่น กอง4:', 'กอง' + (GONG_KEYS().length + 1));
+  if (!name || SCOUT[name]) return;
+  SCOUT[name] = { 1: [] };
+  buildAdminSelectors(); buildGongTabs(); buildMooBar();
+  showToast(`➕ เพิ่ม ${name} แล้ว (จะบันทึกเมื่อมีนักเรียน)`, 'success');
 }
 
 function removeLastGong() {
-  const keys=GONG_KEYS();
-  if(keys.length<=1){showToast('ต้องมีอย่างน้อย 1 กอง','error');return;}
-  showConfirm('ลบกอง',`ต้องการลบ ${keys[keys.length-1]} ใช่หรือไม่?`,()=>{
-    delete SCOUT[keys[keys.length-1]];
-    if(curGong>=GONG_KEYS().length) curGong=0;
-    saveScoutData(); buildAdminSelectors(); buildGongTabs(); buildMooBar(); buildStudentList();
+  const keys = GONG_KEYS();
+  if (keys.length <= 1) { showToast('ต้องมีอย่างน้อย 1 กอง', 'error'); return; }
+  showConfirm('ลบกอง', `ต้องการลบ ${keys[keys.length-1]} ใช่หรือไม่?`, () => {
+    delete SCOUT[keys[keys.length - 1]];
+    if (curGong >= GONG_KEYS().length) curGong = 0;
+    buildAdminSelectors(); buildGongTabs(); buildMooBar(); buildStudentList();
   });
 }
 
 function addMooToGong() {
-  const gk=document.getElementById('adminGongFilter').value;
-  const moos=Object.keys(SCOUT[gk]||{}).map(Number);
-  const next=moos.length?Math.max(...moos)+1:1;
-  if(!SCOUT[gk]) SCOUT[gk]={};
-  SCOUT[gk][next]=[];
-  saveScoutData(); buildAdminSelectors(); buildMooBar();
-  showToast(`➕ เพิ่ม หมู่ ${next} ใน ${gk}`,'success');
+  const gk = document.getElementById('adminGongFilter').value;
+  const moos = Object.keys(SCOUT[gk] || {}).map(Number);
+  const next = moos.length ? Math.max(...moos) + 1 : 1;
+  if (!SCOUT[gk]) SCOUT[gk] = {};
+  SCOUT[gk][next] = [];
+  buildAdminSelectors(); buildMooBar();
+  showToast(`➕ เพิ่ม หมู่ ${next} ใน ${gk}`, 'success');
 }
 
 function removeMooFromGong() {
-  const gk=document.getElementById('adminGongFilter').value;
-  const moos=Object.keys(SCOUT[gk]||{}).map(Number).sort((a,b)=>a-b);
-  if(moos.length<=1){showToast('ต้องมีอย่างน้อย 1 หมู่','error');return;}
-  const last=moos[moos.length-1];
-  showConfirm('ลบหมู่',`ต้องการลบ หมู่ ${last} ใน ${gk} ใช่หรือไม่?`,()=>{
+  const gk = document.getElementById('adminGongFilter').value;
+  const moos = Object.keys(SCOUT[gk] || {}).map(Number).sort((a, b) => a - b);
+  if (moos.length <= 1) { showToast('ต้องมีอย่างน้อย 1 หมู่', 'error'); return; }
+  const last = moos[moos.length - 1];
+  showConfirm('ลบหมู่', `ต้องการลบ หมู่ ${last} ใน ${gk} ใช่หรือไม่?`, () => {
     delete SCOUT[gk][last];
-    saveScoutData(); buildAdminSelectors(); buildMooBar(); buildStudentList();
+    buildAdminSelectors(); buildMooBar(); buildStudentList();
   });
 }
 
 function confirmClearStudents() {
-  showConfirm('ล้างรายชื่อทั้งหมด','จะลบนักเรียนทุกคนออก ดำเนินการหรือไม่?',()=>{
-    GONG_KEYS().forEach(gk=>Object.keys(SCOUT[gk]||{}).forEach(m=>SCOUT[gk][m]=[]));
-    saveScoutData(); renderAdminList(); buildGongTabs(); buildMooBar(); buildStudentList();
-    showToast('🗑️ ล้างรายชื่อแล้ว','warn');
+  showConfirm('ล้างรายชื่อทั้งหมด', 'จะลบนักเรียนทุกคนจาก Supabase ดำเนินการหรือไม่?', async () => {
+    if (!requireSB()) return;
+    try {
+      // ลบทีละกอง (supabase ไม่มี truncate ใน anon)
+      for (const gk of GONG_KEYS()) {
+        await sbClient.from('students').delete().eq('gong', gk);
+      }
+      await loadStudents();
+      renderAdminList(); buildGongTabs(); buildMooBar(); buildStudentList();
+      showToast('🗑️ ล้างรายชื่อแล้ว', 'warn');
+    } catch(e) { showToast('❌ ล้างไม่ได้: ' + e.message, 'error'); }
   });
 }
+
 function confirmClearAttendance() {
-  showConfirm('ล้างประวัติเช็คชื่อ','จะลบประวัติการเช็คชื่อทั้งหมด ดำเนินการหรือไม่?',()=>{
-    localSaved={};
-    try{localStorage.removeItem(LS_ATT);}catch(e){}
-    attendance={};
+  showConfirm('ล้างประวัติเช็คชื่อ', 'จะลบประวัติการเช็คชื่อทั้งหมด ดำเนินการหรือไม่?', async () => {
+    localSaved = {};
+    try { localStorage.removeItem(LS_ATT); } catch(e) {}
+    attendance = {};
+    if (sbClient) {
+      try { await sbClient.from('attendance').delete().neq('id', ''); } catch(e) {}
+    }
     buildStudentList();
-    showToast('🗑️ ล้างประวัติแล้ว','warn');
+    showToast('🗑️ ล้างประวัติแล้ว', 'warn');
   });
 }
 
 // ==================== IMPORT CSV ====================
 function importCSV(input) {
+  if (!requireSB()) { input.value = ''; return; }
   const file = input.files[0];
-  if(!file) return;
-  Papa.parse(file,{
-    skipEmptyLines:true,
-    complete:(res)=>{
-      let count=0;
-      res.data.forEach(row=>{
-        if(row.length<6) return;
-        const [gk,mStr,noStr,id,name,room]=row.map(v=>v.trim());
-        const m=parseInt(mStr); const no=parseInt(noStr);
-        if(!gk||!m||!id||!name) return;
-        if(!SCOUT[gk]) SCOUT[gk]={};
-        if(!SCOUT[gk][m]) SCOUT[gk][m]=[];
-        if(!SCOUT[gk][m].find(s=>s.id===id)){
-          SCOUT[gk][m].push({no:no||SCOUT[gk][m].length+1,id,name,room:room||''});
-          count++;
-        }
+  if (!file) return;
+  Papa.parse(file, {
+    skipEmptyLines: true,
+    complete: async (res) => {
+      let count = 0;
+      const rows = [];
+      res.data.forEach(row => {
+        if (row.length < 6) return;
+        const [gk, mStr, noStr, id, name, room] = row.map(v => v.trim());
+        const m = parseInt(mStr), no = parseInt(noStr);
+        if (!gk || !m || !id || !name) return;
+        // ตรวจสอบซ้ำ
+        if (SCOUT[gk]?.[m]?.find(s => s.id === id)) return;
+        rows.push({ id, no, name, room, gong: gk, moo: m });
+        count++;
       });
-      GONG_KEYS().forEach(gk=>Object.keys(SCOUT[gk]).forEach(m=>{
-        SCOUT[gk][m].sort((a,b)=>a.no-b.no);
-      }));
-      saveScoutData();
-      renderAdminList(); buildGongTabs(); buildMooBar();
-      showToast(`📥 นำเข้า ${count} คนแล้ว`,'success');
-      input.value='';
+      if (!rows.length) { showToast('ไม่มีข้อมูลใหม่', 'warn'); input.value = ''; return; }
+      try {
+        const { error } = await sbClient.from('students').insert(rows);
+        if (error) throw error;
+        await loadStudents();
+        renderAdminList(); buildGongTabs(); buildMooBar();
+        showToast(`📥 นำเข้า ${count} คนแล้ว`, 'success');
+      } catch(e) {
+        showToast('❌ นำเข้าไม่ได้: ' + e.message, 'error');
+      }
+      input.value = '';
     },
-    error:()=>{showToast('❌ ไฟล์ CSV ผิดพลาด','error');}
+    error: () => { showToast('❌ ไฟล์ CSV ผิดพลาด', 'error'); }
   });
 }
 
 function downloadTemplate() {
-  const csv='﻿กอง,หมู่,ลำดับ,รหัส,ชื่อ-สกุล,ห้อง\nกอง1,1,1,38001,เด็กหญิงสมหญิง ใจดี,1/1\nกอง1,1,2,38002,เด็กชายสมชาย มีสุข,1/2\nกอง2,1,1,38003,เด็กหญิงดวงเนตร สดใส,1/3\n';
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
-  a.download='template_นักเรียน.csv';
+  const csv = '\uFEFFกอง,หมู่,ลำดับ,รหัส,ชื่อ-สกุล,ห้อง\nกอง1,1,1,38001,เด็กหญิงสมหญิง ใจดี,1/1\nกอง1,1,2,38002,เด็กชายสมชาย มีสุข,1/2\nกอง2,1,1,38003,เด็กหญิงดวงเนตร สดใส,1/3\n';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'template_นักเรียน.csv';
   a.click();
 }
 
 // ==================== SUPABASE SETUP ====================
 function openSetup() {
-  const cfg=getStoredCfg();
-  if(cfg){
-    document.getElementById('cfg-url').value=cfg.url||'';
-    document.getElementById('cfg-key').value=cfg.key||'';
-  }
+  const cfg = getStoredCfg();
+  document.getElementById('cfg-url').value = cfg?.url || '';
+  document.getElementById('cfg-key').value = cfg?.key || '';
   document.getElementById('setupModal').classList.add('show');
 }
-function closeSetup(){document.getElementById('setupModal').classList.remove('show')}
-function getStoredCfg(){try{return JSON.parse(localStorage.getItem(LS_CFG));}catch{return null;}}
-function saveSupabaseConfig(){
-  const url=document.getElementById('cfg-url').value.trim();
-  const key=document.getElementById('cfg-key').value.trim();
-  if(!url||!key){showToast('กรุณากรอก URL และ Anon Key','warn');return;}
-  localStorage.setItem(LS_CFG,JSON.stringify({url,key}));
+function closeSetup() { document.getElementById('setupModal').classList.remove('show'); }
+function getStoredCfg() { try { return JSON.parse(localStorage.getItem(LS_CFG)); } catch { return null; } }
+
+function saveSupabaseConfig() {
+  const url = document.getElementById('cfg-url').value.trim();
+  const key = document.getElementById('cfg-key').value.trim();
+  if (!url || !key) { showToast('กรุณากรอก URL และ Anon Key', 'warn'); return; }
+  localStorage.setItem(LS_CFG, JSON.stringify({ url, key }));
   closeSetup();
-  initSupabase(url,key);
+  loadSupabaseLib(url, key);
 }
-function clearSupabaseConfig(){
-  localStorage.removeItem(LS_CFG); supabase=null; setSyncStatus('');
-  closeSetup(); showToast('🗑️ ล้างค่า Supabase แล้ว','warn');
+
+function clearSupabaseConfig() {
+  localStorage.removeItem(LS_CFG);
+  sbClient = null;
+  setSyncStatus('');
+  closeSetup();
+  showToast('🗑️ ล้างค่า Supabase แล้ว', 'warn');
+}
+
+function loadSupabaseLib(url, key) {
+  // ถ้าโหลดแล้ว ใช้ได้เลย
+  if (window.supabase?.createClient || window.supabaseJs?.createClient) {
+    initSupabase(url, key); return;
+  }
+  setFab('syncing', '⏳ โหลด Supabase...');
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+  s.onload = () => {
+    window.supabaseJs = window.supabase; // UMD export
+    initSupabase(url, key);
+  };
+  s.onerror = () => {
+    setFab('error', '❌ โหลด Supabase ไม่ได้');
+    setSyncStatus('error');
+    showToast('ไม่สามารถโหลด Supabase JS ได้ — ตรวจสอบอินเทอร์เน็ต', 'error', 5000);
+  };
+  document.head.appendChild(s);
 }
 
 // ==================== REPORT ====================
-let allAttData={};
-let availableDates=[];
-let selectedDates=new Set();
-
-function buildRptGongSelector(){
-  const gks=GONG_KEYS();
-  document.getElementById('rptGongSelector').innerHTML=
-    `<label class="rpt-chip"><input type="radio" name="rptGong" value="all" checked onchange="renderDateList()">ทั้งหมด</label>`+
-    gks.map((gk,i)=>`<label class="rpt-chip"><input type="radio" name="rptGong" value="${i}" onchange="renderDateList()">${gk}</label>`).join('');
+function buildRptGongSelector() {
+  const gks = GONG_KEYS();
+  document.getElementById('rptGongSelector').innerHTML =
+    `<label class="rpt-chip"><input type="radio" name="rptGong" value="all" checked onchange="renderDateList()">ทั้งหมด</label>` +
+    gks.map((gk, i) => `<label class="rpt-chip"><input type="radio" name="rptGong" value="${i}" onchange="renderDateList()">${gk}</label>`).join('');
 }
 
-async function openReport(){
+async function openReport() {
   document.getElementById('rptOverlay').classList.add('show');
   document.getElementById('rptDrawer').classList.add('show');
   buildRptGongSelector();
   await loadAllDataForReport();
 }
-function closeReport(){
+function closeReport() {
   document.getElementById('rptOverlay').classList.remove('show');
   document.getElementById('rptDrawer').classList.remove('show');
 }
 
-async function loadAllDataForReport(){
-  document.getElementById('dateListContainer').innerHTML='<div style="text-align:center;padding:20px;color:#9ca3af;font-size:12px">⏳ กำลังโหลด...</div>';
-  allAttData={};
-  Object.entries(localSaved).forEach(([date,data])=>{ allAttData[date]=data; });
-  if(supabase){
-    try{
-      const {data}=await supabase.from('attendance').select('*');
-      (data||[]).forEach(row=>{
-        const d=row.data||{};
-        if(!allAttData[row.date]) allAttData[row.date]={};
-        Object.values(d).forEach(mData=>{
-          if(typeof mData==='object') Object.entries(mData).forEach(([id,val])=>{
-            if(val?.status) allAttData[row.date][id]=val;
-          });
+async function loadAllDataForReport() {
+  document.getElementById('dateListContainer').innerHTML = '<div style="text-align:center;padding:20px;color:#9ca3af;font-size:12px">⏳ กำลังโหลด...</div>';
+  allAttData = {};
+  Object.entries(localSaved).forEach(([date, data]) => { allAttData[date] = data; });
+  if (sbClient) {
+    try {
+      const { data } = await sbClient.from('attendance').select('*');
+      (data || []).forEach(row => {
+        if (!allAttData[row.date]) allAttData[row.date] = {};
+        Object.values(row.data || {}).forEach(mData => {
+          if (typeof mData === 'object') {
+            Object.entries(mData).forEach(([id, val]) => {
+              if (val?.status) allAttData[row.date][id] = val;
+            });
+          }
         });
       });
-    }catch(e){}
+    } catch(e) {}
   }
-  availableDates=Object.keys(allAttData).sort();
-  selectedDates=new Set(availableDates);
+  availableDates = Object.keys(allAttData).sort();
+  selectedDates = new Set(availableDates);
   renderDateList();
 }
 
-function renderDateList(){
-  if(!availableDates.length){
-    document.getElementById('dateListContainer').innerHTML='<div style="text-align:center;padding:20px;color:#9ca3af;font-size:12px">📭 ยังไม่มีข้อมูล</div>';
+function renderDateList() {
+  if (!availableDates.length) {
+    document.getElementById('dateListContainer').innerHTML = '<div style="text-align:center;padding:20px;color:#9ca3af;font-size:12px">📭 ยังไม่มีข้อมูล</div>';
     updateRptSummary(); return;
   }
-  const wd=['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
-  const mn=['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-  let html='';
-  [...availableDates].reverse().forEach(date=>{
-    const data=allAttData[date]||{};
-    let ma=0,khad=0,la=0;
-    GONG_KEYS().forEach(gk=>Object.values(SCOUT[gk]||{}).flat().forEach(s=>{
-      const v=data[s.id]?.status;
-      if(v==='มา')ma++;else if(v==='ขาด')khad++;else if(v==='ลา')la++;
+  const mn = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  const wd = ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
+  let html = '';
+  [...availableDates].reverse().forEach(date => {
+    const data = allAttData[date] || {};
+    let ma = 0, khad = 0, la = 0;
+    GONG_KEYS().forEach(gk => Object.values(SCOUT[gk] || {}).flat().forEach(s => {
+      const v = data[s.id]?.status;
+      if (v === 'มา') ma++; else if (v === 'ขาด') khad++; else if (v === 'ลา') la++;
     }));
-    const chk=selectedDates.has(date)?'checked':'';
-    const [y,m,d]=date.split('-');
-    const dow=wd[new Date(date).getDay()];
-    html+=`<label class="date-row">
+    const chk = selectedDates.has(date) ? 'checked' : '';
+    const [y, m, d] = date.split('-');
+    const dow = wd[new Date(date).getDay()];
+    html += `<label class="date-row">
       <input type="checkbox" ${chk} value="${date}" onchange="toggleDate('${date}',this.checked)">
       <span class="dr-date">${dow} ${parseInt(d)} ${mn[parseInt(m)]} ${parseInt(y)+543}</span>
       <span class="dr-stats">
-        ${ma>0?`<span class="dr-badge dr-ma">✓${ma}</span>`:''}
-        ${khad>0?`<span class="dr-badge dr-khad">ข${khad}</span>`:''}
-        ${la>0?`<span class="dr-badge dr-la">ล${la}</span>`:''}
+        ${ma > 0 ? `<span class="dr-badge dr-ma">✓${ma}</span>` : ''}
+        ${khad > 0 ? `<span class="dr-badge dr-khad">ข${khad}</span>` : ''}
+        ${la > 0 ? `<span class="dr-badge dr-la">ล${la}</span>` : ''}
       </span>
     </label>`;
   });
-  document.getElementById('dateListContainer').innerHTML=html;
+  document.getElementById('dateListContainer').innerHTML = html;
   updateRptSummary();
 }
 
-function toggleDate(date,checked){ if(checked)selectedDates.add(date);else selectedDates.delete(date); updateRptSummary(); }
-function selectAllDates(v){
-  availableDates.forEach(d=>{if(v)selectedDates.add(d);else selectedDates.delete(d);});
-  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb=>cb.checked=v);
+function toggleDate(date, checked) { if (checked) selectedDates.add(date); else selectedDates.delete(date); updateRptSummary(); }
+function selectAllDates(v) {
+  availableDates.forEach(d => { if (v) selectedDates.add(d); else selectedDates.delete(d); });
+  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb => cb.checked = v);
   updateRptSummary();
 }
-function quickSelect(mode){
-  const now=new Date();
-  const pad=n=>String(n).padStart(2,'0');
-  const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-  document.getElementById('customDateRange').style.display='none';
-  if(mode==='all') selectedDates=new Set(availableDates);
-  else if(mode==='thisMonth'){const ym=`${now.getFullYear()}-${pad(now.getMonth()+1)}`;selectedDates=new Set(availableDates.filter(d=>d.startsWith(ym)));}
-  else if(mode==='last30'){const c=new Date();c.setDate(c.getDate()-30);selectedDates=new Set(availableDates.filter(d=>d>=ymd(c)));}
-  else if(mode==='custom'){document.getElementById('customDateRange').style.display='block';return;}
-  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb=>{cb.checked=selectedDates.has(cb.value);});
+function quickSelect(mode) {
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  document.getElementById('customDateRange').style.display = 'none';
+  if (mode === 'all') selectedDates = new Set(availableDates);
+  else if (mode === 'thisMonth') { const ym = `${now.getFullYear()}-${pad(now.getMonth()+1)}`; selectedDates = new Set(availableDates.filter(d => d.startsWith(ym))); }
+  else if (mode === 'last30') { const c = new Date(); c.setDate(c.getDate()-30); selectedDates = new Set(availableDates.filter(d => d >= ymd(c))); }
+  else if (mode === 'custom') { document.getElementById('customDateRange').style.display = 'block'; return; }
+  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb => { cb.checked = selectedDates.has(cb.value); });
   updateRptSummary();
 }
-function applyCustomRange(){
-  const from=document.getElementById('rptFrom').value;
-  const to=document.getElementById('rptTo').value;
-  selectedDates=new Set(availableDates.filter(d=>(!from||d>=from)&&(!to||d<=to)));
-  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb=>{cb.checked=selectedDates.has(cb.value);});
+function applyCustomRange() {
+  const from = document.getElementById('rptFrom').value;
+  const to   = document.getElementById('rptTo').value;
+  selectedDates = new Set(availableDates.filter(d => (!from || d >= from) && (!to || d <= to)));
+  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb => { cb.checked = selectedDates.has(cb.value); });
   updateRptSummary();
 }
-function updateRptSummary(){
-  const sel=[...selectedDates].sort();
-  document.getElementById('dateSelCount').textContent=`${sel.length} วัน`;
-  if(!sel.length){document.getElementById('rptSummary').innerHTML='⚠️ กรุณาเลือกอย่างน้อย 1 วัน';return;}
-  const gv=document.querySelector('input[name="rptGong"]:checked')?.value||'all';
-  const gongs=gv==='all'?GONG_KEYS():[GONG_KEYS()[parseInt(gv)]];
-  const total=gongs.reduce((s,gk)=>s+Object.values(SCOUT[gk]||{}).flat().length,0);
-  document.getElementById('rptSummary').innerHTML=
+function updateRptSummary() {
+  const sel = [...selectedDates].sort();
+  document.getElementById('dateSelCount').textContent = `${sel.length} วัน`;
+  if (!sel.length) { document.getElementById('rptSummary').innerHTML = '⚠️ กรุณาเลือกอย่างน้อย 1 วัน'; return; }
+  const gv = document.querySelector('input[name="rptGong"]:checked')?.value || 'all';
+  const gongs = gv === 'all' ? GONG_KEYS() : [GONG_KEYS()[parseInt(gv)]];
+  const total = gongs.reduce((s, gk) => s + Object.values(SCOUT[gk] || {}).flat().length, 0);
+  document.getElementById('rptSummary').innerHTML =
     `✅ จะสร้างรายงาน <b>${sel.length} วัน</b> · <b>${total} คน</b><br>
      <span style="color:#6b7280;font-size:11px">📅 ${formatThaiDate(sel[0])} ถึง ${formatThaiDate(sel[sel.length-1])}</span>`;
 }
 
-async function generateExcelReport(){
-  const btn=document.getElementById('rptDownloadBtn');
-  btn.textContent='⏳ กำลังสร้าง...'; btn.disabled=true;
-  const dates=[...selectedDates].sort();
-  if(!dates.length){showToast('ไม่มีข้อมูล','warn');btn.textContent='📥 ดาวน์โหลด Excel';btn.disabled=false;return;}
-  const gv=document.querySelector('input[name="rptGong"]:checked')?.value||'all';
-  const targetIdxs=gv==='all'?GONG_KEYS().map((_,i)=>i):[parseInt(gv)];
-  const wb=XLSX.utils.book_new();
-  for(const gi of targetIdxs){
-    const gk=GONG_KEYS()[gi];
-    const ws_data=[];
-    ws_data.push([`รายงานการเข้าร่วมลูกเสือเหล่าเสนา ม.1 ${gk}`,...Array(dates.length+7).fill('')]);
-    ws_data.push([`โรงเรียนหนองหานวิทยา ปีการศึกษา 2569  |  จัดทำ: ${formatThaiDate(new Date().toISOString().split('T')[0])}`,...Array(dates.length+7).fill('')]);
+async function generateExcelReport() {
+  const btn = document.getElementById('rptDownloadBtn');
+  btn.textContent = '⏳ กำลังสร้าง...'; btn.disabled = true;
+  const dates = [...selectedDates].sort();
+  if (!dates.length) { showToast('ไม่มีข้อมูล', 'warn'); btn.textContent = '📥 ดาวน์โหลด Excel'; btn.disabled = false; return; }
+  const gv = document.querySelector('input[name="rptGong"]:checked')?.value || 'all';
+  const targetIdxs = gv === 'all' ? GONG_KEYS().map((_, i) => i) : [parseInt(gv)];
+  const wb = XLSX.utils.book_new();
+  for (const gi of targetIdxs) {
+    const gk = GONG_KEYS()[gi];
+    const ws_data = [];
+    ws_data.push([`รายงานการเข้าร่วมลูกเสือเหล่าเสนา ม.1 ${gk}`, ...Array(dates.length+7).fill('')]);
+    ws_data.push([`โรงเรียนหนองหานวิทยา ปีการศึกษา 2569  |  จัดทำ: ${formatThaiDate(new Date().toISOString().split('T')[0])}`, ...Array(dates.length+7).fill('')]);
     ws_data.push([]);
-    ws_data.push(['ลำดับ','หมู่','รหัส','ชื่อ - สกุล','ห้อง',...dates.map(d=>formatThaiDate(d)),'รวมมา','รวมขาด','รวมลา','%เข้าร่วม']);
-    for(const[mStr,students]of Object.entries(SCOUT[gk]||{})){
-      for(const s of students){
-        let ma=0,khad=0,la=0;
-        const dayVals=dates.map(date=>{
-          const v=allAttData[date]?.[s.id]?.status||'';
-          if(v==='มา'){ma++;return'✓'}if(v==='ขาด'){khad++;return'ข'}if(v==='ลา'){la++;return'ล'}return'';
+    ws_data.push(['ลำดับ','หมู่','รหัส','ชื่อ - สกุล','ห้อง', ...dates.map(d => formatThaiDate(d)), 'รวมมา','รวมขาด','รวมลา','%เข้าร่วม']);
+    for (const [mStr, students] of Object.entries(SCOUT[gk] || {})) {
+      for (const s of students) {
+        let ma = 0, khad = 0, la = 0;
+        const dayVals = dates.map(date => {
+          const v = allAttData[date]?.[s.id]?.status || '';
+          if (v === 'มา') { ma++; return '✓'; } if (v === 'ขาด') { khad++; return 'ข'; } if (v === 'ลา') { la++; return 'ล'; } return '';
         });
-        const pct=dates.length>0?Math.round((ma/dates.length)*100):0;
-        ws_data.push([s.no,`หมู่ ${mStr}`,s.id,s.name,`ม.${s.room}`,...dayVals,ma,khad,la,`${pct}%`]);
+        const pct = dates.length > 0 ? Math.round((ma / dates.length) * 100) : 0;
+        ws_data.push([s.no, `หมู่ ${mStr}`, s.id, s.name, `ม.${s.room}`, ...dayVals, ma, khad, la, `${pct}%`]);
       }
     }
     ws_data.push([]);
-    const allS=Object.values(SCOUT[gk]||{}).flat();
-    const tMa=allS.reduce((a,s)=>a+dates.filter(d=>allAttData[d]?.[s.id]?.status==='มา').length,0);
-    const tKh=allS.reduce((a,s)=>a+dates.filter(d=>allAttData[d]?.[s.id]?.status==='ขาด').length,0);
-    const tLa=allS.reduce((a,s)=>a+dates.filter(d=>allAttData[d]?.[s.id]?.status==='ลา').length,0);
-    ws_data.push([`รวม${gk}`,'','',...Array(2+dates.length).fill(''),tMa,tKh,tLa,'']);
-    const ws=XLSX.utils.aoa_to_sheet(ws_data);
-    ws['!cols']=[{wch:7},{wch:8},{wch:9},{wch:28},{wch:7},...dates.map(()=>({wch:11})),{wch:8},{wch:8},{wch:8},{wch:9}];
-    ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:dates.length+8}},{s:{r:1,c:0},e:{r:1,c:dates.length+8}}];
-    XLSX.utils.book_append_sheet(wb,ws,gk);
+    const allS = Object.values(SCOUT[gk] || {}).flat();
+    const tMa = allS.reduce((a,s) => a + dates.filter(d => allAttData[d]?.[s.id]?.status === 'มา').length, 0);
+    const tKh = allS.reduce((a,s) => a + dates.filter(d => allAttData[d]?.[s.id]?.status === 'ขาด').length, 0);
+    const tLa = allS.reduce((a,s) => a + dates.filter(d => allAttData[d]?.[s.id]?.status === 'ลา').length, 0);
+    ws_data.push([`รวม${gk}`, '', '', ...Array(2+dates.length).fill(''), tMa, tKh, tLa, '']);
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+    ws['!cols'] = [{wch:7},{wch:8},{wch:9},{wch:28},{wch:7},...dates.map(()=>({wch:11})),{wch:8},{wch:8},{wch:8},{wch:9}];
+    ws['!merges'] = [{s:{r:0,c:0},e:{r:0,c:dates.length+8}},{s:{r:1,c:0},e:{r:1,c:dates.length+8}}];
+    XLSX.utils.book_append_sheet(wb, ws, gk);
   }
-  // Summary sheet
-  const sum=[];
-  sum.push(['สรุปจำนวนวันเข้าร่วมลูกเสือเหล่าเสนา ม.1',...Array(8).fill('')]);
-  sum.push([`โรงเรียนหนองหานวิทยา ปีการศึกษา 2569  |  วันทั้งหมด: ${dates.length} วัน`,...Array(8).fill('')]);
+  // สรุปรวม
+  const sum = [];
+  sum.push(['สรุปจำนวนวันเข้าร่วมลูกเสือเหล่าเสนา ม.1', ...Array(8).fill('')]);
+  sum.push([`โรงเรียนหนองหานวิทยา ปีการศึกษา 2569  |  วันทั้งหมด: ${dates.length} วัน`, ...Array(8).fill('')]);
   sum.push([]);
   sum.push(['กอง','หมู่','ลำดับ','รหัส','ชื่อ - สกุล','ห้อง','วันมา','วันขาด','วันลา','%เข้าร่วม','หมายเหตุ']);
-  const gv2=document.querySelector('input[name="rptGong"]:checked')?.value||'all';
-  const tIdxs=gv2==='all'?GONG_KEYS().map((_,i)=>i):[parseInt(gv2)];
-  for(const gi of tIdxs){
-    const gk=GONG_KEYS()[gi];
-    for(const[mStr,students]of Object.entries(SCOUT[gk]||{})){
-      for(const s of students){
-        let ma=0,kh=0,la=0;
-        dates.forEach(d=>{const v=allAttData[d]?.[s.id]?.status||'';if(v==='มา')ma++;else if(v==='ขาด')kh++;else if(v==='ลา')la++;});
-        const pct=dates.length>0?Math.round((ma/dates.length)*100):0;
-        sum.push([gk,`หมู่ ${mStr}`,s.no,s.id,s.name,`ม.${s.room}`,ma,kh,la,`${pct}%`,pct<80?'⚠️ ต่ำกว่า 80%':'']);
+  for (const gi of targetIdxs) {
+    const gk = GONG_KEYS()[gi];
+    for (const [mStr, students] of Object.entries(SCOUT[gk] || {})) {
+      for (const s of students) {
+        let ma = 0, kh = 0, la = 0;
+        dates.forEach(d => { const v = allAttData[d]?.[s.id]?.status || ''; if (v==='มา') ma++; else if (v==='ขาด') kh++; else if (v==='ลา') la++; });
+        const pct = dates.length > 0 ? Math.round((ma / dates.length) * 100) : 0;
+        sum.push([gk, `หมู่ ${mStr}`, s.no, s.id, s.name, `ม.${s.room}`, ma, kh, la, `${pct}%`, pct < 80 ? '⚠️ ต่ำกว่า 80%' : '']);
       }
     }
   }
-  const ws2=XLSX.utils.aoa_to_sheet(sum);
-  ws2['!cols']=[{wch:8},{wch:8},{wch:7},{wch:9},{wch:28},{wch:7},{wch:8},{wch:8},{wch:8},{wch:10},{wch:14}];
-  ws2['!merges']=[{s:{r:0,c:0},e:{r:0,c:10}},{s:{r:1,c:0},e:{r:1,c:10}}];
-  XLSX.utils.book_append_sheet(wb,ws2,'สรุปรวม');
-  XLSX.writeFile(wb,`รายงานลูกเสือเหล่าเสนา_${new Date().toISOString().split('T')[0]}.xlsx`);
-  btn.textContent='📥 ดาวน์โหลด Excel'; btn.disabled=false;
-  closeReport(); showToast('📊 ดาวน์โหลดรายงาน Excel แล้ว','success');
+  const ws2 = XLSX.utils.aoa_to_sheet(sum);
+  ws2['!cols'] = [{wch:8},{wch:8},{wch:7},{wch:9},{wch:28},{wch:7},{wch:8},{wch:8},{wch:8},{wch:10},{wch:14}];
+  ws2['!merges'] = [{s:{r:0,c:0},e:{r:0,c:10}},{s:{r:1,c:0},e:{r:1,c:10}}];
+  XLSX.utils.book_append_sheet(wb, ws2, 'สรุปรวม');
+  XLSX.writeFile(wb, `รายงานลูกเสือเหล่าเสนา_${new Date().toISOString().split('T')[0]}.xlsx`);
+  btn.textContent = '📥 ดาวน์โหลด Excel'; btn.disabled = false;
+  closeReport();
+  showToast('📊 ดาวน์โหลดรายงาน Excel แล้ว', 'success');
 }
 
 // ==================== STAT MODAL ====================
-function openStatModal(){
-  // Load all data first
+function openStatModal() {
   document.getElementById('statModal').classList.add('show');
   renderStatList();
 }
-function closeStatModal(){ document.getElementById('statModal').classList.remove('show'); }
+function closeStatModal() { document.getElementById('statModal').classList.remove('show'); }
 
-function renderStatList(){
-  const q=(document.getElementById('statSearch')?.value||'').toLowerCase();
-  const area=document.getElementById('statListArea');
-  // gather all students
-  let all=[];
-  GONG_KEYS().forEach(gk=>Object.entries(SCOUT[gk]||{}).forEach(([mStr,students])=>{
-    students.forEach(s=>all.push({...s,gk,mStr}));
+function renderStatList() {
+  const q = (document.getElementById('statSearch')?.value || '').toLowerCase();
+  const area = document.getElementById('statListArea');
+  let all = [];
+  GONG_KEYS().forEach(gk => Object.entries(SCOUT[gk] || {}).forEach(([mStr, students]) => {
+    students.forEach(s => all.push({ ...s, gk, mStr }));
   }));
-  if(q) all=all.filter(s=>s.name.toLowerCase().includes(q)||s.id.includes(q));
-  if(!all.length){area.innerHTML='<div style="text-align:center;padding:20px;color:var(--gray)">ไม่พบนักเรียน</div>';return;}
-
-  const dates=Object.keys(allAttData).sort();
-
-  area.innerHTML=all.map(s=>{
-    let ma=0,kh=0,la=0;
-    dates.forEach(d=>{
-      const v=allAttData[d]?.[s.id]?.status||'';
-      if(v==='มา')ma++;else if(v==='ขาด')kh++;else if(v==='ลา')la++;
-    });
-    const total=dates.length;
-    const pct=total>0?Math.round((ma/total)*100):0;
-    const pctColor=pct>=80?'var(--army-mid)':pct>=60?'var(--yellow)':'var(--red)';
+  if (q) all = all.filter(s => s.name.toLowerCase().includes(q) || s.id.includes(q));
+  if (!all.length) { area.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray)">ไม่พบนักเรียน</div>'; return; }
+  const dates = Object.keys(allAttData).sort();
+  area.innerHTML = all.map(s => {
+    let ma = 0, kh = 0, la = 0;
+    dates.forEach(d => { const v = allAttData[d]?.[s.id]?.status || ''; if (v==='มา') ma++; else if (v==='ขาด') kh++; else if (v==='ลา') la++; });
+    const total = dates.length;
+    const pct = total > 0 ? Math.round((ma / total) * 100) : 0;
+    const pctColor = pct >= 80 ? 'var(--army-mid)' : pct >= 60 ? 'var(--yellow)' : 'var(--red)';
     return `<div style="background:var(--gray-light);border-radius:9px;padding:10px 12px;margin-bottom:8px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
         <div class="card-num">${s.no}</div>
-        <div style="flex:1">
-          <div style="font-size:13px;font-weight:700">${s.name}</div>
-          <div style="font-size:10px;color:var(--gray)">${s.gk} · หมู่ ${s.mStr} · ม.${s.room}</div>
-        </div>
+        <div style="flex:1"><div style="font-size:13px;font-weight:700">${s.name}</div>
+          <div style="font-size:10px;color:var(--gray)">${s.gk} · หมู่ ${s.mStr} · ม.${s.room}</div></div>
         <div style="font-size:18px;font-weight:800;color:${pctColor}">${pct}%</div>
       </div>
-      <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);gap:6px;display:grid">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
         <div class="stat-card sc-ma"><div class="sc-val">${ma}</div><div class="sc-lbl">วันมา</div></div>
         <div class="stat-card sc-khad"><div class="sc-val">${kh}</div><div class="sc-lbl">วันขาด</div></div>
         <div class="stat-card sc-la"><div class="sc-val">${la}</div><div class="sc-lbl">วันลา</div></div>
@@ -1822,78 +1630,53 @@ function renderStatList(){
 
 // ==================== TOAST ====================
 let toastTimer;
-function showToast(msg,type='',ms){
+function showToast(msg, type = '', ms) {
   clearTimeout(toastTimer);
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.className=`toast show${type?' t-'+type:''}`;
-  toastTimer=setTimeout(()=>t.className='toast',ms||(type==='error'?6000:2800));
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = `toast show${type ? ' t-' + type : ''}`;
+  toastTimer = setTimeout(() => t.className = 'toast', ms || (type === 'error' ? 6000 : 2800));
 }
 
 // ==================== CONFIRM ====================
-let confirmCb=null;
-function showConfirm(title,msg,cb){
-  document.getElementById('confTitle').textContent=title;
-  document.getElementById('confMsg').textContent=msg;
-  confirmCb=cb;
+let confirmCb = null;
+function showConfirm(title, msg, cb) {
+  document.getElementById('confTitle').textContent = title;
+  document.getElementById('confMsg').textContent = msg;
+  confirmCb = cb;
   document.getElementById('confirmModal').classList.add('show');
 }
-function closeConfirm(){ document.getElementById('confirmModal').classList.remove('show'); confirmCb=null; }
-document.getElementById('confBtn').onclick=()=>{ if(confirmCb)confirmCb(); closeConfirm(); };
-document.getElementById('confirmModal').onclick=e=>{ if(e.target===e.currentTarget)closeConfirm(); };
-document.getElementById('setupModal').onclick=e=>{ if(e.target===e.currentTarget)closeSetup(); };
-document.getElementById('statModal').onclick=e=>{ if(e.target===e.currentTarget)closeStatModal(); };
+function closeConfirm() { document.getElementById('confirmModal').classList.remove('show'); confirmCb = null; }
+document.getElementById('confBtn').onclick = () => { if (confirmCb) confirmCb(); closeConfirm(); };
+document.getElementById('confirmModal').onclick = e => { if (e.target === e.currentTarget) closeConfirm(); };
+document.getElementById('setupModal').onclick    = e => { if (e.target === e.currentTarget) closeSetup(); };
+document.getElementById('statModal').onclick     = e => { if (e.target === e.currentTarget) closeStatModal(); };
 
 // ==================== INIT ====================
-function init(){
-  const today=new Date().toISOString().split('T')[0];
-  document.getElementById('checkDate').value=today;
-  document.getElementById('checkDate').addEventListener('change',()=>{
-    filterStatus=null; searchQuery='';
-    document.getElementById('searchInput').value='';
+function init() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('checkDate').value = today;
+  document.getElementById('checkDate').addEventListener('change', () => {
+    filterStatus = null; searchQuery = '';
+    document.getElementById('searchInput').value = '';
     loadForDate();
   });
 
-  // Load scout data from localStorage
-  try{
-    const saved=JSON.parse(localStorage.getItem(LS_SCOUT));
-    if(saved&&Object.keys(saved).length) SCOUT=saved;
-  }catch(e){}
+  // โหลด attendance backup จาก localStorage
+  try { localSaved = JSON.parse(localStorage.getItem(LS_ATT)) || {}; } catch { localSaved = {}; }
 
-  // Load attendance backup
-  try{ localSaved=JSON.parse(localStorage.getItem(LS_ATT))||{}; }catch{ localSaved={}; }
-
-  // Build initial UI
+  // สร้าง UI เปล่าก่อน
   buildGongTabs();
+  buildMooBar();
+  buildStudentList();
 
-  // Supabase
-  const cfg=getStoredCfg();
-  if(cfg?.url&&cfg?.key){
-    // Lazy-load Supabase JS
-    loadSupabaseAndConnect(cfg.url,cfg.key);
+  // เชื่อมต่อ Supabase ถ้ามีค่าเก็บไว้
+  const cfg = getStoredCfg();
+  if (cfg?.url && cfg?.key) {
+    loadSupabaseLib(cfg.url, cfg.key);
   } else {
-    buildMooBar(); buildStudentList();
-    setFab('saved','💾 Local (ไม่มี DB)');
+    setFab('error', '⚠️ ยังไม่ได้ตั้งค่า DB');
     setSyncStatus('');
   }
-}
-
-function loadSupabaseAndConnect(url,key){
-  if(window.supabaseLib){initSupabase(url,key);return;}
-  const s=document.createElement('script');
-  s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
-  s.onload=()=>{
-    window.supabaseLib=window.supabase||supabaseJs;
-    initSupabase(url,key);
-  };
-  s.onerror=()=>{
-    buildMooBar(); buildStudentList();
-    setFab('error','❌ โหลด Supabase ไม่ได้');
-    setSyncStatus('error');
-    showToast('ไม่สามารถโหลด Supabase ได้ — ใช้ Local mode','warn',5000);
-  };
-  document.head.appendChild(s);
-  // Show UI while loading
-  buildMooBar(); buildStudentList();
 }
 
 init();
