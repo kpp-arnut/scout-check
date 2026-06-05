@@ -5,351 +5,409 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>เช็คชื่อลูกเสือ | หนองหานวิทยา</title>
+<title>เช็คชื่อลูกเสือเหล่าเสนา | หนองหานวิทยา</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --blue: #1d4ed8; --blue-dark: #1e3a8a; --blue-light: #eff6ff; --blue-mid: #3b82f6;
-  --green: #059669; --green-light: #d1fae5; --green-dark: #065f46;
-  --red: #dc2626; --red-light: #fee2e2; --red-dark: #991b1b;
+  --army-dark: #1a2e1a;
+  --army: #2d5016;
+  --army-mid: #4a7c2f;
+  --army-light: #7ab648;
+  --army-pale: #e8f5d8;
+  --gold: #c9a227;
+  --gold-light: #fdf3d0;
+  --gold-dark: #7d6418;
+  --khaki: #8b7355;
+  --khaki-light: #f5f0e8;
+  --red: #c0392b; --red-light: #fde8e8; --red-dark: #7b241c;
   --yellow: #d97706; --yellow-light: #fef3c7; --yellow-dark: #92400e;
-  --gray: #6b7280; --gray-light: #f3f4f6; --gray-border: #e5e7eb;
-  --radius: 12px; --shadow: 0 2px 12px rgba(0,0,0,0.1);
-  --bottom-nav-h: 60px;
+  --blue: #1d6fa4; --blue-light: #e0f2fe; --blue-dark: #0c4a6e;
+  --gray: #6b7280; --gray-light: #f3f4f6; --gray-mid: #9ca3af; --gray-border: #e5e7eb;
+  --white: #ffffff;
+  --surface: #f7f5f0;
+  --radius: 10px; --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow: 0 2px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.15);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; overflow: hidden; }
-body {
-  font-family: 'Sarabun', system-ui, -apple-system, Arial, sans-serif;
-  background: #f1f5f9; color: #1e293b; font-size: 15px;
-  display: flex; flex-direction: column;
-}
-
-/* ===== HEADER ===== */
-.app-header {
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  color: white; padding: 10px 16px 8px;
-  display: flex; align-items: center; gap: 10px;
-  flex-shrink: 0; position: relative; z-index: 50;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.2);
-}
-.app-header .logo { font-size: 28px; }
-.app-header h1 { font-size: 15px; font-weight: 700; line-height: 1.2; }
-.app-header p { font-size: 11px; opacity: 0.8; }
-.header-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-.sync-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: #94a3b8;
-  transition: background 0.3s;
-}
-.sync-dot.online { background: #4ade80; }
-.sync-dot.syncing { background: #fbbf24; animation: pulse 1s infinite; }
-.sync-dot.error { background: #f87171; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-/* ===== DATE BAR ===== */
-.date-bar {
-  background: white; padding: 8px 16px;
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  border-bottom: 1px solid var(--gray-border); flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-}
-.date-bar label { font-size: 13px; font-weight: 600; color: var(--blue-dark); white-space: nowrap; }
-.date-bar input[type="date"] {
-  border: 2px solid var(--gray-border); border-radius: 8px;
-  padding: 6px 10px; font-size: 14px; font-family: inherit;
-  flex: 1; min-width: 140px; max-width: 180px; color: #1e293b;
-}
-.date-bar input:focus { border-color: var(--blue); outline: none; }
-.save-status {
-  font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
-  white-space: nowrap;
-}
-.saved { background: var(--green-light); color: var(--green-dark); }
-.unsaved { background: var(--yellow-light); color: var(--yellow-dark); }
-.top-btns { display: flex; gap: 6px; margin-left: auto; }
-
-/* ===== GONG TABS (bottom nav on mobile, top on desktop) ===== */
-.gong-nav {
-  display: flex; background: white; border-bottom: 2px solid var(--gray-border);
-  flex-shrink: 0; overflow-x: auto; scrollbar-width: none;
-}
-.gong-nav::-webkit-scrollbar { display: none; }
-.gong-btn {
-  flex: 1; min-width: 80px; padding: 10px 8px; text-align: center;
-  font-size: 14px; font-weight: 700; color: var(--gray);
-  border: none; background: transparent; cursor: pointer;
-  border-bottom: 3px solid transparent; transition: all 0.2s;
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
-}
-.gong-btn .g-label { font-size: 12px; }
-.gong-btn .g-count { font-size: 11px; color: var(--gray); }
-.gong-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
-.gong-btn.active .g-count { color: var(--blue); }
-
-/* ===== MOO TABS ===== */
-.moo-bar {
-  background: white; padding: 8px 12px;
-  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
-  border-bottom: 1px solid var(--gray-border); flex-shrink: 0;
-}
-.moo-bar::-webkit-scrollbar { display: none; }
-.moo-btn {
-  flex-shrink: 0; padding: 6px 14px; border-radius: 20px;
-  border: 2px solid var(--gray-border); background: var(--gray-light);
-  font-size: 13px; font-weight: 600; color: var(--gray);
-  cursor: pointer; transition: all 0.2s; white-space: nowrap;
-}
-.moo-btn.active { background: var(--blue); border-color: var(--blue); color: white; }
-.moo-btn .ms { font-size: 11px; opacity: 0.8; }
-
-/* ===== CONTENT SCROLL ===== */
-.content-area {
-  flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
-  padding: 0 0 80px 0;
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:'Sarabun',system-ui,sans-serif;
+  background:var(--surface);color:#1e293b;font-size:15px;
+  display:flex;flex-direction:column;
 }
 
-/* ===== SUMMARY STRIP ===== */
-.summary-strip {
-  display: flex; gap: 0; background: white;
-  border-bottom: 1px solid var(--gray-border); flex-shrink: 0;
+/* === HEADER === */
+.app-header{
+  background:var(--army-dark);
+  color:white;padding:10px 14px 8px;
+  display:flex;align-items:center;gap:10px;
+  flex-shrink:0;position:relative;z-index:50;
+  border-bottom:2px solid var(--gold);
 }
-.sum-item {
-  flex: 1; display: flex; flex-direction: column; align-items: center;
-  padding: 6px 4px; font-size: 11px; font-weight: 700; gap: 2px;
+.header-icon{
+  width:36px;height:36px;background:var(--gold);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
 }
-.sum-item .sv { font-size: 18px; font-weight: 800; }
-.si-ma .sv { color: var(--green); }
-.si-khad .sv { color: var(--red); }
-.si-la .sv { color: var(--yellow); }
-.si-none .sv { color: var(--gray); }
-.sum-sep { width: 1px; background: var(--gray-border); }
+.header-title{font-size:15px;font-weight:800;letter-spacing:0.3px;line-height:1.2}
+.header-sub{font-size:11px;opacity:0.65;margin-top:1px}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:6px}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:#6b7280;transition:background .3s}
+.sync-dot.online{background:#4ade80}
+.sync-dot.syncing{background:#fbbf24;animation:pulse 1s infinite}
+.sync-dot.error{background:#f87171}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hdr-btn{
+  padding:5px 10px;border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.1);border-radius:7px;
+  color:white;font-size:12px;font-weight:600;cursor:pointer;
+  font-family:inherit;transition:background .15s;
+}
+.hdr-btn:hover{background:rgba(255,255,255,0.2)}
 
-/* ===== QUICK ACTIONS ===== */
-.quick-bar {
-  display: flex; gap: 8px; padding: 8px 12px;
-  background: white; border-bottom: 1px solid var(--gray-border);
+/* === TOOLBAR === */
+.toolbar{
+  background:white;border-bottom:1px solid var(--gray-border);
+  padding:8px 12px;display:flex;align-items:center;gap:8px;
+  flex-shrink:0;flex-wrap:wrap;
+  box-shadow:var(--shadow-sm);
 }
-.btn {
-  padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer;
-  font-size: 13px; font-family: inherit; font-weight: 600;
-  transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px;
-  -webkit-user-select: none; user-select: none;
+.date-wrap{display:flex;align-items:center;gap:6px}
+.date-wrap label{font-size:12px;font-weight:700;color:var(--army);white-space:nowrap}
+input[type="date"]{
+  border:2px solid var(--gray-border);border-radius:8px;
+  padding:5px 9px;font-size:13px;font-family:inherit;color:#1e293b;
+  min-width:135px;
 }
-.btn-xs { padding: 6px 12px; font-size: 12px; border-radius: 6px; }
-.btn-primary { background: var(--blue); color: white; }
-.btn-primary:active { background: var(--blue-dark); }
-.btn-success { background: var(--green); color: white; }
-.btn-success:active { background: var(--green-dark); transform: scale(0.96); }
-.btn-outline { background: white; color: var(--blue); border: 2px solid var(--blue); }
-.btn-outline:active { background: var(--blue-light); }
-.btn-ghost { background: var(--gray-light); color: #374151; border: 1px solid var(--gray-border); }
-.btn-ghost:active { background: #e5e7eb; }
-.btn-danger { background: var(--red); color: white; }
+input[type="date"]:focus{border-color:var(--army-mid);outline:none}
+.toolbar-btns{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap}
+.btn{
+  padding:6px 12px;border:none;border-radius:7px;cursor:pointer;
+  font-size:12px;font-family:inherit;font-weight:700;
+  transition:all .15s;display:inline-flex;align-items:center;gap:4px;
+  -webkit-user-select:none;user-select:none;white-space:nowrap;
+}
+.btn:active{transform:scale(0.95)}
+.btn-army{background:var(--army);color:white}
+.btn-army:hover{background:var(--army-mid)}
+.btn-gold{background:var(--gold);color:var(--army-dark)}
+.btn-gold:hover{background:#e6b82a}
+.btn-ghost{background:var(--gray-light);color:#374151;border:1px solid var(--gray-border)}
+.btn-ghost:hover{background:#e5e7eb}
+.btn-outline{background:white;color:var(--army);border:2px solid var(--army)}
+.btn-danger{background:var(--red);color:white}
+.btn-sm{padding:5px 9px;font-size:11px;border-radius:6px}
 
-/* ===== STUDENT CARDS (Mobile) ===== */
-.student-list { padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; }
-.student-card {
-  background: white; border-radius: 10px; overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-  border-left: 4px solid var(--gray-border); transition: border-color 0.2s;
+/* === GONG TABS === */
+.gong-tabs{
+  background:white;border-bottom:2px solid var(--gray-border);
+  display:flex;flex-shrink:0;overflow-x:auto;scrollbar-width:none;
 }
-.student-card.status-มา { border-left-color: var(--green); }
-.student-card.status-ขาด { border-left-color: var(--red); background: #fff8f8; }
-.student-card.status-ลา { border-left-color: var(--yellow); background: #fffbf0; }
-.card-top { display: flex; align-items: center; padding: 8px 10px; gap: 8px; }
-.card-num {
-  width: 28px; height: 28px; border-radius: 50%; background: var(--gray-light);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; color: var(--gray); flex-shrink: 0;
+.gong-tabs::-webkit-scrollbar{display:none}
+.gong-tab{
+  flex:1;min-width:80px;padding:9px 6px;text-align:center;
+  font-size:13px;font-weight:700;color:var(--gray);
+  border:none;background:transparent;cursor:pointer;
+  border-bottom:3px solid transparent;transition:all .2s;
+  display:flex;flex-direction:column;align-items:center;gap:1px;
 }
-.card-info { flex: 1; min-width: 0; }
-.card-name { font-size: 14px; font-weight: 700; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-room { font-size: 11px; color: var(--gray); }
-.att-btns { display: flex; gap: 5px; flex-shrink: 0; }
-.att-btn {
-  padding: 6px 10px; border-radius: 8px; border: 2px solid var(--gray-border);
-  font-size: 13px; font-weight: 700; cursor: pointer; background: var(--gray-light);
-  color: var(--gray); transition: all 0.15s; font-family: inherit;
-  min-width: 44px; text-align: center;
-}
-.att-btn:active { transform: scale(0.92); }
-.att-btn.sel-มา { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
-.att-btn.sel-ขาด { background: var(--red-light); border-color: var(--red); color: var(--red-dark); }
-.att-btn.sel-ลา { background: var(--yellow-light); border-color: var(--yellow); color: var(--yellow-dark); }
-.card-note { padding: 0 10px 8px; }
-.note-inp {
-  width: 100%; border: 1px solid var(--gray-border); border-radius: 6px;
-  padding: 5px 8px; font-size: 12px; font-family: inherit; color: #374151;
-  background: var(--gray-light);
-}
-.note-inp:focus { outline: none; border-color: var(--blue); background: white; }
+.gong-tab .gt-name{font-size:12px}
+.gong-tab .gt-count{font-size:10px;color:var(--gray-mid)}
+.gong-tab.active{color:var(--army);border-bottom-color:var(--army)}
+.gong-tab.active .gt-count{color:var(--army-light)}
 
-/* ===== FAB Sync Status ===== */
-.fab-sync {
-  position: fixed; bottom: 20px; right: 12px; z-index: 200;
-  background: white; border-radius: 20px; padding: 8px 14px;
-  display: flex; align-items: center; gap: 6px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15); font-size: 13px; font-weight: 700;
-  color: var(--green-dark); border: 2px solid var(--green-light);
-  transition: all 0.3s; pointer-events: none;
+/* === MOO BAR === */
+.moo-bar{
+  background:white;padding:7px 10px;
+  display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;
+  border-bottom:1px solid var(--gray-border);flex-shrink:0;
 }
-.fab-sync.syncing { color: var(--yellow-dark); border-color: var(--yellow-light); }
-.fab-sync.error { color: var(--red-dark); border-color: var(--red-light); }
-.fab-sync.remote { color: var(--blue-dark); border-color: var(--blue-light); animation: remoteFlash 0.5s ease; }
-@keyframes remoteFlash { 0%{transform:scale(1.05)} 100%{transform:scale(1)} }
+.moo-bar::-webkit-scrollbar{display:none}
+.moo-btn{
+  flex-shrink:0;padding:5px 13px;border-radius:20px;
+  border:1.5px solid var(--gray-border);background:var(--gray-light);
+  font-size:12px;font-weight:700;color:var(--gray);
+  cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit;
+}
+.moo-btn.active{background:var(--army);border-color:var(--army);color:white}
+.moo-btn .ms{font-size:10px;opacity:.8}
 
-/* Remote update card flash */
-.student-card.remote-flash {
-  animation: cardFlash 1.2s ease;
+/* === SUMMARY STRIP === */
+.summary-strip{
+  display:flex;background:var(--army-dark);flex-shrink:0;
 }
-@keyframes cardFlash {
-  0%{background:#dbeafe} 40%{background:#dbeafe} 100%{background:white}
+.sum-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  padding:5px 4px;gap:1px;cursor:pointer;transition:background .15s;
 }
-.student-card.status-ขาด.remote-flash { animation: cardFlashRed 1.2s ease; }
-@keyframes cardFlashRed {
-  0%{background:#fecaca} 40%{background:#fecaca} 100%{background:#fff8f8}
-}
+.sum-item:hover{background:rgba(255,255,255,.07)}
+.sum-item .sv{font-size:20px;font-weight:800}
+.sum-item .sl{font-size:10px;font-weight:700;letter-spacing:.5px;opacity:.75}
+.si-ma .sv{color:#6de07a}
+.si-khad .sv{color:#f87171}
+.si-la .sv{color:#fbbf24}
+.si-none .sv{color:#9ca3af}
+.sum-sep{width:1px;background:rgba(255,255,255,.15)}
 
-/* Saving spinner on card */
-.card-saving {
-  width: 14px; height: 14px; border-radius: 50%;
-  border: 2px solid #e5e7eb; border-top-color: var(--blue);
-  animation: spin 0.7s linear infinite; flex-shrink: 0;
+/* === QUICK BAR === */
+.quick-bar{
+  background:white;padding:7px 10px;display:flex;align-items:center;gap:7px;
+  border-bottom:1px solid var(--gray-border);flex-shrink:0;
 }
-@keyframes spin { to{transform:rotate(360deg)} }
+.search-wrap{position:relative;flex:1;max-width:260px}
+.search-wrap input{
+  width:100%;padding:6px 10px 6px 30px;
+  border:1.5px solid var(--gray-border);border-radius:8px;
+  font-size:13px;font-family:inherit;color:#1e293b;background:var(--gray-light);
+}
+.search-wrap input:focus{border-color:var(--army-mid);outline:none;background:white}
+.search-ico{
+  position:absolute;left:8px;top:50%;transform:translateY(-50%);
+  font-size:15px;pointer-events:none;opacity:.5;
+}
+.moo-label{font-size:11px;color:var(--gray);margin-left:auto;white-space:nowrap}
 
-/* ===== HISTORY PANEL ===== */
-.drawer-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300;
-}
-.drawer-overlay.show { display: block; }
-.drawer {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 400;
-  background: white; border-radius: 20px 20px 0 0;
-  max-height: 85vh; display: flex; flex-direction: column;
-  transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.32,0.72,0,1);
-  box-shadow: 0 -8px 32px rgba(0,0,0,0.2);
-}
-.drawer.show { transform: translateY(0); }
-.drawer-handle {
-  width: 40px; height: 4px; background: #d1d5db; border-radius: 2px;
-  margin: 10px auto 0;
-}
-.drawer-header {
-  display: flex; align-items: center; gap: 10px; padding: 12px 16px 10px;
-  border-bottom: 1px solid var(--gray-border); font-size: 16px; font-weight: 700;
-  color: var(--blue-dark);
-}
-.drawer-close {
-  margin-left: auto; background: var(--gray-light); border: none; cursor: pointer;
-  width: 28px; height: 28px; border-radius: 50%; font-size: 16px;
-  display: flex; align-items: center; justify-content: center;
-}
-.drawer-body { overflow-y: auto; -webkit-overflow-scrolling: touch; flex: 1; padding: 12px; }
+/* === CONTENT === */
+.content-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 80px}
 
-/* History items */
-.hist-item {
-  display: flex; align-items: center; padding: 10px 12px; background: var(--gray-light);
-  border-radius: 10px; margin-bottom: 8px; gap: 10px; flex-wrap: wrap;
+/* === STUDENT CARDS === */
+.student-list{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+.student-card{
+  background:white;border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  border-left:4px solid var(--gray-border);transition:border-color .2s;
 }
-.hist-date { font-size: 14px; font-weight: 700; color: var(--blue-dark); }
-.hist-stats { display: flex; gap: 6px; }
-.hbadge { font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 700; }
-.hb-ma { background: var(--green-light); color: var(--green-dark); }
-.hb-khad { background: var(--red-light); color: var(--red-dark); }
-.hb-la { background: var(--yellow-light); color: var(--yellow-dark); }
-.hist-btns { margin-left: auto; display: flex; gap: 6px; }
-.empty-msg { text-align: center; padding: 40px 20px; color: var(--gray); }
+.student-card.status-มา{border-left-color:var(--army-light)}
+.student-card.status-ขาด{border-left-color:var(--red);background:#fff8f8}
+.student-card.status-ลา{border-left-color:var(--yellow);background:#fffbf0}
+.student-card.highlight{animation:hlFlash 1.5s ease}
+@keyframes hlFlash{0%,30%{background:#fef9c3}100%{background:white}}
+.card-top{display:flex;align-items:center;padding:8px 10px;gap:8px}
+.card-num{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--khaki-light);border:1.5px solid #d6c9b0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--khaki);flex-shrink:0;
+}
+.card-info{flex:1;min-width:0}
+.card-name{font-size:14px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-meta{font-size:10px;color:var(--gray);margin-top:1px}
+.att-btns{display:flex;gap:5px;flex-shrink:0}
+.att-btn{
+  padding:5px 9px;border-radius:7px;border:1.5px solid var(--gray-border);
+  font-size:12px;font-weight:700;cursor:pointer;background:var(--gray-light);
+  color:var(--gray);transition:all .15s;font-family:inherit;
+  min-width:40px;text-align:center;
+}
+.att-btn:active{transform:scale(0.9)}
+.att-btn.sel-มา{background:var(--army-pale);border-color:var(--army-mid);color:var(--army)}
+.att-btn.sel-ขาด{background:var(--red-light);border-color:var(--red);color:var(--red-dark)}
+.att-btn.sel-ลา{background:var(--yellow-light);border-color:var(--yellow);color:var(--yellow-dark)}
+.card-note{padding:0 10px 7px}
+.note-inp{
+  width:100%;border:1px solid var(--gray-border);border-radius:6px;
+  padding:4px 8px;font-size:11px;font-family:inherit;color:#374151;
+  background:var(--gray-light);
+}
+.note-inp:focus{outline:none;border-color:var(--army-mid);background:white}
 
-/* ===== FIREBASE SETUP MODAL ===== */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-  z-index: 500; align-items: center; justify-content: center; padding: 16px;
-}
-.modal-overlay.show { display: flex; }
-.modal {
-  background: white; border-radius: 16px; width: 100%; max-width: 480px;
-  max-height: 90vh; overflow-y: auto; padding: 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-.modal h3 { font-size: 17px; font-weight: 800; color: var(--blue-dark); margin-bottom: 4px; }
-.modal .subtitle { font-size: 13px; color: var(--gray); margin-bottom: 16px; }
-.step-box {
-  background: var(--blue-light); border-radius: 10px; padding: 12px 14px;
-  margin-bottom: 14px; font-size: 13px; line-height: 1.7; color: #1e3a8a;
-}
-.step-box ol { padding-left: 18px; }
-.step-box a { color: var(--blue); font-weight: 700; }
-.form-group { margin-bottom: 12px; }
-.form-group label { display: block; font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 4px; }
-.form-group input {
-  width: 100%; border: 2px solid var(--gray-border); border-radius: 8px;
-  padding: 8px 10px; font-size: 13px; font-family: inherit; color: #1e293b;
-}
-.form-group input:focus { border-color: var(--blue); outline: none; }
-.modal-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; flex-wrap: wrap; }
-.divider { border: none; border-top: 1px solid var(--gray-border); margin: 14px 0; }
+/* empty state */
+.empty-state{text-align:center;padding:48px 20px;color:var(--gray)}
+.empty-state .ei{font-size:48px;margin-bottom:12px}
+.empty-state p{font-size:14px}
 
-/* ===== TOAST ===== */
-.toast {
-  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
-  background: #1e293b; color: white; padding: 10px 18px; border-radius: 20px;
-  font-size: 14px; font-weight: 600; z-index: 1000;
-  opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+/* === FAB SYNC === */
+.fab-sync{
+  position:fixed;bottom:14px;right:10px;z-index:200;
+  background:white;border-radius:20px;padding:6px 12px;
+  display:flex;align-items:center;gap:5px;
+  box-shadow:var(--shadow-lg);font-size:12px;font-weight:700;
+  color:var(--army);border:1.5px solid var(--army-pale);
+  transition:all .3s;pointer-events:none;
 }
-.toast.show {
-  opacity: 1; transform: translateX(-50%) translateY(0);
-}
-.toast.t-success { background: var(--green); }
-.toast.t-error { background: var(--red); }
-.toast.t-warn { background: var(--yellow); }
+.fab-sync.syncing{color:var(--yellow-dark);border-color:var(--yellow-light)}
+.fab-sync.error{color:var(--red-dark);border-color:var(--red-light)}
+.fab-sync.remote{color:var(--blue-dark);border-color:var(--blue-light)}
 
-/* ===== CONFIRM MODAL ===== */
-.confirm-modal {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-  z-index: 600; align-items: flex-end; justify-content: center;
+/* === DRAWERS === */
+.drawer-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;
 }
-.confirm-modal.show { display: flex; }
-.confirm-box {
-  background: white; border-radius: 20px 20px 0 0; width: 100%; padding: 20px;
-  max-width: 480px;
+.drawer-overlay.show{display:block}
+.drawer{
+  position:fixed;bottom:0;left:0;right:0;z-index:400;
+  background:white;border-radius:20px 20px 0 0;
+  max-height:90vh;display:flex;flex-direction:column;
+  transform:translateY(100%);transition:transform .35s cubic-bezier(.32,.72,0,1);
+  box-shadow:0 -8px 32px rgba(0,0,0,.2);
 }
-.confirm-box h4 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
-.confirm-box p { font-size: 14px; color: var(--gray); margin-bottom: 18px; }
-.confirm-btns { display: flex; gap: 8px; }
-.confirm-btns .btn { flex: 1; justify-content: center; }
+.drawer.show{transform:translateY(0)}
+.drawer-handle{width:36px;height:4px;background:#d1d5db;border-radius:2px;margin:10px auto 0}
+.drawer-hdr{
+  display:flex;align-items:center;gap:8px;padding:12px 16px 10px;
+  border-bottom:1px solid var(--gray-border);font-size:15px;font-weight:800;
+  color:var(--army-dark);
+}
+.drawer-close{
+  margin-left:auto;background:var(--gray-light);border:none;cursor:pointer;
+  width:28px;height:28px;border-radius:50%;font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+}
+.drawer-body{overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1;padding:12px}
 
-/* ===== REPORT ===== */
-.rpt-chip {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 7px 14px; border: 2px solid var(--gray-border);
-  border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600;
-  color: var(--gray); background: var(--gray-light); transition: all 0.15s;
+/* === HISTORY === */
+.hist-item{
+  display:flex;align-items:center;padding:10px 12px;
+  background:var(--gray-light);border-radius:10px;margin-bottom:7px;gap:8px;flex-wrap:wrap;
 }
-.rpt-chip input[type="radio"] { display: none; }
-.rpt-chip:has(input:checked) { background: var(--blue-light); border-color: var(--blue); color: var(--blue-dark); }
-.date-row {
-  display: flex; align-items: center; gap: 10px; padding: 8px 10px;
-  border-radius: 8px; cursor: pointer; transition: background 0.1s;
-}
-.date-row:hover { background: #f0f9ff; }
-.date-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--blue); cursor: pointer; flex-shrink:0; }
-.date-row .dr-date { font-weight: 700; font-size: 13px; flex: 1; }
-.date-row .dr-stats { display: flex; gap: 5px; flex-wrap: wrap; }
-.dr-badge { font-size: 11px; padding: 2px 7px; border-radius: 10px; font-weight: 700; }
-.dr-ma { background: var(--green-light); color: var(--green-dark); }
-.dr-khad { background: var(--red-light); color: var(--red-dark); }
-.dr-la { background: var(--yellow-light); color: var(--yellow-dark); }
+.hist-date{font-size:13px;font-weight:700;color:var(--army-dark)}
+.hist-stats{display:flex;gap:5px;margin-top:3px;flex-wrap:wrap}
+.hbadge{font-size:10px;padding:2px 7px;border-radius:12px;font-weight:700}
+.hb-ma{background:var(--army-pale);color:var(--army)}
+.hb-khad{background:var(--red-light);color:var(--red-dark)}
+.hb-la{background:var(--yellow-light);color:var(--yellow-dark)}
 
-/* ===== DESKTOP overrides ===== */
-@media (min-width: 640px) {
-  .content-area { padding-bottom: 20px; }
-  .student-list { padding: 12px 16px; gap: 8px; }
-  .card-name { font-size: 15px; }
-  .att-btn { padding: 7px 14px; font-size: 14px; }
-  .fab { bottom: 24px; right: 24px; width: 64px; height: 64px; font-size: 26px; }
-  .toast { bottom: 30px; }
+/* === ADMIN PANEL === */
+.admin-section{margin-bottom:16px}
+.admin-section h4{font-size:13px;font-weight:700;color:var(--army-dark);margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid var(--army-pale)}
+.form-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.form-group{flex:1;min-width:110px}
+.form-group label{display:block;font-size:11px;font-weight:700;color:#374151;margin-bottom:3px}
+.form-group input,.form-group select{
+  width:100%;border:1.5px solid var(--gray-border);border-radius:7px;
+  padding:7px 9px;font-size:13px;font-family:inherit;color:#1e293b;background:white;
+}
+.form-group input:focus,.form-group select:focus{border-color:var(--army-mid);outline:none}
+.student-manage-list{max-height:280px;overflow-y:auto;border:1px solid var(--gray-border);border-radius:8px}
+.sm-item{
+  display:flex;align-items:center;padding:8px 10px;gap:8px;
+  border-bottom:1px solid var(--gray-border);transition:background .1s;
+}
+.sm-item:last-child{border-bottom:none}
+.sm-item:hover{background:var(--gray-light)}
+.sm-name{flex:1;font-size:13px}
+.sm-meta{font-size:11px;color:var(--gray)}
+.sm-actions{display:flex;gap:5px}
+.import-zone{
+  border:2px dashed var(--army-light);border-radius:10px;
+  padding:16px;text-align:center;background:var(--army-pale);
+  cursor:pointer;transition:all .2s;
+}
+.import-zone:hover{background:#d8efc0;border-color:var(--army)}
+.import-zone p{font-size:13px;color:var(--army);font-weight:600}
+.import-zone small{font-size:11px;color:var(--gray);margin-top:4px;display:block}
+.csv-template{font-size:11px;background:#f8fafc;border:1px solid var(--gray-border);border-radius:6px;padding:8px 10px;margin-top:6px;color:#374151;line-height:1.7;font-family:monospace}
+
+/* === REPORT === */
+.rpt-chip{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:5px 12px;border:1.5px solid var(--gray-border);
+  border-radius:20px;cursor:pointer;font-size:12px;font-weight:700;
+  color:var(--gray);background:var(--gray-light);transition:all .15s;
+}
+.rpt-chip input[type="radio"]{display:none}
+.rpt-chip:has(input:checked){background:var(--army-pale);border-color:var(--army);color:var(--army)}
+.date-row{
+  display:flex;align-items:center;padding:7px 9px;
+  border-radius:7px;cursor:pointer;transition:background .1s;
+}
+.date-row:hover{background:#f0fdf4}
+.date-row input[type="checkbox"]{width:16px;height:16px;accent-color:var(--army);cursor:pointer;flex-shrink:0}
+.date-row .dr-date{font-weight:700;font-size:12px;flex:1;margin-left:8px}
+.date-row .dr-stats{display:flex;gap:4px;flex-wrap:wrap}
+.dr-badge{font-size:10px;padding:1px 6px;border-radius:10px;font-weight:700}
+.dr-ma{background:var(--army-pale);color:var(--army)}
+.dr-khad{background:var(--red-light);color:var(--red-dark)}
+.dr-la{background:var(--yellow-light);color:var(--yellow-dark)}
+
+/* === SUPABASE SETUP MODAL === */
+.modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+  z-index:500;align-items:center;justify-content:center;padding:14px;
+}
+.modal-overlay.show{display:flex}
+.modal{
+  background:white;border-radius:16px;width:100%;max-width:460px;
+  max-height:88vh;overflow-y:auto;padding:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+.modal h3{font-size:16px;font-weight:800;color:var(--army-dark);margin-bottom:3px}
+.modal .subtitle{font-size:12px;color:var(--gray);margin-bottom:14px}
+.step-box{
+  background:var(--army-pale);border-radius:9px;padding:11px 13px;
+  margin-bottom:12px;font-size:12px;line-height:1.8;color:var(--army-dark);
+  border-left:3px solid var(--army-mid);
+}
+.step-box ol{padding-left:16px}
+.step-box a{color:var(--army-mid);font-weight:700}
+.modal-btns{display:flex;gap:7px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+.divider{border:none;border-top:1px solid var(--gray-border);margin:12px 0}
+
+/* === TOAST === */
+.toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(16px);
+  background:#1e293b;color:white;padding:9px 16px;border-radius:20px;
+  font-size:13px;font-weight:600;z-index:1000;
+  opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(0,0,0,.2);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.t-success{background:var(--army)}
+.toast.t-error{background:var(--red)}
+.toast.t-warn{background:var(--yellow)}
+
+/* === CONFIRM MODAL === */
+.confirm-modal{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:600;align-items:flex-end;justify-content:center;
+}
+.confirm-modal.show{display:flex}
+.confirm-box{
+  background:white;border-radius:20px 20px 0 0;width:100%;padding:20px;max-width:460px;
+}
+.confirm-box h4{font-size:15px;font-weight:800;margin-bottom:6px}
+.confirm-box p{font-size:13px;color:var(--gray);margin-bottom:16px}
+.confirm-btns{display:flex;gap:8px}
+.confirm-btns .btn{flex:1;justify-content:center;padding:10px}
+
+/* === STAT MODAL (รายคน) === */
+.stat-modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:550;display:none;align-items:flex-end;justify-content:center;
+}
+.stat-modal.show{display:flex}
+.stat-box{
+  background:white;border-radius:20px 20px 0 0;width:100%;padding:18px;
+  max-width:480px;max-height:80vh;overflow-y:auto;
+}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat-card{
+  background:var(--gray-light);border-radius:9px;padding:10px 8px;text-align:center;
+  border:1.5px solid var(--gray-border);
+}
+.stat-card .sc-val{font-size:22px;font-weight:800}
+.stat-card .sc-lbl{font-size:11px;color:var(--gray);margin-top:1px}
+.sc-ma .sc-val{color:var(--army-mid)}
+.sc-khad .sc-val{color:var(--red)}
+.sc-la .sc-val{color:var(--yellow)}
+.date-history{max-height:200px;overflow-y:auto}
+.dh-item{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-bottom:1px solid var(--gray-border);font-size:12px}
+.dh-item:last-child{border-bottom:none}
+.status-badge{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
+.sb-มา{background:var(--army-pale);color:var(--army)}
+.sb-ขาด{background:var(--red-light);color:var(--red-dark)}
+.sb-ลา{background:var(--yellow-light);color:var(--yellow-dark)}
+
+/* === REMOTE FLASH === */
+.student-card.remote-flash{animation:rfFlash 1.2s ease}
+@keyframes rfFlash{0%,30%{background:#dbeafe}100%{background:white}}
+
+/* === DESKTOP === */
+@media(min-width:640px){
+  .content-area{padding-bottom:16px}
+  .student-list{padding:10px 14px;gap:7px}
 }
 </style>
 </head>
@@ -357,215 +415,313 @@ body {
 
 <!-- HEADER -->
 <div class="app-header">
-  <div class="logo">✈️</div>
+  <div class="header-icon">🪖</div>
   <div>
-    <h1>เช็คชื่อลูกเสืออากาศ ม.1</h1>
-    <p>โรงเรียนหนองหานวิทยา · ปีการศึกษา 2569</p>
+    <div class="header-title">เช็คชื่อลูกเสือเหล่าเสนา ม.1</div>
+    <div class="header-sub">โรงเรียนหนองหานวิทยา · ปีการศึกษา 2569</div>
   </div>
   <div class="header-right">
     <div class="sync-dot" id="syncDot" title="สถานะการเชื่อมต่อ"></div>
-    <button class="btn btn-xs btn-ghost" onclick="openSetup()" style="color:white;background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3)">⚙️</button>
+    <button class="hdr-btn" onclick="openAdmin()">⚙️ จัดการ</button>
+    <button class="hdr-btn" onclick="openSetup()">🗄️ DB</button>
   </div>
 </div>
 
-<!-- DATE BAR -->
-<div class="date-bar">
-  <label>📅</label>
-  <input type="date" id="checkDate">
-  <span class="save-status saved" id="saveStatus">🔄 เรียลไทม์</span>
-  <div class="top-btns">
-    <button class="btn btn-ghost btn-xs" onclick="openHistory()">📋 ประวัติ</button>
-    <button class="btn btn-ghost btn-xs" onclick="exportCSV()">📤 CSV</button>
-    <button class="btn btn-ghost btn-xs" onclick="openReport()" style="color:#059669;border-color:#059669">📊 รายงาน</button>
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="date-wrap">
+    <label>📅</label>
+    <input type="date" id="checkDate">
+  </div>
+  <div class="toolbar-btns">
+    <button class="btn btn-ghost btn-sm" onclick="openHistory()">📋 ประวัติ</button>
+    <button class="btn btn-ghost btn-sm" onclick="openReport()">📊 รายงาน</button>
+    <button class="btn btn-ghost btn-sm" onclick="exportCSV()">📤 CSV</button>
   </div>
 </div>
 
-<!-- GONG NAV -->
-<div class="gong-nav" id="gongNav"></div>
+<!-- GONG TABS -->
+<div class="gong-tabs" id="gongTabs"></div>
 
 <!-- MOO BAR -->
 <div class="moo-bar" id="mooBar"></div>
 
 <!-- SUMMARY STRIP -->
-<div class="summary-strip">
-  <div class="sum-item si-ma"><div class="sv" id="s-ma">0</div><div>มา</div></div>
+<div class="summary-strip" id="summaryStrip">
+  <div class="sum-item si-ma" onclick="filterByStatus('มา')">
+    <div class="sv" id="s-ma">0</div><div class="sl">มา</div>
+  </div>
   <div class="sum-sep"></div>
-  <div class="sum-item si-khad"><div class="sv" id="s-khad">0</div><div>ขาด</div></div>
+  <div class="sum-item si-khad" onclick="filterByStatus('ขาด')">
+    <div class="sv" id="s-khad">0</div><div class="sl">ขาด</div>
+  </div>
   <div class="sum-sep"></div>
-  <div class="sum-item si-la"><div class="sv" id="s-la">0</div><div>ลา</div></div>
+  <div class="sum-item si-la" onclick="filterByStatus('ลา')">
+    <div class="sv" id="s-la">0</div><div class="sl">ลา</div>
+  </div>
   <div class="sum-sep"></div>
-  <div class="sum-item si-none"><div class="sv" id="s-none">0</div><div>ยังไม่เช็ค</div></div>
+  <div class="sum-item si-none" onclick="filterByStatus('')">
+    <div class="sv" id="s-none">0</div><div class="sl">ยังไม่เช็ค</div>
+  </div>
 </div>
 
 <!-- QUICK BAR -->
 <div class="quick-bar">
-  <button class="btn btn-ghost btn-xs" onclick="markAllMa()">✅ มาทั้งหมด</button>
-  <button class="btn btn-ghost btn-xs" onclick="clearAllMoo()">🔄 ล้างหมู่นี้</button>
-  <span style="font-size:12px;color:var(--gray);margin-left:auto;align-self:center" id="mooLabel"></span>
+  <div class="search-wrap">
+    <span class="search-ico">🔍</span>
+    <input type="text" id="searchInput" placeholder="ค้นหาชื่อ หรือ รหัส..." oninput="onSearch()">
+  </div>
+  <button class="btn btn-army btn-sm" onclick="markAllMa()">✅ มาทั้งหมด</button>
+  <button class="btn btn-ghost btn-sm" onclick="clearAllMoo()">🔄 ล้าง</button>
+  <span class="moo-label" id="mooLabel"></span>
 </div>
 
 <!-- CONTENT -->
 <div class="content-area" id="contentArea">
-  <div class="student-list" id="studentList"></div>
+  <div class="student-list" id="studentList">
+    <div class="empty-state">
+      <div class="ei">🪖</div>
+      <p>กำลังโหลดข้อมูล...</p>
+    </div>
+  </div>
 </div>
 
-<!-- FAB Save -->
-<div class="fab-sync" id="fabSync" title="สถานะการซิงค์">
+<!-- FAB -->
+<div class="fab-sync" id="fabSync">
   <span id="fabIcon">✅</span>
-  <span id="fabLabel">ซิงค์แล้ว</span>
+  <span id="fabLabel">พร้อมใช้งาน</span>
 </div>
 
-<!-- HISTORY DRAWER -->
-<div class="drawer-overlay" id="drawerOverlay" onclick="closeHistory()"></div>
-<div class="drawer" id="drawer">
+<!-- ===== HISTORY DRAWER ===== -->
+<div class="drawer-overlay" id="histOverlay" onclick="closeHistory()"></div>
+<div class="drawer" id="histDrawer">
   <div class="drawer-handle"></div>
-  <div class="drawer-header">
-    📋 ประวัติการเช็คชื่อ
+  <div class="drawer-hdr">📋 ประวัติการเช็คชื่อ
     <button class="drawer-close" onclick="closeHistory()">✕</button>
   </div>
-  <div class="drawer-body" id="historyBody"></div>
+  <div class="drawer-body" id="histBody"></div>
 </div>
 
-<!-- REPORT DRAWER -->
-<div class="drawer-overlay" id="reportOverlay" onclick="closeReport()"></div>
-<div class="drawer" id="reportDrawer" style="max-height:92vh">
+<!-- ===== REPORT DRAWER ===== -->
+<div class="drawer-overlay" id="rptOverlay" onclick="closeReport()"></div>
+<div class="drawer" id="rptDrawer" style="max-height:92vh">
   <div class="drawer-handle"></div>
-  <div class="drawer-header">
-    📊 ดาวน์โหลดรายงาน Excel
+  <div class="drawer-hdr">📊 ดาวน์โหลดรายงาน Excel
     <button class="drawer-close" onclick="closeReport()">✕</button>
   </div>
-  <div class="drawer-body" style="padding:14px;display:flex;flex-direction:column;gap:12px">
-
-    <!-- กอง selector -->
+  <div class="drawer-body" style="padding:12px;display:flex;flex-direction:column;gap:11px">
     <div>
-      <div style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">เลือกกอง</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <label class="rpt-chip" id="rc-all"><input type="radio" name="rptGong" value="all" checked onchange="renderDateList()">ทั้ง 3 กอง</label>
-        <label class="rpt-chip"><input type="radio" name="rptGong" value="0" onchange="renderDateList()">กอง 1</label>
-        <label class="rpt-chip"><input type="radio" name="rptGong" value="1" onchange="renderDateList()">กอง 2</label>
-        <label class="rpt-chip"><input type="radio" name="rptGong" value="2" onchange="renderDateList()">กอง 3</label>
-      </div>
+      <div style="font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">เลือกกอง</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap" id="rptGongSelector"></div>
     </div>
-
-    <!-- Quick date filter -->
     <div>
-      <div style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">ช่วงวันที่</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
-        <button class="btn btn-xs btn-ghost" onclick="quickSelect('all')">ทั้งหมด</button>
-        <button class="btn btn-xs btn-ghost" onclick="quickSelect('thisMonth')">เดือนนี้</button>
-        <button class="btn btn-xs btn-ghost" onclick="quickSelect('lastMonth')">เดือนก่อน</button>
-        <button class="btn btn-xs btn-ghost" onclick="quickSelect('last30')">30 วันล่าสุด</button>
-        <button class="btn btn-xs btn-ghost" onclick="quickSelect('custom')">กำหนดเอง ▾</button>
+      <div style="font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">ช่วงวันที่</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">
+        <button class="btn btn-ghost btn-sm" onclick="quickSelect('all')">ทั้งหมด</button>
+        <button class="btn btn-ghost btn-sm" onclick="quickSelect('thisMonth')">เดือนนี้</button>
+        <button class="btn btn-ghost btn-sm" onclick="quickSelect('last30')">30 วันล่าสุด</button>
+        <button class="btn btn-ghost btn-sm" onclick="quickSelect('custom')">กำหนดเอง ▾</button>
       </div>
-      <div id="customDateRange" style="display:none;display:flex;gap:8px;margin-bottom:6px">
-        <div style="flex:1">
-          <div style="font-size:12px;color:#6b7280;margin-bottom:3px">เริ่มต้น</div>
-          <input type="date" id="rptFrom" style="width:100%;border:2px solid #e5e7eb;border-radius:8px;padding:6px 10px;font-size:13px;font-family:inherit" onchange="applyCustomRange()">
-        </div>
-        <div style="flex:1">
-          <div style="font-size:12px;color:#6b7280;margin-bottom:3px">สิ้นสุด</div>
-          <input type="date" id="rptTo" style="width:100%;border:2px solid #e5e7eb;border-radius:8px;padding:6px 10px;font-size:13px;font-family:inherit" onchange="applyCustomRange()">
+      <div id="customDateRange" style="display:none;gap:8px;margin-bottom:6px">
+        <div style="display:flex;gap:8px">
+          <div style="flex:1"><div style="font-size:11px;color:#6b7280;margin-bottom:3px">เริ่มต้น</div>
+            <input type="date" id="rptFrom" style="width:100%;border:1.5px solid var(--gray-border);border-radius:7px;padding:5px 8px;font-size:12px;font-family:inherit" onchange="applyCustomRange()"></div>
+          <div style="flex:1"><div style="font-size:11px;color:#6b7280;margin-bottom:3px">สิ้นสุด</div>
+            <input type="date" id="rptTo" style="width:100%;border:1.5px solid var(--gray-border);border-radius:7px;padding:5px 8px;font-size:12px;font-family:inherit" onchange="applyCustomRange()"></div>
         </div>
       </div>
     </div>
-
-    <!-- Date list -->
     <div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <div style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px">เลือกวันที่</div>
-        <span id="dateSelCount" style="font-size:12px;background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:12px;font-weight:700"></span>
-        <div style="margin-left:auto;display:flex;gap:6px">
-          <button class="btn btn-xs btn-ghost" onclick="selectAllDates(true)">เลือกทั้งหมด</button>
-          <button class="btn btn-xs btn-ghost" onclick="selectAllDates(false)">ล้าง</button>
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
+        <div style="font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px">เลือกวันที่</div>
+        <span id="dateSelCount" style="font-size:11px;background:var(--army-pale);color:var(--army);padding:2px 8px;border-radius:12px;font-weight:700"></span>
+        <div style="margin-left:auto;display:flex;gap:5px">
+          <button class="btn btn-ghost btn-sm" onclick="selectAllDates(true)">เลือกทั้งหมด</button>
+          <button class="btn btn-ghost btn-sm" onclick="selectAllDates(false)">ล้าง</button>
         </div>
       </div>
-      <div id="dateListContainer" style="max-height:200px;overflow-y:auto;border:1px solid #e5e7eb;border-radius:10px;padding:4px">
-        <div style="text-align:center;padding:20px;color:#9ca3af;font-size:13px">⏳ กำลังโหลดข้อมูล...</div>
+      <div id="dateListContainer" style="max-height:180px;overflow-y:auto;border:1px solid var(--gray-border);border-radius:9px;padding:4px">
+        <div style="text-align:center;padding:20px;color:#9ca3af;font-size:12px">⏳ กำลังโหลด...</div>
       </div>
     </div>
-
-    <!-- Summary -->
-    <div style="background:#f8fafc;border-radius:10px;padding:10px 12px;font-size:13px;color:#374151" id="reportSummary">
-      กรุณาเลือกวันที่
-    </div>
-
-    <!-- Download button -->
-    <button class="btn btn-success" id="rptDownloadBtn" onclick="generateExcelReport()" style="justify-content:center;padding:13px;font-size:15px;border-radius:12px">
+    <div style="background:#f8faf5;border-radius:9px;padding:9px 11px;font-size:12px;color:#374151" id="rptSummary">กรุณาเลือกวันที่</div>
+    <button class="btn btn-army" id="rptDownloadBtn" onclick="generateExcelReport()" style="justify-content:center;padding:12px;font-size:14px;border-radius:10px">
       📥 ดาวน์โหลด Excel
+    </button>
+    <button class="btn btn-gold btn-sm" onclick="openStatModal()" style="justify-content:center">
+      👤 ดูสถิติรายคน
     </button>
   </div>
 </div>
 
-<!-- FIREBASE SETUP MODAL -->
-<div class="modal-overlay" id="setupModal">
-  <div class="modal">
-    <h3>🔥 ตั้งค่า Firebase</h3>
-    <p class="subtitle">เชื่อมต่อฐานข้อมูลออนไลน์เพื่อซิงค์ข้อมูลทุกอุปกรณ์</p>
-    <div class="step-box">
-      <ol>
-        <li>เข้า <a href="https://firebase.google.com" target="_blank">firebase.google.com</a> → สร้างโปรเจกต์</li>
-        <li>ไปที่ <b>Firestore Database</b> → Create database → Start in test mode</li>
-        <li>ไปที่ Project Settings → General → Your apps → Add app (Web icon)</li>
-        <li>คัดลอก firebaseConfig มากรอกด้านล่าง</li>
-      </ol>
+<!-- ===== ADMIN DRAWER ===== -->
+<div class="drawer-overlay" id="adminOverlay" onclick="closeAdmin()"></div>
+<div class="drawer" id="adminDrawer" style="max-height:94vh">
+  <div class="drawer-handle"></div>
+  <div class="drawer-hdr">⚙️ จัดการนักเรียน
+    <button class="drawer-close" onclick="closeAdmin()">✕</button>
+  </div>
+  <div class="drawer-body" style="padding:12px;display:flex;flex-direction:column;gap:4px">
+
+    <!-- Add student -->
+    <div class="admin-section">
+      <h4>➕ เพิ่มนักเรียนใหม่</h4>
+      <div class="form-row">
+        <div class="form-group" style="min-width:80px;max-width:90px">
+          <label>กอง</label>
+          <select id="addGong" onchange="updateAddMooOptions()"></select>
+        </div>
+        <div class="form-group" style="min-width:70px;max-width:80px">
+          <label>หมู่</label>
+          <select id="addMoo"></select>
+        </div>
+        <div class="form-group" style="min-width:80px;max-width:90px">
+          <label>ลำดับ</label>
+          <input type="number" id="addNo" placeholder="1" min="1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>รหัสนักเรียน</label>
+          <input type="text" id="addId" placeholder="38001">
+        </div>
+        <div class="form-group">
+          <label>ห้อง</label>
+          <input type="text" id="addRoom" placeholder="1/1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>ชื่อ-สกุล</label>
+          <input type="text" id="addName" placeholder="เด็กชาย/เด็กหญิง...">
+        </div>
+      </div>
+      <button class="btn btn-army" onclick="addStudent()" style="width:100%;justify-content:center;margin-top:4px">
+        ➕ เพิ่มนักเรียน
+      </button>
     </div>
-    <div class="form-group">
-      <label>API Key</label>
-      <input type="text" id="cfg-apiKey" placeholder="AIzaSy...">
+
+    <!-- Manage gong/moo -->
+    <div class="admin-section">
+      <h4>🗂️ จัดการกอง/หมู่</h4>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px">
+        <button class="btn btn-army btn-sm" onclick="addGong()">➕ เพิ่มกอง</button>
+        <button class="btn btn-ghost btn-sm" onclick="removeLastGong()">➖ ลบกองสุดท้าย</button>
+      </div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn btn-army btn-sm" onclick="addMooToGong()">➕ เพิ่มหมู่ในกอง</button>
+        <button class="btn btn-ghost btn-sm" onclick="removeMooFromGong()">➖ ลบหมู่สุดท้าย</button>
+      </div>
     </div>
-    <div class="form-group">
-      <label>Auth Domain</label>
-      <input type="text" id="cfg-authDomain" placeholder="your-project.firebaseapp.com">
+
+    <!-- Student list -->
+    <div class="admin-section">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <h4 style="margin:0;border:none;padding:0">📋 รายชื่อนักเรียน</h4>
+        <select id="adminGongFilter" onchange="renderAdminList()" style="font-size:12px;padding:3px 6px;border:1px solid var(--gray-border);border-radius:6px;font-family:inherit"></select>
+        <select id="adminMooFilter" onchange="renderAdminList()" style="font-size:12px;padding:3px 6px;border:1px solid var(--gray-border);border-radius:6px;font-family:inherit"></select>
+      </div>
+      <div class="student-manage-list" id="adminStudentList"></div>
     </div>
-    <div class="form-group">
-      <label>Project ID</label>
-      <input type="text" id="cfg-projectId" placeholder="your-project-id">
+
+    <!-- Import CSV -->
+    <div class="admin-section">
+      <h4>📥 นำเข้าจาก CSV</h4>
+      <div class="import-zone" onclick="document.getElementById('csvFile').click()">
+        <p>📂 คลิกเพื่อเลือกไฟล์ CSV</p>
+        <small>รูปแบบ: กอง, หมู่, ลำดับ, รหัส, ชื่อ-สกุล, ห้อง</small>
+      </div>
+      <input type="file" id="csvFile" accept=".csv" style="display:none" onchange="importCSV(this)">
+      <div class="csv-template">
+        กอง1,1,1,38001,เด็กหญิงสมหญิง ใจดี,1/1<br>
+        กอง1,1,2,38002,เด็กชายสมชาย มีสุข,1/2
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="downloadTemplate()" style="margin-top:6px;width:100%;justify-content:center">
+        📄 ดาวน์โหลดเทมเพลต CSV
+      </button>
     </div>
-    <div class="form-group">
-      <label>Storage Bucket</label>
-      <input type="text" id="cfg-storageBucket" placeholder="your-project.appspot.com">
-    </div>
-    <div class="form-group">
-      <label>Messaging Sender ID</label>
-      <input type="text" id="cfg-messagingSenderId" placeholder="123456789">
-    </div>
-    <div class="form-group">
-      <label>App ID</label>
-      <input type="text" id="cfg-appId" placeholder="1:123...">
-    </div>
-    <hr class="divider">
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeSetup()">ยกเลิก</button>
-      <button class="btn btn-ghost btn-xs" onclick="clearFirebaseConfig()" style="color:var(--red)">🗑️ ล้างค่า</button>
-      <button class="btn btn-primary" onclick="saveFirebaseConfig()">🔥 เชื่อมต่อ</button>
+
+    <!-- Danger zone -->
+    <div class="admin-section">
+      <h4 style="color:var(--red)">⚠️ ล้างข้อมูล</h4>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn btn-danger btn-sm" onclick="confirmClearStudents()">🗑️ ล้างรายชื่อทั้งหมด</button>
+        <button class="btn btn-ghost btn-sm" onclick="confirmClearAttendance()">🗑️ ล้างประวัติเช็คชื่อ</button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- CONFIRM MODAL -->
+<!-- ===== SUPABASE SETUP MODAL ===== -->
+<div class="modal-overlay" id="setupModal">
+  <div class="modal">
+    <h3>🗄️ ตั้งค่า Supabase</h3>
+    <p class="subtitle">เชื่อมต่อฐานข้อมูลออนไลน์เพื่อซิงค์ข้อมูลทุกอุปกรณ์</p>
+    <div class="step-box">
+      <ol>
+        <li>เข้า <a href="https://supabase.com" target="_blank">supabase.com</a> → สร้างโปรเจกต์</li>
+        <li>ไปที่ <b>Table Editor</b> → สร้างตาราง <b>attendance</b></li>
+        <li>คอลัมน์: <b>id</b> (text PK), <b>date</b> (text), <b>gong</b> (text), <b>data</b> (json), <b>updated_at</b> (timestamptz)</li>
+        <li>ไปที่ <b>Project Settings → API</b> คัดลอก URL และ anon key</li>
+        <li>เปิด <b>RLS</b> และเพิ่ม Policy: allow all for anon</li>
+      </ol>
+    </div>
+    <div class="form-group">
+      <label>Supabase URL</label>
+      <input type="text" id="cfg-url" placeholder="https://xxxx.supabase.co">
+    </div>
+    <div class="form-group">
+      <label>Anon Key</label>
+      <input type="text" id="cfg-key" placeholder="eyJhbGci...">
+    </div>
+    <hr class="divider">
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeSetup()">ยกเลิก</button>
+      <button class="btn btn-ghost btn-sm" onclick="clearSupabaseConfig()" style="color:var(--red)">🗑️ ล้างค่า</button>
+      <button class="btn btn-army" onclick="saveSupabaseConfig()">🗄️ เชื่อมต่อ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STAT MODAL ===== -->
+<div class="stat-modal" id="statModal">
+  <div class="stat-box">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <span style="font-size:16px;font-weight:800;color:var(--army-dark)">👤 สถิติรายคน</span>
+      <button class="drawer-close" onclick="closeStatModal()" style="margin-left:auto">✕</button>
+    </div>
+    <div style="margin-bottom:10px">
+      <input type="text" id="statSearch" placeholder="ค้นหานักเรียน..." style="width:100%;border:1.5px solid var(--gray-border);border-radius:8px;padding:7px 10px;font-size:13px;font-family:inherit" oninput="renderStatList()">
+    </div>
+    <div id="statListArea" style="max-height:62vh;overflow-y:auto"></div>
+  </div>
+</div>
+
+<!-- ===== CONFIRM MODAL ===== -->
 <div class="confirm-modal" id="confirmModal">
   <div class="confirm-box">
     <h4 id="confTitle"></h4>
     <p id="confMsg"></p>
     <div class="confirm-btns">
       <button class="btn btn-ghost" onclick="closeConfirm()">ยกเลิก</button>
-      <button class="btn btn-primary" id="confBtn">ยืนยัน</button>
+      <button class="btn btn-danger" id="confBtn">ยืนยัน</button>
     </div>
   </div>
 </div>
 
-<!-- TOAST -->
+<!-- ===== TOAST ===== -->
 <div class="toast" id="toast"></div>
 
-<!-- SheetJS for Excel export -->
+<!-- SheetJS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<!-- PapaParse for CSV import -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-// ==================== STUDENT DATA ====================
-const SCOUT = {
+// ==================== SCOUT DATA ====================
+// เหล่าเสนา (ลูกเสือ/เนตรนารีสามัญรุ่นใหญ่) — ข้อมูลเริ่มต้น
+// โครงสร้าง: SCOUT[กอง][หมู่] = [{no,id,name,room}]
+let SCOUT = {
   "กอง1": {
     1:[
       {no:1,id:"37876",name:"เด็กหญิงปวิณา อนุอัน",room:"1/1"},
@@ -789,366 +945,213 @@ const SCOUT = {
     ],
   }
 };
-const GONG_KEYS = Object.keys(SCOUT); // ["กอง1","กอง2","กอง3"]
 
-// ==================== FIREBASE CONFIG (ฝังตรง) ====================
-const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyCsvIEUnbn18tmbFzYKCgjrL5LhiQsSkYI",
-  authDomain: "scout-checkin.firebaseapp.com",
-  projectId: "scout-checkin",
-  storageBucket: "scout-checkin.firebasestorage.app",
-  messagingSenderId: "55511473194",
-  appId: "1:55511473194:web:13dadaec321c6778e0f753",
-  measurementId: "G-5RBYZL0731"
-};
+const LS_SCOUT = 'scout_sena_students';
+const LS_ATT   = 'scout_sena_att';
+const LS_CFG   = 'scout_sena_cfg';
 
 // ==================== STATE ====================
 let curGong = 0;
-let curMoo = 1;
-let attendance = {};     // id → {status, note}
-let localSaved = {};     // date → attendance snapshot (localStorage backup)
-let db = null;
-let rtListeners = [];    // Firestore onSnapshot unsubscribe functions
-let noteDebounce = {};   // debounce timers for note saves
-let isSyncing = false;   // throttle write bursts
-let syncQueue = new Set(); // student ids queued for save
-let deviceId = localStorage.getItem('scout_device_id') || (() => {
-  const id = 'dev_' + Math.random().toString(36).slice(2,8);
-  localStorage.setItem('scout_device_id', id); return id;
-})();
-const LS_ATT = 'scout_att_2569';
-const LS_CFG = 'scout_fb_cfg';
+let curMoo  = 1;
+let attendance   = {};  // id → {status, note}
+let localSaved   = {};  // date → attendance snapshot
+let supabase     = null;
+let noteDebounce = {};
+let filterStatus = null; // null = all
+let searchQuery  = '';
 
-// ==================== FIREBASE ====================
-function initFirebase(cfg) {
+// ==================== SUPABASE ====================
+function initSupabase(url, key) {
   try {
-    if (firebase.apps.length) firebase.app().delete().then(() => startFirebase(cfg));
-    else startFirebase(cfg);
-  } catch(e) { setSyncStatus('error'); }
-}
-function startFirebase(cfg) {
-  try {
-    firebase.initializeApp(cfg);
-    db = firebase.firestore();
-    // ไม่ใช้ enablePersistence เพื่อป้องกัน write ค้าง
+    const { createClient } = window.supabaseLib;
+    supabase = createClient(url, key);
     setSyncStatus('online');
-    showToast('🔥 เชื่อมต่อ Firebase แล้ว — เรียลไทม์', 'success');
+    showToast('🗄️ เชื่อมต่อ Supabase แล้ว', 'success');
     loadForDate();
   } catch(e) {
-    db = null; setSyncStatus('error');
-    showToast('❌ Firebase config ผิดพลาด', 'error');
-    loadForDate(); // Load from localStorage as fallback
+    supabase = null; setSyncStatus('error');
+    showToast('❌ Supabase config ผิด: ' + e.message, 'error');
   }
 }
 
-// Promise timeout helper
-function withTimeout(promise, ms) {
-  return Promise.race([
-    promise,
-    new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
-  ]);
+async function sbSave(date, gong) {
+  if (!supabase || !date) return;
+  const gk = GONG_KEYS()[gong];
+  const data = {};
+  for (const [mStr, students] of Object.entries(SCOUT[gk]||{})) {
+    data[mStr] = {};
+    students.forEach(s => { if(attendance[s.id]) data[mStr][s.id] = attendance[s.id]; });
+  }
+  try {
+    await supabase.from('attendance').upsert({
+      id: `${date}_${gk}`,
+      date, gong: gk, data,
+      updated_at: new Date().toISOString()
+    });
+  } catch(e) { console.warn('supabase save:', e); }
 }
 
-// ===== REAL-TIME LISTENERS =====
-function setupRealtimeListeners(date) {
-  // Tear down old listeners
-  rtListeners.forEach(u => u());
-  rtListeners = [];
-  if (!db || !date) return;
-
-  GONG_KEYS.forEach(gk => {
-    const unsub = db.collection('attendance').doc(fbDocId(date, gk))
-      .onSnapshot({ includeMetadataChanges: false }, snap => {
-        if (!snap.exists) return;
-        // hasPendingWrites = true means this is our own optimistic update
-        if (snap.metadata.hasPendingWrites) return;
-        const remoteData = snap.data().data || {};
-        mergeRemoteData(gk, remoteData);
-      }, () => {});
-    rtListeners.push(unsub);
-  });
-}
-
-function mergeRemoteData(gk, remoteData) {
-  let changed = [];
-  for (const [mStr, mData] of Object.entries(remoteData)) {
-    if (typeof mData !== 'object') continue;
-    for (const [id, val] of Object.entries(mData)) {
-      if (!val) continue;
-      const cur = attendance[id];
-      if (!cur || cur.status !== val.status || cur.note !== val.note) {
-        attendance[id] = { ...val };
-        changed.push(id);
-        // Flash card if visible
-        const card = document.getElementById(`card-${id}`);
-        if (card) {
-          card.classList.remove('remote-flash');
-          void card.offsetWidth; // reflow
-          card.classList.add('remote-flash');
-          const st = val.status || '';
-          card.className = `student-card${st?' status-'+st:''} remote-flash`;
-          // Update buttons
-          card.querySelectorAll('.att-btn').forEach(btn => {
-            btn.className = 'att-btn' + (btn.textContent.includes('✅')&&st==='มา'?' sel-มา':
-                                         btn.textContent.includes('❌')&&st==='ขาด'?' sel-ขาด':
-                                         btn.textContent.includes('📋')&&st==='ลา'?' sel-ลา':'');
-          });
-          const noteEl = card.querySelector('.note-inp');
-          if (noteEl && noteEl !== document.activeElement) noteEl.value = val.note || '';
-          setTimeout(() => {
-            if(card) card.classList.remove('remote-flash');
-          }, 1500);
+async function sbLoad(date) {
+  if (!supabase) return null;
+  setSyncStatus('syncing');
+  try {
+    const { data, error } = await supabase.from('attendance')
+      .select('*').eq('date', date);
+    if (error) throw error;
+    const merged = {};
+    (data||[]).forEach(row => {
+      const d = row.data || {};
+      for (const [,mData] of Object.entries(d)) {
+        if (typeof mData==='object') {
+          for (const [id,val] of Object.entries(mData)) {
+            if (val?.status) merged[id] = val;
+          }
         }
       }
-    }
-  }
-  if (changed.length) {
-    updateSummary();
-    updateMooBtn(curMoo);
-    backupToLocal();
-    setFabSync('remote', `🔄 อัปเดต ${changed.length} คน`);
-  }
-}
-
-// ===== AUTO-SAVE =====
-function findStudentGongMoo(id) {
-  for (const gk of GONG_KEYS) {
-    for (const [mStr, students] of Object.entries(SCOUT[gk])) {
-      if (students.find(s => s.id === id)) return { gk, moo: mStr };
-    }
-  }
-  return null;
-}
-
-async function autoSave(id) {
-  const date = document.getElementById('checkDate').value;
-  if (!date) return;
-  // Always backup to localStorage first
-  backupToLocal();
-
-  if (!db) { setFabSync('saved', '💾 Local'); return; }
-  const info = findStudentGongMoo(id);
-  if (!info) return;
-  const val = attendance[id] || {};
-  setFabSync('syncing', '⏳ กำลังบันทึก...');
-  try {
-    await withTimeout(
-      db.collection('attendance').doc(fbDocId(date, info.gk)).set({
-        data: { [info.moo]: { [id]: val } },
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-        device: deviceId
-      }, { merge: true }),
-      6000
-    );
-    setFabSync('saved', '✅ ซิงค์แล้ว');
-  } catch(e) {
-    const msg = e.message === 'timeout' ? '⚠️ หมดเวลา (บันทึก Local แล้ว)' :
-                e.code === 'permission-denied' ? '🔒 ไม่มีสิทธิ์เขียน Firestore' : '⚠️ ออฟไลน์';
-    setFabSync('error', msg);
-    showToast(msg, 'error');
-  }
-}
-
-function autoSaveDebounced(id, delay=800) {
-  clearTimeout(noteDebounce[id]);
-  noteDebounce[id] = setTimeout(() => autoSave(id), delay);
-}
-
-// Batch save all visible moo (for markAllMa / clearAllMoo)
-async function autoSaveMoo() {
-  const date = document.getElementById('checkDate').value;
-  if (!date) return;
-  backupToLocal();
-  if (!db) return;
-  const gk = GONG_KEYS[curGong];
-  const students = SCOUT[gk][curMoo] || [];
-  const mooData = {};
-  students.forEach(s => { mooData[s.id] = attendance[s.id] || {}; });
-  setFabSync('syncing', '⏳ กำลังบันทึก...');
-  try {
-    await withTimeout(
-      db.collection('attendance').doc(fbDocId(date, gk)).set({
-        data: { [curMoo]: mooData },
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-        device: deviceId
-      }, { merge: true }),
-      6000
-    );
-    setFabSync('saved', '✅ ซิงค์แล้ว');
-  } catch(e) {
-    const msg = e.message === 'timeout' ? '⚠️ หมดเวลา (บันทึก Local แล้ว)' :
-                e.code === 'permission-denied' ? '🔒 ไม่มีสิทธิ์เขียน Firestore' : '⚠️ ออฟไลน์';
-    setFabSync('error', msg);
-    showToast(msg, 'error');
-  }
-}
-
-function backupToLocal() {
-  const date = document.getElementById('checkDate').value;
-  if (!date) return;
-  localSaved[date] = JSON.parse(JSON.stringify(attendance));
-  localStorage.setItem(LS_ATT, JSON.stringify(localSaved));
-}
-
-function setFabSync(state, label) {
-  const fab = document.getElementById('fabSync');
-  const icon = document.getElementById('fabIcon');
-  const lbl = document.getElementById('fabLabel');
-  if (!fab) return;
-  fab.className = 'fab-sync' + (state==='syncing'?' syncing':state==='error'?' error':state==='remote'?' remote':'');
-  icon.textContent = state==='syncing'?'⏳':state==='error'?'⚠️':state==='remote'?'🔄':'✅';
-  lbl.textContent = label;
-  if (state === 'saved' || state === 'remote') {
-    clearTimeout(fab._timer);
-    fab._timer = setTimeout(() => setFabSync('idle','✅ ซิงค์แล้ว'), 3000);
-  }
-}
-function setFabIdle() { setFabSync('idle','✅ ซิงค์แล้ว'); }
-function setSyncStatus(s) {
-  const d = document.getElementById('syncDot');
-  d.className = 'sync-dot ' + s;
-  d.title = s === 'online' ? 'เชื่อมต่อ Firebase แล้ว' : s === 'syncing' ? 'กำลังซิงค์...' : s === 'error' ? 'ไม่สามารถเชื่อมต่อ' : 'ออฟไลน์ (localStorage)';
-}
-
-// Firebase doc id: "2025-01-01_กอง1"
-function fbDocId(date, gong) { return `${date}_${gong}`; }
-
-async function fbSave(date) {
-  if (!db) return false;
-  setSyncStatus('syncing');
-  try {
-    for (const gk of GONG_KEYS) {
-      const data = {};
-      for (const [mStr, students] of Object.entries(SCOUT[gk])) {
-        data[mStr] = {};
-        students.forEach(s => {
-          const k = s.id;
-          if (attendance[k]) data[mStr][k] = attendance[k];
-        });
-      }
-      await db.collection('attendance').doc(fbDocId(date, gk)).set({
-        data, updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      }, { merge: true });
-    }
+    });
     setSyncStatus('online');
-    return true;
-  } catch(e) {
-    setSyncStatus('error');
-    showToast('❌ บันทึก Firebase ไม่ได้: ' + e.message, 'error');
-    return false;
-  }
-}
-
-async function fbLoad(date) {
-  if (!db) return null;
-  setSyncStatus('syncing');
-  try {
-    const result = {};
-    for (const gk of GONG_KEYS) {
-      const doc = await db.collection('attendance').doc(fbDocId(date, gk)).get();
-      if (doc.exists) Object.assign(result, doc.data().data || {});
-    }
-    setSyncStatus('online');
-    return result;
+    return merged;
   } catch(e) {
     setSyncStatus('error');
     return null;
   }
 }
 
-async function fbGetAllDates() {
-  if (!db) return null;
+async function sbGetAllDates() {
+  if (!supabase) return null;
   try {
-    const snap = await db.collection('attendance').get();
-    const dates = new Set();
-    snap.docs.forEach(d => {
-      const parts = d.id.split('_');
-      if (parts[0]) dates.add(parts[0]);
-    });
+    const { data } = await supabase.from('attendance').select('date');
+    const dates = new Set((data||[]).map(r=>r.date));
     return [...dates].sort().reverse();
   } catch(e) { return null; }
 }
 
-// ==================== SETUP MODAL ====================
-function openSetup() {
-  const cfg = getStoredConfig();
-  if (cfg) {
-    document.getElementById('cfg-apiKey').value = cfg.apiKey || '';
-    document.getElementById('cfg-authDomain').value = cfg.authDomain || '';
-    document.getElementById('cfg-projectId').value = cfg.projectId || '';
-    document.getElementById('cfg-storageBucket').value = cfg.storageBucket || '';
-    document.getElementById('cfg-messagingSenderId').value = cfg.messagingSenderId || '';
-    document.getElementById('cfg-appId').value = cfg.appId || '';
+async function autoSave(id) {
+  backupToLocal();
+  if (!supabase) { setFab('saved','💾 Local'); return; }
+  setFab('syncing','⏳ บันทึก...');
+  // find gong index
+  const gi = GONG_KEYS().findIndex(gk =>
+    Object.values(SCOUT[gk]||{}).flat().find(s=>s.id===id)
+  );
+  if (gi < 0) return;
+  const date = document.getElementById('checkDate').value;
+  await sbSave(date, gi);
+  setFab('saved','✅ ซิงค์แล้ว');
+}
+function autoSaveDebounced(id) {
+  clearTimeout(noteDebounce[id]);
+  noteDebounce[id] = setTimeout(() => autoSave(id), 700);
+}
+async function autoSaveMoo() {
+  backupToLocal();
+  if (!supabase) return;
+  setFab('syncing','⏳ บันทึก...');
+  const date = document.getElementById('checkDate').value;
+  await sbSave(date, curGong);
+  setFab('saved','✅ ซิงค์แล้ว');
+}
+
+function backupToLocal() {
+  const date = document.getElementById('checkDate').value;
+  if (!date) return;
+  localSaved[date] = JSON.parse(JSON.stringify(attendance));
+  try { localStorage.setItem(LS_ATT, JSON.stringify(localSaved)); } catch(e){}
+}
+
+function setFab(state, label) {
+  const fab = document.getElementById('fabSync');
+  if (!fab) return;
+  fab.className = 'fab-sync' + (state==='syncing'?' syncing':state==='error'?' error':state==='remote'?' remote':'');
+  document.getElementById('fabIcon').textContent = state==='syncing'?'⏳':state==='error'?'⚠️':state==='remote'?'🔄':'✅';
+  document.getElementById('fabLabel').textContent = label;
+  if (state==='saved') {
+    clearTimeout(fab._t);
+    fab._t = setTimeout(() => setFab('idle','✅ พร้อม'), 3000);
   }
-  document.getElementById('setupModal').classList.add('show');
 }
-function closeSetup() { document.getElementById('setupModal').classList.remove('show'); }
-function getStoredConfig() {
-  try { return JSON.parse(localStorage.getItem(LS_CFG)); } catch { return null; }
+function setSyncStatus(s) {
+  const d = document.getElementById('syncDot');
+  d.className = 'sync-dot ' + s;
 }
-function saveFirebaseConfig() {
-  const cfg = {
-    apiKey: document.getElementById('cfg-apiKey').value.trim(),
-    authDomain: document.getElementById('cfg-authDomain').value.trim(),
-    projectId: document.getElementById('cfg-projectId').value.trim(),
-    storageBucket: document.getElementById('cfg-storageBucket').value.trim(),
-    messagingSenderId: document.getElementById('cfg-messagingSenderId').value.trim(),
-    appId: document.getElementById('cfg-appId').value.trim(),
-  };
-  if (!cfg.apiKey || !cfg.projectId) { showToast('กรุณากรอก API Key และ Project ID', 'warn'); return; }
-  localStorage.setItem(LS_CFG, JSON.stringify(cfg));
-  closeSetup();
-  initFirebase(cfg);
+
+// ==================== HELPERS ====================
+function GONG_KEYS() { return Object.keys(SCOUT); }
+
+function saveScoutData() {
+  try { localStorage.setItem(LS_SCOUT, JSON.stringify(SCOUT)); } catch(e){}
 }
-function clearFirebaseConfig() {
-  localStorage.removeItem(LS_CFG);
-  db = null; setSyncStatus('');
-  closeSetup();
-  showToast('🗑️ ล้างค่า Firebase แล้ว (ใช้ localStorage)', 'warn');
+
+function formatThaiDate(dateStr) {
+  if (!dateStr) return '';
+  const [y,m,d] = dateStr.split('-');
+  const mn=['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  const wd=['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
+  const dt = new Date(dateStr);
+  return `${wd[dt.getDay()]} ${parseInt(d)} ${mn[parseInt(m)]} ${parseInt(y)+543}`;
 }
 
 // ==================== BUILD UI ====================
-function buildGongNav() {
-  const nav = document.getElementById('gongNav');
-  nav.innerHTML = GONG_KEYS.map((gk, i) => {
-    const total = Object.values(SCOUT[gk]).reduce((a,m) => a+m.length, 0);
-    return `<button class="gong-btn${i===curGong?' active':''}" onclick="switchGong(${i})">
-      <span>${gk}</span><span class="g-label">ลูกเสืออากาศ</span>
+function buildGongTabs() {
+  const gks = GONG_KEYS();
+  document.getElementById('gongTabs').innerHTML = gks.map((gk,i) => {
+    const total = Object.values(SCOUT[gk]||{}).reduce((a,m)=>a+m.length,0);
+    const ma = Object.values(SCOUT[gk]||{}).flat().filter(s=>attendance[s.id]?.status==='มา').length;
+    return `<button class="gong-tab${i===curGong?' active':''}" onclick="switchGong(${i})">
+      <span>${gk}</span>
+      <span class="gt-name">ลูกเสือเหล่าเสนา</span>
+      <span class="gt-count">${ma}/${total} คน</span>
     </button>`;
   }).join('');
 }
 
 function buildMooBar() {
-  const gk = GONG_KEYS[curGong];
-  const moos = Object.keys(SCOUT[gk]).map(Number);
-  const bar = document.getElementById('mooBar');
-  bar.innerHTML = moos.map(m => {
-    const students = SCOUT[gk][m];
-    let ma = students.filter(s=>attendance[s.id]?.status==='มา').length;
+  const gk = GONG_KEYS()[curGong];
+  const moos = Object.keys(SCOUT[gk]||{}).map(Number).sort((a,b)=>a-b);
+  document.getElementById('mooBar').innerHTML = moos.map(m => {
+    const students = SCOUT[gk][m]||[];
+    const ma = students.filter(s=>attendance[s.id]?.status==='มา').length;
     return `<button class="moo-btn${m===curMoo?' active':''}" id="moobtn-${m}" onclick="switchMoo(${m})">
       หมู่ ${m} <span class="ms">${ma}/${students.length}</span>
     </button>`;
   }).join('');
-  // scroll active into view
   setTimeout(() => {
-    const active = bar.querySelector('.moo-btn.active');
-    if (active) active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    const a = document.querySelector('.moo-btn.active');
+    if(a) a.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
   }, 50);
 }
 
 function buildStudentList() {
-  const gk = GONG_KEYS[curGong];
-  const students = SCOUT[gk][curMoo] || [];
+  const gk = GONG_KEYS()[curGong];
+  let students = (SCOUT[gk]?.[curMoo] || []).slice();
+
+  // Filter by search
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    students = students.filter(s =>
+      s.name.toLowerCase().includes(q) || s.id.includes(q) || s.room.includes(q)
+    );
+  }
+  // Filter by status
+  if (filterStatus !== null) {
+    students = students.filter(s => (attendance[s.id]?.status||'') === filterStatus);
+  }
+
   const list = document.getElementById('studentList');
+  if (students.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="ei">${searchQuery?'🔍':'📋'}</div><p>${searchQuery?'ไม่พบนักเรียนที่ค้นหา':'ยังไม่มีนักเรียนในหมู่นี้'}</p></div>`;
+    updateSummary(); return;
+  }
+
   list.innerHTML = students.map(s => {
-    const att = attendance[s.id] || {};
-    const st = att.status || '';
+    const att = attendance[s.id]||{};
+    const st = att.status||'';
     return `<div class="student-card${st?' status-'+st:''}" id="card-${s.id}">
       <div class="card-top">
         <div class="card-num">${s.no}</div>
         <div class="card-info">
           <div class="card-name">${s.name}</div>
-          <div class="card-room">ม.${s.room}</div>
+          <div class="card-meta">รหัส ${s.id} · ม.${s.room}</div>
         </div>
         <div class="att-btns">
           <button class="att-btn${st==='มา'?' sel-มา':''}" onclick="setAtt('${s.id}','มา')">✅</button>
@@ -1163,98 +1166,98 @@ function buildStudentList() {
     </div>`;
   }).join('');
   updateSummary();
-  document.getElementById('mooLabel').textContent = `${gk} · หมู่ ${curMoo} (${students.length} คน)`;
+  document.getElementById('mooLabel').textContent = `${gk} · หมู่ ${curMoo}`;
 }
 
 function updateSummary() {
-  const gk = GONG_KEYS[curGong];
-  const students = SCOUT[gk][curMoo] || [];
-  let ma=0, khad=0, la=0, none=0;
-  students.forEach(s => {
-    const v = attendance[s.id]?.status;
-    if(v==='มา') ma++; else if(v==='ขาด') khad++; else if(v==='ลา') la++; else none++;
+  const gk = GONG_KEYS()[curGong];
+  const students = SCOUT[gk]?.[curMoo]||[];
+  let ma=0,khad=0,la=0,none=0;
+  students.forEach(s=>{
+    const v=attendance[s.id]?.status;
+    if(v==='มา')ma++; else if(v==='ขาด')khad++; else if(v==='ลา')la++; else none++;
   });
-  document.getElementById('s-ma').textContent = ma;
-  document.getElementById('s-khad').textContent = khad;
-  document.getElementById('s-la').textContent = la;
-  document.getElementById('s-none').textContent = none;
+  document.getElementById('s-ma').textContent=ma;
+  document.getElementById('s-khad').textContent=khad;
+  document.getElementById('s-la').textContent=la;
+  document.getElementById('s-none').textContent=none;
 }
 
 function updateMooBtn(m) {
-  const gk = GONG_KEYS[curGong];
-  const students = SCOUT[gk][m] || [];
+  const gk = GONG_KEYS()[curGong];
+  const students = SCOUT[gk]?.[m]||[];
   const ma = students.filter(s=>attendance[s.id]?.status==='มา').length;
   const btn = document.getElementById(`moobtn-${m}`);
-  if (btn) btn.innerHTML = `หมู่ ${m} <span class="ms">${ma}/${students.length}</span>`;
+  if(btn) btn.innerHTML=`หมู่ ${m} <span class="ms">${ma}/${students.length}</span>`;
 }
 
 // ==================== SWITCH ====================
 function switchGong(i) {
-  curGong = i;
-  curMoo = 1;
-  document.querySelectorAll('.gong-btn').forEach((b,j) => b.classList.toggle('active', j===i));
-  buildMooBar();
-  buildStudentList();
-  document.getElementById('contentArea').scrollTop = 0;
+  curGong=i; curMoo=1; filterStatus=null;
+  document.querySelectorAll('.gong-tab').forEach((b,j)=>b.classList.toggle('active',j===i));
+  buildMooBar(); buildStudentList();
+  document.getElementById('contentArea').scrollTop=0;
 }
 function switchMoo(m) {
-  curMoo = m;
-  document.querySelectorAll('.moo-btn').forEach(b => b.classList.remove('active'));
+  curMoo=m; filterStatus=null;
+  document.querySelectorAll('.moo-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(`moobtn-${m}`)?.classList.add('active');
   buildStudentList();
-  document.getElementById('contentArea').scrollTop = 0;
+  document.getElementById('contentArea').scrollTop=0;
+}
+function filterByStatus(st) {
+  filterStatus = (filterStatus===st) ? null : st;
+  buildStudentList();
+}
+function onSearch() {
+  searchQuery = document.getElementById('searchInput').value;
+  buildStudentList();
 }
 
 // ==================== ATTENDANCE ====================
 function setAtt(id, val) {
-  if (!attendance[id]) attendance[id] = {};
-  // Toggle off if same
-  if (attendance[id].status === val) {
+  if(!attendance[id]) attendance[id]={};
+  if(attendance[id].status===val) {
     delete attendance[id].status;
-    if (!attendance[id].note) delete attendance[id];
+    if(!attendance[id].note) delete attendance[id];
   } else {
-    attendance[id].status = val;
+    attendance[id].status=val;
   }
-  // Update card
   const card = document.getElementById(`card-${id}`);
-  if (card) {
-    const st = attendance[id]?.status || '';
-    card.className = `student-card${st?' status-'+st:''}`;
-    card.querySelectorAll('.att-btn').forEach(btn => {
-      btn.className = 'att-btn' + (btn.textContent.includes('✅') && st==='มา' ? ' sel-มา' :
-                                   btn.textContent.includes('❌') && st==='ขาด' ? ' sel-ขาด' :
-                                   btn.textContent.includes('📋') && st==='ลา' ? ' sel-ลา' : '');
+  if(card) {
+    const st = attendance[id]?.status||'';
+    card.className=`student-card${st?' status-'+st:''}`;
+    card.querySelectorAll('.att-btn').forEach(btn=>{
+      btn.className='att-btn'+(
+        btn.textContent.includes('✅')&&st==='มา'?' sel-มา':
+        btn.textContent.includes('❌')&&st==='ขาด'?' sel-ขาด':
+        btn.textContent.includes('📋')&&st==='ลา'?' sel-ลา':'');
     });
   }
-  updateSummary();
-  updateMooBtn(curMoo);
+  updateSummary(); updateMooBtn(curMoo); buildGongTabs();
   autoSave(id);
 }
 function setNote(id, val) {
-  if (!attendance[id]) attendance[id] = {};
-  attendance[id].note = val;
+  if(!attendance[id]) attendance[id]={};
+  attendance[id].note=val;
   autoSaveDebounced(id);
 }
 
 // ==================== QUICK ACTIONS ====================
 function markAllMa() {
-  const gk = GONG_KEYS[curGong];
-  const students = SCOUT[gk][curMoo] || [];
-  students.forEach(s => {
-    if (!attendance[s.id]) attendance[s.id] = {};
-    attendance[s.id].status = 'มา';
+  const gk=GONG_KEYS()[curGong];
+  (SCOUT[gk]?.[curMoo]||[]).forEach(s=>{
+    if(!attendance[s.id]) attendance[s.id]={};
+    attendance[s.id].status='มา';
   });
-  buildStudentList();
-  updateMooBtn(curMoo);
-  autoSaveMoo();
+  buildStudentList(); buildMooBar(); buildGongTabs(); autoSaveMoo();
+  showToast('✅ บันทึกทุกคนเป็น "มา"','success');
 }
 function clearAllMoo() {
-  const gk = GONG_KEYS[curGong];
-  const students = SCOUT[gk][curMoo] || [];
-  students.forEach(s => { delete attendance[s.id]; });
-  buildStudentList();
-  updateMooBtn(curMoo);
-  autoSaveMoo();
+  const gk=GONG_KEYS()[curGong];
+  (SCOUT[gk]?.[curMoo]||[]).forEach(s=>{ delete attendance[s.id]; });
+  buildStudentList(); buildMooBar(); buildGongTabs(); autoSaveMoo();
+  showToast('🔄 ล้างข้อมูลหมู่นี้แล้ว','warn');
 }
 
 // ==================== LOAD ====================
@@ -1262,488 +1265,637 @@ async function loadForDate() {
   const date = document.getElementById('checkDate').value;
   if (!date) return;
   attendance = {};
-  setFabSync('syncing', '⏳ กำลังโหลด...');
-
-  // Try Firebase first
-  if (db) {
-    const fbData = await fbLoad(date);
-    if (fbData) {
-      // Flatten moo→id structure into flat attendance
-      for (const [mStr, mData] of Object.entries(fbData)) {
-        if (typeof mData === 'object') {
-          for (const [id, val] of Object.entries(mData)) {
-            if (val && typeof val === 'object') attendance[id] = val;
-          }
-        }
-      }
+  setFab('syncing','⏳ โหลด...');
+  if (supabase) {
+    const remote = await sbLoad(date);
+    if (remote) {
+      attendance = remote;
       backupToLocal();
-      buildStudentList();
-      buildMooBar();
-      setupRealtimeListeners(date);
-      setFabSync('saved', '✅ ซิงค์แล้ว');
-      return;
+      buildGongTabs(); buildMooBar(); buildStudentList();
+      setFab('saved','✅ ซิงค์แล้ว'); return;
     }
   }
-
-  // Fallback to localStorage
   const stored = localSaved[date];
-  if (stored) {
-    attendance = JSON.parse(JSON.stringify(stored));
-  }
-  buildStudentList();
-  buildMooBar();
-  // Still set up real-time listeners so new data from other devices arrives
-  setupRealtimeListeners(date);
-  setFabSync('saved', db ? '✅ ซิงค์แล้ว' : '💾 Local');
+  if(stored) attendance = JSON.parse(JSON.stringify(stored));
+  buildGongTabs(); buildMooBar(); buildStudentList();
+  setFab('saved', supabase?'✅ ซิงค์แล้ว':'💾 Local');
 }
 
 // ==================== HISTORY ====================
 function openHistory() {
-  document.getElementById('drawerOverlay').classList.add('show');
-  document.getElementById('drawer').classList.add('show');
+  document.getElementById('histOverlay').classList.add('show');
+  document.getElementById('histDrawer').classList.add('show');
   renderHistory();
 }
 function closeHistory() {
-  document.getElementById('drawerOverlay').classList.remove('show');
-  document.getElementById('drawer').classList.remove('show');
+  document.getElementById('histOverlay').classList.remove('show');
+  document.getElementById('histDrawer').classList.remove('show');
 }
-
 async function renderHistory() {
-  const body = document.getElementById('historyBody');
-  body.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray)">⏳ กำลังโหลด...</div>';
-
-  let allDates = [];
-  if (db) {
-    const fbDates = await fbGetAllDates();
-    if (fbDates) allDates = fbDates;
-  }
-  // Merge with local dates
-  const localDates = Object.keys(localSaved).sort().reverse();
-  const merged = [...new Set([...allDates, ...localDates])].sort().reverse();
-
-  if (merged.length === 0) {
-    body.innerHTML = '<div class="empty-msg">📭 ยังไม่มีประวัติการเช็คชื่อ</div>';
-    return;
-  }
-
-  // For summary we use localSaved data (faster)
-  body.innerHTML = merged.map(date => {
-    const data = localSaved[date] || {};
-    let ma=0, khad=0, la=0;
-    for (const gk of GONG_KEYS) {
-      for (const students of Object.values(SCOUT[gk])) {
-        students.forEach(s => {
-          const v = data[s.id]?.status;
-          if(v==='มา') ma++; else if(v==='ขาด') khad++; else if(v==='ลา') la++;
-        });
-      }
-    }
-    const [y,mo,d] = date.split('-');
-    const thNames = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-    const thDate = `${parseInt(d)} ${thNames[parseInt(mo)]} ${parseInt(y)+543}`;
-    const fbBadge = db ? '<span style="font-size:11px;color:#f97316">🔥</span>' : '';
+  const body = document.getElementById('histBody');
+  body.innerHTML='<div style="text-align:center;padding:20px;color:var(--gray)">⏳ กำลังโหลด...</div>';
+  let dates=[];
+  if(supabase){const d=await sbGetAllDates();if(d)dates=d;}
+  const local=Object.keys(localSaved).sort().reverse();
+  dates=[...new Set([...dates,...local])].sort().reverse();
+  if(!dates.length){body.innerHTML='<div style="text-align:center;padding:36px;color:var(--gray)">📭 ยังไม่มีประวัติ</div>';return;}
+  body.innerHTML=dates.map(date=>{
+    const data=localSaved[date]||{};
+    let ma=0,khad=0,la=0;
+    GONG_KEYS().forEach(gk=>Object.values(SCOUT[gk]||{}).flat().forEach(s=>{
+      const v=data[s.id]?.status;
+      if(v==='มา')ma++;else if(v==='ขาด')khad++;else if(v==='ลา')la++;
+    }));
     return `<div class="hist-item">
       <div style="flex:1">
-        <div class="hist-date">${fbBadge} 📅 ${thDate}</div>
-        <div class="hist-stats" style="margin-top:4px">
-          <span class="hbadge hb-ma">✅ มา ${ma}</span>
-          <span class="hbadge hb-khad">❌ ขาด ${khad}</span>
-          <span class="hbadge hb-la">📋 ลา ${la}</span>
+        <div class="hist-date">📅 ${formatThaiDate(date)}</div>
+        <div class="hist-stats">
+          <span class="hbadge hb-ma">✅ ${ma}</span>
+          <span class="hbadge hb-khad">❌ ${khad}</span>
+          <span class="hbadge hb-la">📋 ${la}</span>
         </div>
       </div>
-      <div class="hist-btns">
-        <button class="btn btn-xs btn-outline" onclick="loadDate('${date}')">📂 เปิด</button>
-        <button class="btn btn-xs btn-danger" onclick="confirmDelete('${date}')">🗑️</button>
+      <div style="display:flex;gap:5px">
+        <button class="btn btn-outline btn-sm" onclick="loadDate('${date}')">📂 เปิด</button>
+        <button class="btn btn-danger btn-sm" onclick="confirmDeleteDate('${date}')">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function loadDate(date) {
+  document.getElementById('checkDate').value=date;
+  closeHistory(); loadForDate();
+}
+function confirmDeleteDate(date) {
+  showConfirm('ลบข้อมูล',`ต้องการลบวันที่ ${formatThaiDate(date)} ใช่หรือไม่?`,async()=>{
+    delete localSaved[date];
+    try{localStorage.setItem(LS_ATT,JSON.stringify(localSaved));}catch(e){}
+    if(supabase){
+      try{
+        GONG_KEYS().forEach(async gk=>{
+          await supabase.from('attendance').delete().eq('id',`${date}_${gk}`);
+        });
+      }catch(e){}
+    }
+    renderHistory(); showToast('🗑️ ลบแล้ว','warn');
+  });
+}
+
+// ==================== EXPORT CSV ====================
+function exportCSV() {
+  const date = document.getElementById('checkDate').value;
+  if(!date){showToast('กรุณาเลือกวันที่','warn');return;}
+  let csv='﻿วันที่,กอง,หมู่,ลำดับ,รหัส,ชื่อ-สกุล,ห้อง,การเข้าร่วม,หมายเหตุ\n';
+  GONG_KEYS().forEach(gk=>{
+    Object.entries(SCOUT[gk]||{}).forEach(([mStr,students])=>{
+      students.forEach(s=>{
+        const a=attendance[s.id]||{};
+        csv+=`${date},${gk},หมู่${mStr},${s.no},${s.id},"${s.name}",ม.${s.room},${a.status||''},${a.note||''}\n`;
+      });
+    });
+  });
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download=`เช็คชื่อลูกเสือเหล่าเสนา_${date}.csv`;
+  a.click();
+  showToast('📤 CSV แล้ว','success');
+}
+
+// ==================== ADMIN ====================
+function openAdmin() {
+  document.getElementById('adminOverlay').classList.add('show');
+  document.getElementById('adminDrawer').classList.add('show');
+  buildAdminSelectors();
+  renderAdminList();
+}
+function closeAdmin() {
+  document.getElementById('adminOverlay').classList.remove('show');
+  document.getElementById('adminDrawer').classList.remove('show');
+}
+
+function buildAdminSelectors() {
+  const gks = GONG_KEYS();
+  // addGong selector
+  const addGongEl = document.getElementById('addGong');
+  addGongEl.innerHTML = gks.map(gk=>`<option value="${gk}">${gk}</option>`).join('');
+  updateAddMooOptions();
+  // filter selectors
+  const fgEl = document.getElementById('adminGongFilter');
+  fgEl.innerHTML = gks.map(gk=>`<option value="${gk}">${gk}</option>`).join('');
+  updateAdminMooFilter();
+}
+
+function updateAddMooOptions() {
+  const gk = document.getElementById('addGong').value;
+  const moos = Object.keys(SCOUT[gk]||{}).map(Number).sort((a,b)=>a-b);
+  const nextMoo = moos.length ? Math.max(...moos) : 0;
+  document.getElementById('addMoo').innerHTML = moos.map(m=>`<option value="${m}">หมู่ ${m}</option>`).join('')
+    + `<option value="${nextMoo+1}">+ หมู่ ${nextMoo+1} (ใหม่)</option>`;
+}
+
+function updateAdminMooFilter() {
+  const gk = document.getElementById('adminGongFilter').value;
+  const moos = Object.keys(SCOUT[gk]||{}).map(Number).sort((a,b)=>a-b);
+  document.getElementById('adminMooFilter').innerHTML =
+    `<option value="all">ทุกหมู่</option>` +
+    moos.map(m=>`<option value="${m}">หมู่ ${m}</option>`).join('');
+  renderAdminList();
+}
+document.getElementById('adminGongFilter').addEventListener('change', updateAdminMooFilter);
+
+function renderAdminList() {
+  const gk = document.getElementById('adminGongFilter')?.value || GONG_KEYS()[0];
+  const mf = document.getElementById('adminMooFilter')?.value || 'all';
+  const moos = mf==='all' ? Object.keys(SCOUT[gk]||{}).map(Number).sort((a,b)=>a-b) : [parseInt(mf)];
+  const list = document.getElementById('adminStudentList');
+  let html = '';
+  moos.forEach(m => {
+    const students = SCOUT[gk]?.[m]||[];
+    if(!students.length) return;
+    html += `<div style="padding:5px 10px 2px;font-size:11px;font-weight:700;color:var(--army);background:var(--army-pale)">หมู่ ${m}</div>`;
+    students.forEach(s => {
+      html += `<div class="sm-item">
+        <div class="card-num" style="flex-shrink:0">${s.no}</div>
+        <div style="flex:1;min-width:0">
+          <div class="sm-name">${s.name}</div>
+          <div class="sm-meta">รหัส ${s.id} · ม.${s.room}</div>
+        </div>
+        <div class="sm-actions">
+          <button class="btn btn-ghost btn-sm" onclick="editStudent('${gk}',${m},'${s.id}')">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteStudent('${gk}',${m},'${s.id}')">🗑️</button>
+        </div>
+      </div>`;
+    });
+  });
+  if(!html) html = '<div style="padding:16px;text-align:center;color:var(--gray);font-size:13px">ยังไม่มีนักเรียน</div>';
+  list.innerHTML = html;
+}
+
+function addStudent() {
+  const gk=document.getElementById('addGong').value;
+  const m=parseInt(document.getElementById('addMoo').value);
+  const no=parseInt(document.getElementById('addNo').value)||1;
+  const id=document.getElementById('addId').value.trim();
+  const name=document.getElementById('addName').value.trim();
+  const room=document.getElementById('addRoom').value.trim();
+  if(!id||!name){showToast('กรุณากรอกรหัสและชื่อ','warn');return;}
+  if(!SCOUT[gk]) SCOUT[gk]={};
+  if(!SCOUT[gk][m]) SCOUT[gk][m]=[];
+  if(SCOUT[gk][m].find(s=>s.id===id)){showToast('รหัสนักเรียนซ้ำ','error');return;}
+  SCOUT[gk][m].push({no,id,name,room});
+  SCOUT[gk][m].sort((a,b)=>a.no-b.no);
+  saveScoutData();
+  renderAdminList(); buildGongTabs(); buildMooBar();
+  document.getElementById('addId').value='';
+  document.getElementById('addName').value='';
+  showToast(`➕ เพิ่ม ${name} แล้ว`,'success');
+}
+
+function editStudent(gk, m, id) {
+  const s = SCOUT[gk]?.[m]?.find(x=>x.id===id);
+  if(!s) return;
+  const newName = prompt('ชื่อ-สกุล:',s.name);
+  if(newName===null) return;
+  const newRoom = prompt('ห้อง:',s.room);
+  if(newRoom===null) return;
+  s.name=newName.trim()||s.name;
+  s.room=newRoom.trim()||s.room;
+  saveScoutData(); renderAdminList(); buildStudentList();
+  showToast('✏️ แก้ไขแล้ว','success');
+}
+
+function deleteStudent(gk, m, id) {
+  showConfirm('ลบนักเรียน','ต้องการลบนักเรียนคนนี้ใช่หรือไม่?',()=>{
+    SCOUT[gk][m] = SCOUT[gk][m].filter(s=>s.id!==id);
+    saveScoutData(); renderAdminList(); buildGongTabs(); buildMooBar(); buildStudentList();
+    showToast('🗑️ ลบแล้ว','warn');
+  });
+}
+
+function addGong() {
+  const name = prompt('ชื่อกองใหม่ เช่น กอง4:','กอง'+(GONG_KEYS().length+1));
+  if(!name||SCOUT[name]) return;
+  SCOUT[name]={1:[]};
+  saveScoutData(); buildAdminSelectors(); buildGongTabs(); buildMooBar();
+  showToast(`➕ เพิ่ม ${name} แล้ว`,'success');
+}
+
+function removeLastGong() {
+  const keys=GONG_KEYS();
+  if(keys.length<=1){showToast('ต้องมีอย่างน้อย 1 กอง','error');return;}
+  showConfirm('ลบกอง',`ต้องการลบ ${keys[keys.length-1]} ใช่หรือไม่?`,()=>{
+    delete SCOUT[keys[keys.length-1]];
+    if(curGong>=GONG_KEYS().length) curGong=0;
+    saveScoutData(); buildAdminSelectors(); buildGongTabs(); buildMooBar(); buildStudentList();
+  });
+}
+
+function addMooToGong() {
+  const gk=document.getElementById('adminGongFilter').value;
+  const moos=Object.keys(SCOUT[gk]||{}).map(Number);
+  const next=moos.length?Math.max(...moos)+1:1;
+  if(!SCOUT[gk]) SCOUT[gk]={};
+  SCOUT[gk][next]=[];
+  saveScoutData(); buildAdminSelectors(); buildMooBar();
+  showToast(`➕ เพิ่ม หมู่ ${next} ใน ${gk}`,'success');
+}
+
+function removeMooFromGong() {
+  const gk=document.getElementById('adminGongFilter').value;
+  const moos=Object.keys(SCOUT[gk]||{}).map(Number).sort((a,b)=>a-b);
+  if(moos.length<=1){showToast('ต้องมีอย่างน้อย 1 หมู่','error');return;}
+  const last=moos[moos.length-1];
+  showConfirm('ลบหมู่',`ต้องการลบ หมู่ ${last} ใน ${gk} ใช่หรือไม่?`,()=>{
+    delete SCOUT[gk][last];
+    saveScoutData(); buildAdminSelectors(); buildMooBar(); buildStudentList();
+  });
+}
+
+function confirmClearStudents() {
+  showConfirm('ล้างรายชื่อทั้งหมด','จะลบนักเรียนทุกคนออก ดำเนินการหรือไม่?',()=>{
+    GONG_KEYS().forEach(gk=>Object.keys(SCOUT[gk]||{}).forEach(m=>SCOUT[gk][m]=[]));
+    saveScoutData(); renderAdminList(); buildGongTabs(); buildMooBar(); buildStudentList();
+    showToast('🗑️ ล้างรายชื่อแล้ว','warn');
+  });
+}
+function confirmClearAttendance() {
+  showConfirm('ล้างประวัติเช็คชื่อ','จะลบประวัติการเช็คชื่อทั้งหมด ดำเนินการหรือไม่?',()=>{
+    localSaved={};
+    try{localStorage.removeItem(LS_ATT);}catch(e){}
+    attendance={};
+    buildStudentList();
+    showToast('🗑️ ล้างประวัติแล้ว','warn');
+  });
+}
+
+// ==================== IMPORT CSV ====================
+function importCSV(input) {
+  const file = input.files[0];
+  if(!file) return;
+  Papa.parse(file,{
+    skipEmptyLines:true,
+    complete:(res)=>{
+      let count=0;
+      res.data.forEach(row=>{
+        if(row.length<6) return;
+        const [gk,mStr,noStr,id,name,room]=row.map(v=>v.trim());
+        const m=parseInt(mStr); const no=parseInt(noStr);
+        if(!gk||!m||!id||!name) return;
+        if(!SCOUT[gk]) SCOUT[gk]={};
+        if(!SCOUT[gk][m]) SCOUT[gk][m]=[];
+        if(!SCOUT[gk][m].find(s=>s.id===id)){
+          SCOUT[gk][m].push({no:no||SCOUT[gk][m].length+1,id,name,room:room||''});
+          count++;
+        }
+      });
+      GONG_KEYS().forEach(gk=>Object.keys(SCOUT[gk]).forEach(m=>{
+        SCOUT[gk][m].sort((a,b)=>a.no-b.no);
+      }));
+      saveScoutData();
+      renderAdminList(); buildGongTabs(); buildMooBar();
+      showToast(`📥 นำเข้า ${count} คนแล้ว`,'success');
+      input.value='';
+    },
+    error:()=>{showToast('❌ ไฟล์ CSV ผิดพลาด','error');}
+  });
+}
+
+function downloadTemplate() {
+  const csv='﻿กอง,หมู่,ลำดับ,รหัส,ชื่อ-สกุล,ห้อง\nกอง1,1,1,38001,เด็กหญิงสมหญิง ใจดี,1/1\nกอง1,1,2,38002,เด็กชายสมชาย มีสุข,1/2\nกอง2,1,1,38003,เด็กหญิงดวงเนตร สดใส,1/3\n';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download='template_นักเรียน.csv';
+  a.click();
+}
+
+// ==================== SUPABASE SETUP ====================
+function openSetup() {
+  const cfg=getStoredCfg();
+  if(cfg){
+    document.getElementById('cfg-url').value=cfg.url||'';
+    document.getElementById('cfg-key').value=cfg.key||'';
+  }
+  document.getElementById('setupModal').classList.add('show');
+}
+function closeSetup(){document.getElementById('setupModal').classList.remove('show')}
+function getStoredCfg(){try{return JSON.parse(localStorage.getItem(LS_CFG));}catch{return null;}}
+function saveSupabaseConfig(){
+  const url=document.getElementById('cfg-url').value.trim();
+  const key=document.getElementById('cfg-key').value.trim();
+  if(!url||!key){showToast('กรุณากรอก URL และ Anon Key','warn');return;}
+  localStorage.setItem(LS_CFG,JSON.stringify({url,key}));
+  closeSetup();
+  initSupabase(url,key);
+}
+function clearSupabaseConfig(){
+  localStorage.removeItem(LS_CFG); supabase=null; setSyncStatus('');
+  closeSetup(); showToast('🗑️ ล้างค่า Supabase แล้ว','warn');
+}
+
+// ==================== REPORT ====================
+let allAttData={};
+let availableDates=[];
+let selectedDates=new Set();
+
+function buildRptGongSelector(){
+  const gks=GONG_KEYS();
+  document.getElementById('rptGongSelector').innerHTML=
+    `<label class="rpt-chip"><input type="radio" name="rptGong" value="all" checked onchange="renderDateList()">ทั้งหมด</label>`+
+    gks.map((gk,i)=>`<label class="rpt-chip"><input type="radio" name="rptGong" value="${i}" onchange="renderDateList()">${gk}</label>`).join('');
+}
+
+async function openReport(){
+  document.getElementById('rptOverlay').classList.add('show');
+  document.getElementById('rptDrawer').classList.add('show');
+  buildRptGongSelector();
+  await loadAllDataForReport();
+}
+function closeReport(){
+  document.getElementById('rptOverlay').classList.remove('show');
+  document.getElementById('rptDrawer').classList.remove('show');
+}
+
+async function loadAllDataForReport(){
+  document.getElementById('dateListContainer').innerHTML='<div style="text-align:center;padding:20px;color:#9ca3af;font-size:12px">⏳ กำลังโหลด...</div>';
+  allAttData={};
+  Object.entries(localSaved).forEach(([date,data])=>{ allAttData[date]=data; });
+  if(supabase){
+    try{
+      const {data}=await supabase.from('attendance').select('*');
+      (data||[]).forEach(row=>{
+        const d=row.data||{};
+        if(!allAttData[row.date]) allAttData[row.date]={};
+        Object.values(d).forEach(mData=>{
+          if(typeof mData==='object') Object.entries(mData).forEach(([id,val])=>{
+            if(val?.status) allAttData[row.date][id]=val;
+          });
+        });
+      });
+    }catch(e){}
+  }
+  availableDates=Object.keys(allAttData).sort();
+  selectedDates=new Set(availableDates);
+  renderDateList();
+}
+
+function renderDateList(){
+  if(!availableDates.length){
+    document.getElementById('dateListContainer').innerHTML='<div style="text-align:center;padding:20px;color:#9ca3af;font-size:12px">📭 ยังไม่มีข้อมูล</div>';
+    updateRptSummary(); return;
+  }
+  const wd=['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
+  const mn=['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  let html='';
+  [...availableDates].reverse().forEach(date=>{
+    const data=allAttData[date]||{};
+    let ma=0,khad=0,la=0;
+    GONG_KEYS().forEach(gk=>Object.values(SCOUT[gk]||{}).flat().forEach(s=>{
+      const v=data[s.id]?.status;
+      if(v==='มา')ma++;else if(v==='ขาด')khad++;else if(v==='ลา')la++;
+    }));
+    const chk=selectedDates.has(date)?'checked':'';
+    const [y,m,d]=date.split('-');
+    const dow=wd[new Date(date).getDay()];
+    html+=`<label class="date-row">
+      <input type="checkbox" ${chk} value="${date}" onchange="toggleDate('${date}',this.checked)">
+      <span class="dr-date">${dow} ${parseInt(d)} ${mn[parseInt(m)]} ${parseInt(y)+543}</span>
+      <span class="dr-stats">
+        ${ma>0?`<span class="dr-badge dr-ma">✓${ma}</span>`:''}
+        ${khad>0?`<span class="dr-badge dr-khad">ข${khad}</span>`:''}
+        ${la>0?`<span class="dr-badge dr-la">ล${la}</span>`:''}
+      </span>
+    </label>`;
+  });
+  document.getElementById('dateListContainer').innerHTML=html;
+  updateRptSummary();
+}
+
+function toggleDate(date,checked){ if(checked)selectedDates.add(date);else selectedDates.delete(date); updateRptSummary(); }
+function selectAllDates(v){
+  availableDates.forEach(d=>{if(v)selectedDates.add(d);else selectedDates.delete(d);});
+  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb=>cb.checked=v);
+  updateRptSummary();
+}
+function quickSelect(mode){
+  const now=new Date();
+  const pad=n=>String(n).padStart(2,'0');
+  const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  document.getElementById('customDateRange').style.display='none';
+  if(mode==='all') selectedDates=new Set(availableDates);
+  else if(mode==='thisMonth'){const ym=`${now.getFullYear()}-${pad(now.getMonth()+1)}`;selectedDates=new Set(availableDates.filter(d=>d.startsWith(ym)));}
+  else if(mode==='last30'){const c=new Date();c.setDate(c.getDate()-30);selectedDates=new Set(availableDates.filter(d=>d>=ymd(c)));}
+  else if(mode==='custom'){document.getElementById('customDateRange').style.display='block';return;}
+  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb=>{cb.checked=selectedDates.has(cb.value);});
+  updateRptSummary();
+}
+function applyCustomRange(){
+  const from=document.getElementById('rptFrom').value;
+  const to=document.getElementById('rptTo').value;
+  selectedDates=new Set(availableDates.filter(d=>(!from||d>=from)&&(!to||d<=to)));
+  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb=>{cb.checked=selectedDates.has(cb.value);});
+  updateRptSummary();
+}
+function updateRptSummary(){
+  const sel=[...selectedDates].sort();
+  document.getElementById('dateSelCount').textContent=`${sel.length} วัน`;
+  if(!sel.length){document.getElementById('rptSummary').innerHTML='⚠️ กรุณาเลือกอย่างน้อย 1 วัน';return;}
+  const gv=document.querySelector('input[name="rptGong"]:checked')?.value||'all';
+  const gongs=gv==='all'?GONG_KEYS():[GONG_KEYS()[parseInt(gv)]];
+  const total=gongs.reduce((s,gk)=>s+Object.values(SCOUT[gk]||{}).flat().length,0);
+  document.getElementById('rptSummary').innerHTML=
+    `✅ จะสร้างรายงาน <b>${sel.length} วัน</b> · <b>${total} คน</b><br>
+     <span style="color:#6b7280;font-size:11px">📅 ${formatThaiDate(sel[0])} ถึง ${formatThaiDate(sel[sel.length-1])}</span>`;
+}
+
+async function generateExcelReport(){
+  const btn=document.getElementById('rptDownloadBtn');
+  btn.textContent='⏳ กำลังสร้าง...'; btn.disabled=true;
+  const dates=[...selectedDates].sort();
+  if(!dates.length){showToast('ไม่มีข้อมูล','warn');btn.textContent='📥 ดาวน์โหลด Excel';btn.disabled=false;return;}
+  const gv=document.querySelector('input[name="rptGong"]:checked')?.value||'all';
+  const targetIdxs=gv==='all'?GONG_KEYS().map((_,i)=>i):[parseInt(gv)];
+  const wb=XLSX.utils.book_new();
+  for(const gi of targetIdxs){
+    const gk=GONG_KEYS()[gi];
+    const ws_data=[];
+    ws_data.push([`รายงานการเข้าร่วมลูกเสือเหล่าเสนา ม.1 ${gk}`,...Array(dates.length+7).fill('')]);
+    ws_data.push([`โรงเรียนหนองหานวิทยา ปีการศึกษา 2569  |  จัดทำ: ${formatThaiDate(new Date().toISOString().split('T')[0])}`,...Array(dates.length+7).fill('')]);
+    ws_data.push([]);
+    ws_data.push(['ลำดับ','หมู่','รหัส','ชื่อ - สกุล','ห้อง',...dates.map(d=>formatThaiDate(d)),'รวมมา','รวมขาด','รวมลา','%เข้าร่วม']);
+    for(const[mStr,students]of Object.entries(SCOUT[gk]||{})){
+      for(const s of students){
+        let ma=0,khad=0,la=0;
+        const dayVals=dates.map(date=>{
+          const v=allAttData[date]?.[s.id]?.status||'';
+          if(v==='มา'){ma++;return'✓'}if(v==='ขาด'){khad++;return'ข'}if(v==='ลา'){la++;return'ล'}return'';
+        });
+        const pct=dates.length>0?Math.round((ma/dates.length)*100):0;
+        ws_data.push([s.no,`หมู่ ${mStr}`,s.id,s.name,`ม.${s.room}`,...dayVals,ma,khad,la,`${pct}%`]);
+      }
+    }
+    ws_data.push([]);
+    const allS=Object.values(SCOUT[gk]||{}).flat();
+    const tMa=allS.reduce((a,s)=>a+dates.filter(d=>allAttData[d]?.[s.id]?.status==='มา').length,0);
+    const tKh=allS.reduce((a,s)=>a+dates.filter(d=>allAttData[d]?.[s.id]?.status==='ขาด').length,0);
+    const tLa=allS.reduce((a,s)=>a+dates.filter(d=>allAttData[d]?.[s.id]?.status==='ลา').length,0);
+    ws_data.push([`รวม${gk}`,'','',...Array(2+dates.length).fill(''),tMa,tKh,tLa,'']);
+    const ws=XLSX.utils.aoa_to_sheet(ws_data);
+    ws['!cols']=[{wch:7},{wch:8},{wch:9},{wch:28},{wch:7},...dates.map(()=>({wch:11})),{wch:8},{wch:8},{wch:8},{wch:9}];
+    ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:dates.length+8}},{s:{r:1,c:0},e:{r:1,c:dates.length+8}}];
+    XLSX.utils.book_append_sheet(wb,ws,gk);
+  }
+  // Summary sheet
+  const sum=[];
+  sum.push(['สรุปจำนวนวันเข้าร่วมลูกเสือเหล่าเสนา ม.1',...Array(8).fill('')]);
+  sum.push([`โรงเรียนหนองหานวิทยา ปีการศึกษา 2569  |  วันทั้งหมด: ${dates.length} วัน`,...Array(8).fill('')]);
+  sum.push([]);
+  sum.push(['กอง','หมู่','ลำดับ','รหัส','ชื่อ - สกุล','ห้อง','วันมา','วันขาด','วันลา','%เข้าร่วม','หมายเหตุ']);
+  const gv2=document.querySelector('input[name="rptGong"]:checked')?.value||'all';
+  const tIdxs=gv2==='all'?GONG_KEYS().map((_,i)=>i):[parseInt(gv2)];
+  for(const gi of tIdxs){
+    const gk=GONG_KEYS()[gi];
+    for(const[mStr,students]of Object.entries(SCOUT[gk]||{})){
+      for(const s of students){
+        let ma=0,kh=0,la=0;
+        dates.forEach(d=>{const v=allAttData[d]?.[s.id]?.status||'';if(v==='มา')ma++;else if(v==='ขาด')kh++;else if(v==='ลา')la++;});
+        const pct=dates.length>0?Math.round((ma/dates.length)*100):0;
+        sum.push([gk,`หมู่ ${mStr}`,s.no,s.id,s.name,`ม.${s.room}`,ma,kh,la,`${pct}%`,pct<80?'⚠️ ต่ำกว่า 80%':'']);
+      }
+    }
+  }
+  const ws2=XLSX.utils.aoa_to_sheet(sum);
+  ws2['!cols']=[{wch:8},{wch:8},{wch:7},{wch:9},{wch:28},{wch:7},{wch:8},{wch:8},{wch:8},{wch:10},{wch:14}];
+  ws2['!merges']=[{s:{r:0,c:0},e:{r:0,c:10}},{s:{r:1,c:0},e:{r:1,c:10}}];
+  XLSX.utils.book_append_sheet(wb,ws2,'สรุปรวม');
+  XLSX.writeFile(wb,`รายงานลูกเสือเหล่าเสนา_${new Date().toISOString().split('T')[0]}.xlsx`);
+  btn.textContent='📥 ดาวน์โหลด Excel'; btn.disabled=false;
+  closeReport(); showToast('📊 ดาวน์โหลดรายงาน Excel แล้ว','success');
+}
+
+// ==================== STAT MODAL ====================
+function openStatModal(){
+  // Load all data first
+  document.getElementById('statModal').classList.add('show');
+  renderStatList();
+}
+function closeStatModal(){ document.getElementById('statModal').classList.remove('show'); }
+
+function renderStatList(){
+  const q=(document.getElementById('statSearch')?.value||'').toLowerCase();
+  const area=document.getElementById('statListArea');
+  // gather all students
+  let all=[];
+  GONG_KEYS().forEach(gk=>Object.entries(SCOUT[gk]||{}).forEach(([mStr,students])=>{
+    students.forEach(s=>all.push({...s,gk,mStr}));
+  }));
+  if(q) all=all.filter(s=>s.name.toLowerCase().includes(q)||s.id.includes(q));
+  if(!all.length){area.innerHTML='<div style="text-align:center;padding:20px;color:var(--gray)">ไม่พบนักเรียน</div>';return;}
+
+  const dates=Object.keys(allAttData).sort();
+
+  area.innerHTML=all.map(s=>{
+    let ma=0,kh=0,la=0;
+    dates.forEach(d=>{
+      const v=allAttData[d]?.[s.id]?.status||'';
+      if(v==='มา')ma++;else if(v==='ขาด')kh++;else if(v==='ลา')la++;
+    });
+    const total=dates.length;
+    const pct=total>0?Math.round((ma/total)*100):0;
+    const pctColor=pct>=80?'var(--army-mid)':pct>=60?'var(--yellow)':'var(--red)';
+    return `<div style="background:var(--gray-light);border-radius:9px;padding:10px 12px;margin-bottom:8px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div class="card-num">${s.no}</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700">${s.name}</div>
+          <div style="font-size:10px;color:var(--gray)">${s.gk} · หมู่ ${s.mStr} · ม.${s.room}</div>
+        </div>
+        <div style="font-size:18px;font-weight:800;color:${pctColor}">${pct}%</div>
+      </div>
+      <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);gap:6px;display:grid">
+        <div class="stat-card sc-ma"><div class="sc-val">${ma}</div><div class="sc-lbl">วันมา</div></div>
+        <div class="stat-card sc-khad"><div class="sc-val">${kh}</div><div class="sc-lbl">วันขาด</div></div>
+        <div class="stat-card sc-la"><div class="sc-val">${la}</div><div class="sc-lbl">วันลา</div></div>
       </div>
     </div>`;
   }).join('');
 }
 
-function loadDate(date) {
-  document.getElementById('checkDate').value = date;
-  closeHistory();
-  loadForDate();
-  showToast(`📂 โหลดวันที่ ${date}`);
-}
-
-function confirmDelete(date) {
-  showConfirm('ลบข้อมูล', `ต้องการลบข้อมูลวันที่ ${date} ใช่หรือไม่?`, async () => {
-    delete localSaved[date];
-    localStorage.setItem(LS_ATT, JSON.stringify(localSaved));
-    if (db) {
-      try {
-        for (const gk of GONG_KEYS)
-          await db.collection('attendance').doc(fbDocId(date, gk)).delete();
-      } catch(e) {}
-    }
-    renderHistory();
-    showToast('🗑️ ลบเรียบร้อย', 'warn');
-  });
-}
-
-// ==================== EXPORT ====================
-function exportCSV() {
-  const date = document.getElementById('checkDate').value;
-  if (!date) { showToast('กรุณาเลือกวันที่', 'warn'); return; }
-  let csv = '﻿'; // BOM
-  csv += 'วันที่,กอง,หมู่,ลำดับ,รหัส,ชื่อ-สกุล,ห้อง,การเข้าร่วม,หมายเหตุ\n';
-  for (const gk of GONG_KEYS) {
-    for (const [mStr, students] of Object.entries(SCOUT[gk])) {
-      students.forEach(s => {
-        const a = attendance[s.id] || {};
-        csv += `${date},${gk},หมู่${mStr},${s.no},${s.id},"${s.name}",ม.${s.room},${a.status||''},${a.note||''}\n`;
-      });
-    }
-  }
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
-  a.download = `เช็คชื่อลูกเสือ_${date}.csv`;
-  a.click();
-  showToast('📤 ส่งออก CSV แล้ว', 'success');
-}
-
 // ==================== TOAST ====================
 let toastTimer;
-function showToast(msg, type='', duration) {
+function showToast(msg,type='',ms){
   clearTimeout(toastTimer);
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast show${type?' t-'+type:''}`;
-  const ms = duration || (type==='error' ? 6000 : 2800);
-  toastTimer = setTimeout(() => t.className='toast', ms);
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className=`toast show${type?' t-'+type:''}`;
+  toastTimer=setTimeout(()=>t.className='toast',ms||(type==='error'?6000:2800));
 }
 
 // ==================== CONFIRM ====================
-let confirmCb = null;
-function showConfirm(title, msg, cb) {
-  document.getElementById('confTitle').textContent = title;
-  document.getElementById('confMsg').textContent = msg;
-  confirmCb = cb;
+let confirmCb=null;
+function showConfirm(title,msg,cb){
+  document.getElementById('confTitle').textContent=title;
+  document.getElementById('confMsg').textContent=msg;
+  confirmCb=cb;
   document.getElementById('confirmModal').classList.add('show');
 }
-function closeConfirm() { document.getElementById('confirmModal').classList.remove('show'); confirmCb=null; }
-document.getElementById('confBtn').onclick = () => { if(confirmCb) confirmCb(); closeConfirm(); };
-document.getElementById('confirmModal').onclick = e => { if(e.target===e.currentTarget) closeConfirm(); };
-document.getElementById('setupModal').onclick = e => { if(e.target===e.currentTarget) closeSetup(); };
-
-// ==================== REPORT ====================
-let allAttData = {};      // date → { id → {status,note} }
-let availableDates = [];  // sorted list of all dates with data
-let selectedDates = new Set();
-let customRangeVisible = false;
-
-function openReport() {
-  document.getElementById('reportOverlay').classList.add('show');
-  document.getElementById('reportDrawer').classList.add('show');
-  loadAllDataForReport();
-}
-function closeReport() {
-  document.getElementById('reportOverlay').classList.remove('show');
-  document.getElementById('reportDrawer').classList.remove('show');
-}
-
-async function loadAllDataForReport() {
-  document.getElementById('dateListContainer').innerHTML =
-    '<div style="text-align:center;padding:20px;color:#9ca3af;font-size:13px">⏳ กำลังโหลดข้อมูล...</div>';
-  allAttData = {};
-
-  // Load from localStorage
-  for (const [date, data] of Object.entries(localSaved)) {
-    allAttData[date] = data;
-  }
-  // Load all from Firebase
-  if (db) {
-    try {
-      const snap = await db.collection('attendance').get();
-      snap.docs.forEach(doc => {
-        const parts = doc.id.split('_');
-        if (parts.length < 2) return;
-        const date = parts[0];
-        const docData = doc.data().data || {};
-        if (!allAttData[date]) allAttData[date] = {};
-        for (const [mStr, mData] of Object.entries(docData)) {
-          if (typeof mData === 'object') {
-            for (const [id, val] of Object.entries(mData)) {
-              if (val && val.status) allAttData[date][id] = val;
-            }
-          }
-        }
-      });
-    } catch(e) {}
-  }
-
-  availableDates = Object.keys(allAttData).sort();
-  selectedDates = new Set(availableDates); // select all by default
-  renderDateList();
-}
-
-function renderDateList() {
-  const container = document.getElementById('dateListContainer');
-  if (availableDates.length === 0) {
-    container.innerHTML = '<div style="text-align:center;padding:20px;color:#9ca3af;font-size:13px">📭 ยังไม่มีข้อมูลการเช็คชื่อ</div>';
-    updateReportSummary();
-    return;
-  }
-
-  // Group by month
-  const months = {};
-  availableDates.forEach(d => {
-    const ym = d.slice(0,7);
-    if (!months[ym]) months[ym] = [];
-    months[ym].push(d);
-  });
-
-  const thMonth = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-  const weekDay = ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
-  let html = '';
-
-  Object.keys(months).sort().reverse().forEach(ym => {
-    const [y, m] = ym.split('-');
-    html += `<div style="padding:6px 10px 3px;font-size:11px;font-weight:800;color:#6b7280;text-transform:uppercase;background:#f8fafc;border-radius:6px;margin:4px 0 2px">
-      ${thMonth[parseInt(m)]} ${parseInt(y)+543}
-      <span style="font-weight:400;margin-left:6px">(${months[ym].length} วัน)</span>
-    </div>`;
-
-    months[ym].slice().reverse().forEach(date => {
-      const data = allAttData[date] || {};
-      let ma=0, khad=0, la=0;
-      for (const gk of GONG_KEYS) {
-        for (const students of Object.values(SCOUT[gk])) {
-          students.forEach(s => {
-            const v = data[s.id]?.status;
-            if(v==='มา')ma++; else if(v==='ขาด')khad++; else if(v==='ลา')la++;
-          });
-        }
-      }
-      const checked = selectedDates.has(date) ? 'checked' : '';
-      const dow = weekDay[new Date(date).getDay()];
-      const [dy,dm,dd] = date.split('-');
-      const thDate = `${dow} ${parseInt(dd)} ${thMonth[parseInt(dm)]} ${parseInt(dy)+543}`;
-      html += `<label class="date-row">
-        <input type="checkbox" ${checked} value="${date}" onchange="toggleDate('${date}',this.checked)">
-        <span class="dr-date">${thDate}</span>
-        <span class="dr-stats">
-          ${ma>0?`<span class="dr-badge dr-ma">✓${ma}</span>`:''}
-          ${khad>0?`<span class="dr-badge dr-khad">ข${khad}</span>`:''}
-          ${la>0?`<span class="dr-badge dr-la">ล${la}</span>`:''}
-        </span>
-      </label>`;
-    });
-  });
-
-  container.innerHTML = html;
-  updateReportSummary();
-}
-
-function toggleDate(date, checked) {
-  if (checked) selectedDates.add(date); else selectedDates.delete(date);
-  updateReportSummary();
-}
-
-function selectAllDates(val) {
-  availableDates.forEach(d => { if(val) selectedDates.add(d); else selectedDates.delete(d); });
-  // Re-render checkboxes
-  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb => { cb.checked = val; });
-  updateReportSummary();
-}
-
-function quickSelect(mode) {
-  const now = new Date();
-  const pad = n => String(n).padStart(2,'0');
-  const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-
-  document.getElementById('customDateRange').style.display = 'none';
-  customRangeVisible = false;
-
-  if (mode === 'all') {
-    selectedDates = new Set(availableDates);
-  } else if (mode === 'thisMonth') {
-    const ym = `${now.getFullYear()}-${pad(now.getMonth()+1)}`;
-    selectedDates = new Set(availableDates.filter(d => d.startsWith(ym)));
-  } else if (mode === 'lastMonth') {
-    const lm = new Date(now.getFullYear(), now.getMonth()-1, 1);
-    const ym = `${lm.getFullYear()}-${pad(lm.getMonth()+1)}`;
-    selectedDates = new Set(availableDates.filter(d => d.startsWith(ym)));
-  } else if (mode === 'last30') {
-    const cutoff = new Date(); cutoff.setDate(cutoff.getDate()-30);
-    selectedDates = new Set(availableDates.filter(d => d >= ymd(cutoff)));
-  } else if (mode === 'custom') {
-    document.getElementById('customDateRange').style.display = 'flex';
-    customRangeVisible = true;
-    return;
-  }
-  // Update checkboxes
-  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb => {
-    cb.checked = selectedDates.has(cb.value);
-  });
-  updateReportSummary();
-}
-
-function applyCustomRange() {
-  const from = document.getElementById('rptFrom').value;
-  const to = document.getElementById('rptTo').value;
-  selectedDates = new Set(availableDates.filter(d => (!from || d >= from) && (!to || d <= to)));
-  document.querySelectorAll('#dateListContainer input[type=checkbox]').forEach(cb => {
-    cb.checked = selectedDates.has(cb.value);
-  });
-  updateReportSummary();
-}
-
-function updateReportSummary() {
-  const sel = [...selectedDates].sort();
-  const count = document.getElementById('dateSelCount');
-  const summary = document.getElementById('reportSummary');
-  count.textContent = `${sel.length} วัน`;
-
-  const gongVal = document.querySelector('input[name="rptGong"]:checked')?.value || 'all';
-  const gongs = gongVal === 'all' ? GONG_KEYS : [GONG_KEYS[parseInt(gongVal)]];
-  const totalStudents = gongs.reduce((s,gk) => s + Object.values(SCOUT[gk]).flat().length, 0);
-
-  if (sel.length === 0) {
-    summary.innerHTML = '⚠️ กรุณาเลือกอย่างน้อย 1 วัน';
-    return;
-  }
-  summary.innerHTML = `✅ จะสร้างรายงาน <b>${sel.length} วัน</b> · <b>${totalStudents} คน</b><br>
-    <span style="color:#6b7280;font-size:12px">
-      📅 ${formatThaiDate(sel[0])} ถึง ${formatThaiDate(sel[sel.length-1])}
-    </span>`;
-}
-
-function getFilteredDates() {
-  return [...selectedDates].sort();
-}
-
-function formatThaiDate(dateStr) {
-  if (!dateStr) return '';
-  const [y,m,d] = dateStr.split('-');
-  const mn = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-  return `${parseInt(d)} ${mn[parseInt(m)]} ${parseInt(y)+543}`;
-}
-
-async function generateExcelReport() {
-  const btn = document.getElementById('rptDownloadBtn');
-  btn.textContent = '⏳ กำลังสร้างรายงาน...';
-  btn.disabled = true;
-
-  const dates = getFilteredDates();
-  if (dates.length === 0) { showToast('ไม่มีข้อมูลในช่วงที่เลือก', 'warn'); btn.textContent='📥 ดาวน์โหลด Excel'; btn.disabled=false; return; }
-
-  const gongVal = document.querySelector('input[name="rptGong"]:checked')?.value || 'all';
-  const targetGongs = gongVal === 'all' ? GONG_KEYS.map((_,i)=>i) : [parseInt(gongVal)];
-
-  const wb = XLSX.utils.book_new();
-
-  for (const gi of targetGongs) {
-    const gk = GONG_KEYS[gi];
-    const ws_data = [];
-
-    // ===== Title rows =====
-    ws_data.push([`รายงานการเข้าร่วมกิจกรรมลูกเสืออากาศ ม.1 ${gk}`, ...Array(dates.length + 7).fill('')]);
-    ws_data.push([`โรงเรียนหนองหานวิทยา ปีการศึกษา 2569  |  จัดทำ: ${formatThaiDate(new Date().toISOString().split('T')[0])}`, ...Array(dates.length + 7).fill('')]);
-    ws_data.push([]); // blank row
-
-    // ===== Header row =====
-    const thDateHeaders = dates.map(d => formatThaiDate(d));
-    ws_data.push(['ลำดับ', 'หมู่', 'รหัส', 'ชื่อ - สกุล', 'ห้อง', ...thDateHeaders, 'รวมมา', 'รวมขาด', 'รวมลา', '%เข้าร่วม']);
-
-    // ===== Data rows =====
-    for (const [mStr, students] of Object.entries(SCOUT[gk])) {
-      const mNum = parseInt(mStr);
-      for (const s of students) {
-        let ma=0, khad=0, la=0;
-        const dayVals = dates.map(date => {
-          const v = allAttData[date]?.[s.id]?.status || '';
-          if(v==='มา'){ma++;return'✓'} if(v==='ขาด'){khad++;return'ข'} if(v==='ลา'){la++;return'ล'} return'';
-        });
-        const pct = dates.length > 0 ? Math.round((ma/dates.length)*100) : 0;
-        ws_data.push([s.no, `หมู่ ${mNum}`, s.id, s.name, `ม.${s.room}`, ...dayVals, ma, khad, la, `${pct}%`]);
-      }
-      // Subtotal row per มู่
-      const subMa = dates.map(date => students.filter(s=>allAttData[date]?.[s.id]?.status==='มา').length);
-      ws_data.push(['', `รวมหมู่ ${mNum}`, '', `(${students.length} คน)`, '', ...subMa,
-        students.reduce((a,s)=>a+(dates.filter(d=>allAttData[d]?.[s.id]?.status==='มา').length),0),'','','']);
-    }
-
-    // ===== Grand total row =====
-    ws_data.push([]);
-    const allStudents = Object.values(SCOUT[gk]).flat();
-    const totalMa = allStudents.reduce((a,s)=>a+dates.filter(d=>allAttData[d]?.[s.id]?.status==='มา').length,0);
-    const totalKhad = allStudents.reduce((a,s)=>a+dates.filter(d=>allAttData[d]?.[s.id]?.status==='ขาด').length,0);
-    const totalLa = allStudents.reduce((a,s)=>a+dates.filter(d=>allAttData[d]?.[s.id]?.status==='ลา').length,0);
-    ws_data.push(['รวมทั้ง'+gk,'','',`${allStudents.length} คน`,'',
-      ...dates.map(date=>allStudents.filter(s=>allAttData[date]?.[s.id]?.status==='มา').length),
-      totalMa, totalKhad, totalLa, '']);
-
-    const ws = XLSX.utils.aoa_to_sheet(ws_data);
-
-    // Column widths
-    ws['!cols'] = [
-      {wch:7},{wch:8},{wch:9},{wch:28},{wch:7},
-      ...dates.map(()=>({wch:10})),
-      {wch:8},{wch:8},{wch:8},{wch:9}
-    ];
-
-    // Merge title cells
-    ws['!merges'] = [
-      {s:{r:0,c:0}, e:{r:0,c:dates.length+8}},
-      {s:{r:1,c:0}, e:{r:1,c:dates.length+8}},
-    ];
-
-    XLSX.utils.book_append_sheet(wb, ws, gk);
-  }
-
-  // Sheet สรุปรวม (จำนวนวันเข้าเรียนรายคน)
-  const sum_data = [];
-  sum_data.push(['สรุปจำนวนวันเข้าร่วมกิจกรรมลูกเสืออากาศ ม.1', ...Array(6).fill('')]);
-  sum_data.push([`โรงเรียนหนองหานวิทยา ปีการศึกษา 2569  |  จำนวนวันทั้งหมด: ${dates.length} วัน`, ...Array(6).fill('')]);
-  sum_data.push([]);
-  sum_data.push(['กอง', 'หมู่', 'ลำดับ', 'รหัส', 'ชื่อ - สกุล', 'ห้อง', 'วันที่มา', 'วันที่ขาด', 'วันที่ลา', '%เข้าร่วม', 'หมายเหตุ']);
-
-  for (const gi of targetGongs) {
-    const gk = GONG_KEYS[gi];
-    for (const [mStr, students] of Object.entries(SCOUT[gk])) {
-      for (const s of students) {
-        let ma=0,khad=0,la=0;
-        dates.forEach(d=>{
-          const v=allAttData[d]?.[s.id]?.status||'';
-          if(v==='มา')ma++; else if(v==='ขาด')khad++; else if(v==='ลา')la++;
-        });
-        const pct = dates.length > 0 ? Math.round((ma/dates.length)*100) : 0;
-        const remark = pct < 80 ? '⚠️ ต่ำกว่า 80%' : '';
-        sum_data.push([gk, `หมู่ ${mStr}`, s.no, s.id, s.name, `ม.${s.room}`, ma, khad, la, `${pct}%`, remark]);
-      }
-    }
-  }
-
-  const ws_sum = XLSX.utils.aoa_to_sheet(sum_data);
-  ws_sum['!cols'] = [{wch:8},{wch:8},{wch:7},{wch:9},{wch:28},{wch:7},{wch:9},{wch:9},{wch:8},{wch:10},{wch:14}];
-  ws_sum['!merges'] = [{s:{r:0,c:0},e:{r:0,c:10}},{s:{r:1,c:0},e:{r:1,c:10}}];
-  XLSX.utils.book_append_sheet(wb, ws_sum, 'สรุปรวม');
-
-  // Download
-  const today = new Date().toISOString().split('T')[0];
-  XLSX.writeFile(wb, `รายงานลูกเสืออากาศ_${today}.xlsx`);
-  btn.textContent = '📥 ดาวน์โหลด Excel';
-  btn.disabled = false;
-  closeReport();
-  showToast('📊 ดาวน์โหลดรายงาน Excel แล้ว', 'success');
-}
+function closeConfirm(){ document.getElementById('confirmModal').classList.remove('show'); confirmCb=null; }
+document.getElementById('confBtn').onclick=()=>{ if(confirmCb)confirmCb(); closeConfirm(); };
+document.getElementById('confirmModal').onclick=e=>{ if(e.target===e.currentTarget)closeConfirm(); };
+document.getElementById('setupModal').onclick=e=>{ if(e.target===e.currentTarget)closeSetup(); };
+document.getElementById('statModal').onclick=e=>{ if(e.target===e.currentTarget)closeStatModal(); };
 
 // ==================== INIT ====================
-function init() {
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('checkDate').value = today;
-  document.getElementById('checkDate').addEventListener('change', () => loadForDate());
+function init(){
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('checkDate').value=today;
+  document.getElementById('checkDate').addEventListener('change',()=>{
+    filterStatus=null; searchQuery='';
+    document.getElementById('searchInput').value='';
+    loadForDate();
+  });
 
-  // Load localStorage
-  try { localSaved = JSON.parse(localStorage.getItem(LS_ATT)) || {}; } catch { localSaved = {}; }
+  // Load scout data from localStorage
+  try{
+    const saved=JSON.parse(localStorage.getItem(LS_SCOUT));
+    if(saved&&Object.keys(saved).length) SCOUT=saved;
+  }catch(e){}
 
-  // Build UI
-  buildGongNav();
+  // Load attendance backup
+  try{ localSaved=JSON.parse(localStorage.getItem(LS_ATT))||{}; }catch{ localSaved={}; }
 
-  // Firebase — เชื่อมต่ออัตโนมัติทันที
-  initFirebase(FIREBASE_CONFIG);
+  // Build initial UI
+  buildGongTabs();
+
+  // Supabase
+  const cfg=getStoredCfg();
+  if(cfg?.url&&cfg?.key){
+    // Lazy-load Supabase JS
+    loadSupabaseAndConnect(cfg.url,cfg.key);
+  } else {
+    buildMooBar(); buildStudentList();
+    setFab('saved','💾 Local (ไม่มี DB)');
+    setSyncStatus('');
+  }
 }
+
+function loadSupabaseAndConnect(url,key){
+  if(window.supabaseLib){initSupabase(url,key);return;}
+  const s=document.createElement('script');
+  s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+  s.onload=()=>{
+    window.supabaseLib=window.supabase||supabaseJs;
+    initSupabase(url,key);
+  };
+  s.onerror=()=>{
+    buildMooBar(); buildStudentList();
+    setFab('error','❌ โหลด Supabase ไม่ได้');
+    setSyncStatus('error');
+    showToast('ไม่สามารถโหลด Supabase ได้ — ใช้ Local mode','warn',5000);
+  };
+  document.head.appendChild(s);
+  // Show UI while loading
+  buildMooBar(); buildStudentList();
+}
+
 init();
 </script>
 </body>
