@@ -763,24 +763,42 @@ const LS_AUTH = 'scout_sena_auth';
 // ==================== AUTH ====================
 let isLoggedIn = false;
 
+let appStarted = false;
+
 function doLogin() {
-  const user = document.getElementById('loginUser').value.trim();
-  const pass = document.getElementById('loginPass').value;
-  const err  = document.getElementById('loginErr');
-  if (USERS[user] && USERS[user] === pass) {
-    isLoggedIn = true;
-    try { sessionStorage.setItem(LS_AUTH, '1'); } catch(e) {}
-    err.classList.remove('show');
-    document.getElementById('loginScreen').style.display = 'none';
-    const app = document.getElementById('appShell');
-    app.style.display = 'flex';
-    document.getElementById('authBadge').textContent = `🔓 ${user}`;
-    startApp();
-  } else {
-    err.classList.add('show');
-    document.getElementById('loginPass').value = '';
-    document.getElementById('loginPass').focus();
-    setTimeout(() => err.classList.remove('show'), 3000);
+  try {
+    const userEl = document.getElementById('loginUser');
+    const passEl = document.getElementById('loginPass');
+    const err    = document.getElementById('loginErr');
+    if (!userEl || !passEl) { alert('ไม่พบ element loginUser/loginPass'); return; }
+
+    const user = userEl.value.trim();
+    const pass = passEl.value;
+
+    if (USERS[user] !== undefined && USERS[user] === pass) {
+      isLoggedIn = true;
+      err.classList.remove('show');
+
+      // ซ่อน login / แสดง app
+      const loginScreen = document.getElementById('loginScreen');
+      const appShell    = document.getElementById('appShell');
+      const badge       = document.getElementById('authBadge');
+      if (loginScreen) loginScreen.style.display = 'none';
+      if (appShell)    { appShell.style.display = 'flex'; }
+      if (badge)       badge.textContent = '🔓 ' + user;
+
+      if (!appStarted) {
+        appStarted = true;
+        startApp();
+      }
+    } else {
+      err.classList.add('show');
+      passEl.value = '';
+      passEl.focus();
+      setTimeout(() => err.classList.remove('show'), 3000);
+    }
+  } catch(e) {
+    alert('doLogin error: ' + e.message);
   }
 }
 
