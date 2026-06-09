@@ -823,6 +823,12 @@ const USERS = {
 // ========================================================
 //  CONSTANTS
 // ========================================================
+// ========================================================
+//  SUPABASE CONFIG — ฝังค่าตรงนี้เลย
+// ========================================================
+const SUPABASE_URL = 'https://jfjcxpqhiclabxatqqow.supabase.co';   
+const SUPABASE_KEY = 'sb_publishable_04S_KZbtjx1ijM33rx1Lvw_9n6nIFzU';             
+  
 const LS_ATT    = 'scout_sena_att_v2';
 const LS_CFG    = 'scout_sena_cfg';
 const LS_SCOUT  = 'scout_sena_students';
@@ -1917,20 +1923,12 @@ function showToast(msg, type='', dur=2500) {
     if (raw) localSaved = JSON.parse(raw);
   } catch(e) {}
 
-  // ถ้ามี config เดิมให้ข้ามหน้า setup
-  try {
-    const cfg = JSON.parse(localStorage.getItem(LS_CFG)||'{}');
-    if (cfg.url && cfg.key) {
-      initSupabase(cfg.url, cfg.key);
-      document.getElementById('sbConfigModal').style.display = 'none';
-      document.getElementById('loginScreen').style.display   = 'flex';
-      // เติม config กลับ
-      document.getElementById('cfgUrl').value = cfg.url;
-      document.getElementById('cfgKey').value = cfg.key;
-      return;
-    }
-  } catch(e) {}
-  // ยังไม่มี config — แสดง setup modal
+  // ใช้ค่าที่ฝังไว้เลย ไม่ต้องผ่าน modal
+  if (SUPABASE_URL && SUPABASE_KEY) {
+    initSupabase(SUPABASE_URL, SUPABASE_KEY);
+  }
+  document.getElementById('sbConfigModal').style.display = 'none';
+  document.getElementById('loginScreen').style.display   = 'flex';
 })();
 </script>
 </body>
